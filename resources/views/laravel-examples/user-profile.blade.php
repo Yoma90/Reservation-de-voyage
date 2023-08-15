@@ -12,7 +12,7 @@
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
                             <div class="initials-letter">
-                                <span class="letter-{{ auth()->user()->name[0] }}" id="letters">
+                                <span class="letter-{{ auth()->user()->name[0] }}">
                                     {{ strtoupper(auth()->user()->name[0]) }}
                                 </span>
                                 <span class="letter-{{ auth()->user()->name[0] }}">
@@ -64,10 +64,22 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="user-name" class="form-control-label">{{ __('Full Name') }}</label>
+                                    <label for="user-name" class="form-control-label">{{ __('First Name') }}</label>
                                     <div class="@error('user.name')border border-danger rounded-3 @enderror">
                                         <input class="form-control" value="{{ auth()->user()->name }}" type="text"
-                                            placeholder="Name" id="user-name" name="name">
+                                            placeholder="First Name" id="user-name" name="name">
+                                        @error('name')
+                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="user-name" class="form-control-label">{{ __('Last Name') }}</label>
+                                    <div class="@error('user.name')border border-danger rounded-3 @enderror">
+                                        <input class="form-control" value="{{ auth()->user()->name }}" type="text"
+                                            placeholder="Last Name" id="user-name" name="name">
                                         @error('name')
                                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                         @enderror
