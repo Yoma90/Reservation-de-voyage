@@ -11,12 +11,22 @@
                 <div class="row gx-4">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
+                        <style>
+                                    #letter {
+                                        color: black;
+                                        font-weight: bold;
+                                        font-size: 40px;
+                                        font-style: italic;
+                                        margin: 0;
+                                        padding: 0;
+                                    }
+                                </style>
                             <div class="initials-letter">
-                                <span class="letter-{{ auth()->user()->name[0] }}">
-                                    {{ strtoupper(auth()->user()->name[0]) }}
+                                <span id="letter" class="letter-{{ auth()->user()->name[0] }}">
+                                    {{ strtoupper(auth()->user()->first_name[0]) }}
                                 </span>
-                                <span class="letter-{{ auth()->user()->name[0] }}">
-                                    {{ strtoupper(auth()->user()->name[0]) }}
+                                <span id="letter" class="letter-{{ auth()->user()->name[0] }}">
+                                    {{ strtoupper(auth()->user()->last_name[0]) }}
                                 </span>
                             </div>
                         </div>
