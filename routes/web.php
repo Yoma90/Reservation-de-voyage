@@ -1,14 +1,21 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\MobileUsersController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\UserController;
+use App\Models\Mobile_users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +31,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-		return view('dashboard');
-	})->name('dashboard');
+	Route::get('dashboard', [DashboardController::class, 'dash'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'home']);
+	// Route::get('dashboard', function () {
+	// 	return view('dashboard');
+	// })->name('dashboard');
 
 	Route::get('billing', function () {
 		return view('billing');
@@ -41,11 +49,11 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('rtl');
 	})->name('rtl');
 
-	Route::get('user-management', function () {
-		return view('laravel-examples/user-management');
-	})->name('user-management');
+	Route::get('customer-management', function () {
+		return view('laravel-examples/customer-management');
+	})->name('customer-management');
 
-	Route::get('Manager-management', function () {
+	Route::get('manager-management', function () {
 		return view('laravel-examples/manager-management');
 	})->name('manager-management');
 
@@ -68,10 +76,35 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [SessionsController::class, 'destroy']);
 	Route::get('/user-profile', [InfoUserController::class, 'create']);
 	Route::post('/user-profile', [InfoUserController::class, 'store']);
+
+	Route::post('/user-profile/update', [InfoUserController::class, 'updateProfile']);
+
     Route::get('/login', function () {
 		return view('dashboard');
 	})->name('sign-up');
 });
+
+//user routes
+Route::get('customer-management', [CustomerController::class, 'listUsers'])->name("customer-management");
+Route::get('dashboard', [CustomerController::class, 'listUser'])->name('dashboard');
+Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
+Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
+
+
+
+
+//manager routes
+Route::get('manager-management', [ManagerController::class, 'listManagers'])->name("manager-management");
+Route::get('dashboard', [ManagerController::class, 'listManager'])->name('dashboard');
+Route::get('manager-status/{id}/{status}', [ManagerController::class, 'changeManagerStatus']);
+Route::get('/delete-manager/{id}', [ManagerController::class, 'deleteManager']);
+
+
+
+
+
+
+//Récupération des utilisateurs
 
 
 

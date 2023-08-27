@@ -22,10 +22,10 @@
                                     }
                                 </style>
                             <div class="initials-letter">
-                                <span id="letter" class="letter-{{ auth()->user()->name[0] }}">
+                                <span id="letter" class="letter-{{ auth()->user()->first_name[0] }}">
                                     {{ strtoupper(auth()->user()->first_name[0]) }}
                                 </span>
-                                <span id="letter" class="letter-{{ auth()->user()->name[0] }}">
+                                <span id="letter" class="letter-{{ auth()->user()->last_name[0] }}">
                                     {{ strtoupper(auth()->user()->last_name[0]) }}
                                 </span>
                             </div>
@@ -49,7 +49,7 @@
                 <div class="card-header pb-0 px-3">
                     <h6 class="mb-0">{{ __('Profile Information') }}</h6>
                 </div>
-                <div class="card-body pt-4 p-3">
+                <div class="card-body pt-4 p-3" >
                     <form action="/user-profile" method="POST" role="form text-left">
                         @csrf
                         @if ($errors->any())
@@ -76,8 +76,8 @@
                                 <div class="form-group">
                                     <label for="user-name" class="form-control-label">{{ __('First Name') }}</label>
                                     <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                        <input class="form-control" value="{{ auth()->user()->name }}" type="text"
-                                            placeholder="First Name" id="user-name" name="name">
+                                        <input class="form-control" value="{{ auth()->user()->first_name }}" type="text"
+                                            placeholder="First Name" id="user-name" name="first_name">
                                         @error('name')
                                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                         @enderror
@@ -88,8 +88,8 @@
                                 <div class="form-group">
                                     <label for="user-name" class="form-control-label">{{ __('Last Name') }}</label>
                                     <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                        <input class="form-control" value="{{ auth()->user()->name }}" type="text"
-                                            placeholder="Last Name" id="user-name" name="name">
+                                        <input class="form-control" value="{{ auth()->user()->last_name }}" type="text"
+                                            placeholder="Last Name" id="user-name" name="last_name">
                                         @error('name')
                                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                         @enderror
@@ -101,7 +101,7 @@
                                     <label for="user-email" class="form-control-label">{{ __('Email') }}</label>
                                     <div class="@error('email')border border-danger rounded-3 @enderror">
                                         <input class="form-control" value="{{ auth()->user()->email }}" type="email"
-                                            placeholder="@example.com" id="user-email" name="email">
+                                            placeholder="@example.com" id="user-email" name="email" disabled>
                                         @error('email')
                                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                         @enderror
@@ -137,7 +137,6 @@
                                 class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes' }}</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

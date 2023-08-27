@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\AuthController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +26,7 @@ class AuthController extends Controller
         ]);
 
         //Créer un nouvel utilisateur
-        $user = User::create([
+        $user = Customer::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'user_name' => $request->user_name,
@@ -69,7 +69,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $user = User::where("email", $request["email"])->firstOrFail();
+        $user = Customer::where("email", $request["email"])->firstOrFail();
 
         $token = $user->createToken("token-name")->plainTextToken;
 
