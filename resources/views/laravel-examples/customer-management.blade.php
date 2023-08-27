@@ -126,7 +126,7 @@
                                 <div class="card-header pb-0">
                                     <div class="d-flex flex-row justify-content-between">
                                         <div>
-                                            <h5 class="mb-0">All customers</h5>
+                                            <h5 class="mb-0">Active customers</h5>
                                         </div>
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -188,14 +188,9 @@
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        @if ($customer->status === 'active')
                                         <a href="/user-status/{{$customer->id}}/suspended" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="suspend customer">
                                             <i class="fas fa-stop"></i>
                                         </a>
-                                        @else
-                                        <a href="/user-status/{{$customer->id}}/active" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="activate customer"><i class="fas fa-solid fa-check"></i>
-                                        </a>
-                                        @endif
                                         <span>
                                             <a class="mx-3" data-bs-toggle="tooltip" href="/delete-user/{{ $customer->id }}" data-bs-original-title="delete customer">
                                                 <i class="cursor-pointer fas fa-trash text-secondary"></i>
@@ -220,7 +215,7 @@
                                 <div class="card-header pb-0">
                                     <div class="d-flex flex-row justify-content-between">
                                         <div>
-                                            <h5 class="mb-0">All customers</h5>
+                                            <h5 class="mb-0">Suspended customers</h5>
                                         </div>
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -282,14 +277,8 @@
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        @if ($customer->status === 'active')
-                                        <a href="/user-status/{{$customer->id}}/suspended" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="suspend customer">
-                                            <i class="fas fa-stop"></i>
-                                        </a>
-                                        @else
                                         <a href="/user-status/{{$customer->id}}/active" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="activate customer"><i class="fas fa-solid fa-check"></i>
                                         </a>
-                                        @endif
                                         <span>
                                             <a class="mx-3" data-bs-toggle="tooltip" href="/delete-user/{{ $customer->id }}" data-bs-original-title="delete customer">
                                                 <i class="cursor-pointer fas fa-trash text-secondary"></i>

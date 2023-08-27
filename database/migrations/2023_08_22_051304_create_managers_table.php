@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->bigInteger('phone')->nullable();
             $table->string('status')->default("active");
+            $table->string('agency');
             $table->timestamps();
         });
     }

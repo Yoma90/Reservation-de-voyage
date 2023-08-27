@@ -45,10 +45,6 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('profile');
 	})->name('profile');
 
-	Route::get('rtl', function () {
-		return view('rtl');
-	})->name('rtl');
-
 	Route::get('customer-management', function () {
 		return view('laravel-examples/customer-management');
 	})->name('customer-management');
@@ -56,14 +52,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('manager-management', function () {
 		return view('laravel-examples/manager-management');
 	})->name('manager-management');
-
-	Route::get('tables', function () {
-		return view('tables');
-	})->name('tables');
-
-    Route::get('virtual-reality', function () {
-		return view('virtual-reality');
-	})->name('virtual-reality');
 
     Route::get('static-sign-in', function () {
 		return view('static-sign-in');
@@ -85,8 +73,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 //user routes
-Route::get('customer-management', [CustomerController::class, 'listUsers'])->name("customer-management");
-Route::get('dashboard', [CustomerController::class, 'listUser'])->name('dashboard');
+Route::get('customer-management', [CustomerController::class, 'listCustomers'])->name("customer-management");
+Route::get('dashboard', [CustomerController::class, 'listCustomer'])->name('dashboard');
 Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
 Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
 
@@ -98,6 +86,8 @@ Route::get('manager-management', [ManagerController::class, 'listManagers'])->na
 Route::get('dashboard', [ManagerController::class, 'listManager'])->name('dashboard');
 Route::get('manager-status/{id}/{status}', [ManagerController::class, 'changeManagerStatus']);
 Route::get('/delete-manager/{id}', [ManagerController::class, 'deleteManager']);
+Route::post('/add-manager', [ManagerController::class, 'addManager'])->name('add-manager');
+
 
 
 

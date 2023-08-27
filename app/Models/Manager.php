@@ -16,6 +16,7 @@ class Manager extends Model
         'password',
         'phone',
         'status',
+        'agency',
     ];
 
     protected $hidden = [

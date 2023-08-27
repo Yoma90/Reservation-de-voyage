@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mobile_users;
 use App\Helper\UserService;
 use App\Models\Customer;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function listUser(){
+    public function listCustomer(){
         $customers = Customer::get();
 
         return view('dashboard')->with('customers', $customers);
     }
 
-    public function listUsers(){
+    public function listCustomers(){
         $customers = Customer::get();
 
         return view('laravel-examples.customer-management')->with('customers', $customers);

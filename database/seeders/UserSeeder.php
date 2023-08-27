@@ -41,16 +41,6 @@ class UserSeeder extends Seeder
         ]);
         DB::table('customers')->insert([
             'id' => 1,
-            'first_name' => 'Blaise',
-            'last_name' => 'Elovie',
-            'user_name' => 'Elovie100',
-            'email' => 'kempes90@gmail.com',
-            'password' => Hash::make('123456789'),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('customers')->insert([
-            'id' => 2,
             'first_name' => 'Kempes',
             'last_name' => 'Blaise',
             'user_name' => 'Kempes90',
@@ -65,6 +55,19 @@ class UserSeeder extends Seeder
             'last_name' => 'Thierry',
             'email' => 'Miendjemthierry01@gmail.com',
             'password' => Hash::make('123456789'),
+            'phone'=> '654894523',
+            'agency' => 'Finexx',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('managers')->insert([
+            'id' => 2,
+            'first_name' => 'MIT',
+            'last_name' => 'Idris',
+            'email' => 'thierry01@gmail.com',
+            'password' => Hash::make('123456789'),
+            'phone'=> '654894523',
+            'agency' => 'Global',
             'created_at' => now(),
             'updated_at' => now()
         ]);

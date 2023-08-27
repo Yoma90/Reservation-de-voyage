@@ -21,29 +21,41 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">new manager</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                            <h5 class="mb-0">new manager</h5>
                                         </div>
                                         <div class="modal-body">
-                                            <form>
+                                            <form action="{{route('add-manager')}}" method="POST">
+                                                @csrf
                                                 <div class="form-group">
                                                     <label for="recipient-name" class="col-form-label">First Name</label>
-                                                    <input type="text" class="form-control" id="recipient-name">
+                                                    <input type="text" class="form-control" id="first-name" name="first_name" required>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Last Name</label>
-                                                    <input type="text" class="form-control" id="recipient-name">
+                                                    <input type="text" class="form-control" id="last-name" name="last_name" required>
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Email</label>
+                                                    <input type="email" class="form-control" id="email" name="email" required>
+                                                </div>
+
                                                 <div class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Phone Number</label>
-                                                    <input type="number" class="form-control" value="Creative Tim" id="recipient-name">
+                                                    <input type="number" class="form-control" id="phone" name="phone" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Agency name</label>
+                                                    <input type="text" class="form-control" id="agency" name="agency" required>
+                                                </div>
+
+
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn bg-gradient-primary">Add</button>
                                                 </div>
                                             </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn bg-gradient-primary">ADD</button>
                                         </div>
                                     </div>
                                 </div>
@@ -69,6 +81,9 @@
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Email
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Agency name
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
@@ -99,6 +114,11 @@
                                     <td class="text-center">
                                         <p class="text-xs font-weight-bold mb-0">
                                             {{ $manager->email }}
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0">
+                                            {{ $manager->agency }}
                                         </p>
                                     </td>
                                     <td class="text-center">

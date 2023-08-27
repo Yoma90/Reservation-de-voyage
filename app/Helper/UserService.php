@@ -3,6 +3,8 @@
 namespace App\Helper;
 
 // use App\Models\Mobile_users;
+
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,7 +52,7 @@ use Illuminate\Validation\Rules\Password;
             if ($validate['status'] == false) {
                 return $validate;
             } else {
-                $user = User::create([
+                $user = Customer::create([
                     'first_name' => $this->first_name,
                     'last_name' => $this->last_name,
                     'user_name' => $this->user_name,
