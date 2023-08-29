@@ -22,6 +22,7 @@
         </ul>
     </div>
 
+    <!-- All -->
     <div class="tab-content">
         <div class="tab-pane fade show active" id="all-tabs-simple" role="tabpanel" aria-labelledby="all-tabs-simple-tab">
             <div class="container-fluid py-4">
@@ -117,6 +118,7 @@
             </div>
         </div>
 
+        <!-- Active -->
         <div class="tab-pane fade" id="actived-tabs-simple" role="tabpanel" aria-labelledby="actived-tabs-simple-tab">
             <div class="container-fluid py-4">
                 <div class="card">
@@ -191,11 +193,11 @@
                                         <a href="/user-status/{{$customer->id}}/suspended" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="suspend customer">
                                             <i class="fas fa-stop"></i>
                                         </a>
-                                        <span>
+                                        <!-- <span>
                                             <a class="mx-3" data-bs-toggle="tooltip" href="/delete-user/{{ $customer->id }}" data-bs-original-title="delete customer">
                                                 <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                             </a>
-                                        </span>
+                                        </span> -->
                                     </td>
                                 </tr>
                                 @endforeach
@@ -206,6 +208,7 @@
             </div>
         </div>
 
+        <!-- Suspended -->
         <div class="tab-pane fade" id="suspended-tabs-simple" role="tabpanel" aria-labelledby="suspended-tabs-simple-tab">
             <div class="container-fluid py-4">
                 <div class="card">
@@ -279,11 +282,11 @@
                                     <td class="text-center">
                                         <a href="/user-status/{{$customer->id}}/active" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="activate customer"><i class="fas fa-solid fa-check"></i>
                                         </a>
-                                        <span>
+                                        <!-- <span>
                                             <a class="mx-3" data-bs-toggle="tooltip" href="/delete-user/{{ $customer->id }}" data-bs-original-title="delete customer">
                                                 <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                             </a>
-                                        </span>
+                                        </span> -->
                                     </td>
                                 </tr>
                                 @endforeach
@@ -296,8 +299,5 @@
 
     </div>
 </div>
-
-
-
 
 @endsection

@@ -8,10 +8,14 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function listCustomer(){
+
+
+    public function listCustomer()
+    {
         $customers = Customer::get();
 
         return view('dashboard')->with('customers', $customers);
+
     }
 
     public function listCustomers(){
@@ -113,7 +117,7 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $mobile_users)
+    public function show(Customer $customers)
     {
         //
     }
@@ -121,7 +125,7 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $mobile_users)
+    public function edit(Customer $customers)
     {
         //
     }
@@ -129,7 +133,7 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $mobile_users)
+    public function update(Request $request, Customer $customers)
     {
         //
     }
@@ -137,7 +141,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $mobile_users)
+    public function destroy(Customer $customers)
     {
         //
     }

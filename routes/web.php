@@ -1,21 +1,17 @@
 <?php
 
+use App\Http\Controllers\BusController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\ManagerController;
-use App\Http\Controllers\MobileUsersController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
-use App\Http\Controllers\UserController;
-use App\Models\Mobile_users;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
+use App\Http\Controllers\TravelController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('sign-up');
 });
 
-//user routes
+//Customers routes
 Route::get('customer-management', [CustomerController::class, 'listCustomers'])->name("customer-management");
 Route::get('dashboard', [CustomerController::class, 'listCustomer'])->name('dashboard');
 Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
@@ -81,7 +77,7 @@ Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
 
 
 
-//manager routes
+//Managers routes
 Route::get('manager-management', [ManagerController::class, 'listManagers'])->name("manager-management");
 Route::get('dashboard', [ManagerController::class, 'listManager'])->name('dashboard');
 Route::get('manager-status/{id}/{status}', [ManagerController::class, 'changeManagerStatus']);
@@ -89,6 +85,16 @@ Route::get('/delete-manager/{id}', [ManagerController::class, 'deleteManager']);
 Route::post('/add-manager', [ManagerController::class, 'addManager'])->name('add-manager');
 
 
+//Travels routes
+Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
+
+
+//Bus routes
+Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
+
+
+//Destinations routes
+Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
 
 
 

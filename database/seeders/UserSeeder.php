@@ -17,21 +17,19 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'id' => 1,
-            'first_name' => 'admin',
-            'last_name' => 'super',
-            'user_name' => 'Admin90',
+            'first_name' => 'Admin',
+            'last_name' => 'Super',
             'email' => 'kempes@gmail.com',
             'password' => Hash::make('secret'),
             'phone' => '658288757',
-            'location' => 'Yaoundé',
+            'location' => 'Douala',
             'created_at' => now(),
             'updated_at' => now()
         ]);
         DB::table('users')->insert([
             'id' => 2,
-            'first_name' => 'kempes',
-            'last_name' => 'blaise',
-            'user_name' => 'kempes90',
+            'first_name' => 'Kempes',
+            'last_name' => 'Blaise',
             'email' => 'kempes90@gmail.com',
             'password' => Hash::make('123456789'),
             'phone' => '658288757',
@@ -45,6 +43,26 @@ class UserSeeder extends Seeder
             'last_name' => 'Blaise',
             'user_name' => 'Kempes90',
             'email' => 'kempes@gmail.com',
+            'password' => Hash::make('123456789'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('customers')->insert([
+            'id' => 2,
+            'first_name' => 'Marcel',
+            'last_name' => 'Junior',
+            'user_name' => 'Freg120',
+            'email' => 'fregmarcel@gmail.com',
+            'password' => Hash::make('123456789'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('customers')->insert([
+            'id' => 3,
+            'first_name' => 'Banol',
+            'last_name' => 'Anne Carole',
+            'user_name' => 'BanolAC',
+            'email' => 'ACBanol@gmail.com',
             'password' => Hash::make('123456789'),
             'created_at' => now(),
             'updated_at' => now()
@@ -68,6 +86,15 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'phone'=> '654894523',
             'agency' => 'Global',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Db::table('voyages')->insert([
+            'id' => 1,
+            'name' => 'Douala',
+            'location' => 'Cameroun',
+            'details' => 'Douala is a beautiful city',
+            'price' => '3000',
             'created_at' => now(),
             'updated_at' => now()
         ]);

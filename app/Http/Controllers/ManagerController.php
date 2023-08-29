@@ -15,6 +15,7 @@ class ManagerController extends Controller
         $managers = Manager::get();
 
         return view('dashboard')->with('managers', $managers);
+
     }
 
     public function listManagers()
@@ -92,7 +93,6 @@ class ManagerController extends Controller
             'agency' => "required|max:50|string",
         ]);
 
-        // dd($attributes);
 
         $response = [
             "type" => "success",
@@ -112,7 +112,7 @@ class ManagerController extends Controller
 
             // Enregistre le manager dans la base de données
             $manager->save();
-
+ 
             $response = [
                 'type' => 'success',
                 'message' => 'Manager added successfully',
