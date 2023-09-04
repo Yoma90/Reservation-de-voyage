@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bus;
 use App\Models\Customer;
 use App\Models\Histories;
 use App\Models\History;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ManagerController extends Controller
 {
+
     public function listManager()
     {
         $managers = Manager::get();
@@ -30,7 +32,6 @@ class ManagerController extends Controller
 
     public function changeManagerStatus($id, $status)
     {
-
 
         $response = [
             "type" => "",
@@ -92,7 +93,6 @@ class ManagerController extends Controller
             'last_name' => "required|max:50|string",
             'email'     => "required|max:50|string",
             'phone' => "required|max:50|string",
-            'role_id' => "required|max:50",
             'agency' => "required|max:50|string",
         ]);
 
@@ -101,13 +101,16 @@ class ManagerController extends Controller
             "message" => "",
         ];
 
-        if ($this->checkManagerName($attributes['email'])) {
+        if ($this->checkManagerEmail($attributes['email'])) {
+
+            $attributes['password'] = Hash::make('00000000');
+            $attributes['role_id'] = 2;
 
             $managers = Manager::create($attributes);
             $user_id = auth()->user()->id;
             Histories::create([
                 'notification' => "added $managers->first_name manager successfully ",
-                'type' => "add ",
+                'type' => "add",
                 'user_id' => $user_id,
             ]);
             $response = [
@@ -117,21 +120,21 @@ class ManagerController extends Controller
         } else {
             $response = [
                 "type" => "danger",
-                "message" => "This Manager already exist",
+                "message" => "This Manager email already exist",
             ];
         }
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-    public function checkManagerName()
+    public function checkManagerEmail($email)
     {
-        if (Manager::where("first_name")->count() > 0) {
+        if (Manager::where("email", $email)->count() > 0) {
             return false;
         } else {
             return true;
         }
     }
 
-    
+
 }

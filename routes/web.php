@@ -13,6 +13,7 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\TravelController;
+use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,14 +27,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return redirect('dashboard');
+});
 
 Route::group(['middleware' => 'auth'], function () {
 
-	// Route::get('dashboard', [DashboardController::class, 'dash'])->name('dashboard');
-	Route::get('/', [DashboardController::class, 'home']);
-	// Route::get('dashboard', function () {
-	// 	return view('dashboard');
-	// })->name('dashboard');
+
+	Route::get('dashboard', [DashboardController::class, 'home'])->name('dashboard');
 
 	Route::get('billing', function () {
 		return view('billing');
@@ -43,13 +44,6 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('profile');
 	})->name('profile');
 
-	// Route::get('customer-management', function () {
-	// 	return view('laravel-examples/customer-management');
-	// })->name('customer-management');
-
-	// Route::get('manager-management', function () {
-	// 	return view('laravel-examples/manager-management');
-	// })->name('manager-management');
 
 	Route::get('static-sign-in', function () {
 		return view('static-sign-in');
@@ -65,14 +59,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('/user-profile/update', [InfoUserController::class, 'updateProfile']);
 
-	// Route::get('/login', function () {
-	// 	return view('dashboard');
-	// })->name('sign-up');
 });
 
 //Customers routes
 Route::get('customer-management', [CustomerController::class, 'listCustomers'])->name("customer-management");
-Route::get('dashboard', [CustomerController::class, 'listCustomer'])->name('dashboard');
 Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
 Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
 Route::get('customer-management', [CustomerController::class, 'index', 'index2']);
@@ -85,24 +75,27 @@ Route::get('manager-management', [RoleController::class, 'listRole'])->name('man
 
 //Managers routes
 Route::get('manager-management', [ManagerController::class, 'listManagers']);
-Route::get('dashboard', [ManagerController::class, 'listManager'])->name('dashboard');
 Route::get('manager-status/{id}/{status}', [ManagerController::class, 'changeManagerStatus']);
 Route::get('/delete-manager/{id}', [ManagerController::class, 'deleteManager']);
 Route::post('/add-manager', [ManagerController::class, 'addManager'])->name('add-manager');
+
+
+//Bus routes
+Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
+Route::post('/add-bus', [BusController::class, 'addBus'])->name('add-bus');
+Route::get('bus-status/{id}/{status}', [BusController::class, 'changeBusStatus']);
+Route::get('/delete-bus/{id}', [BusController::class, 'deleteBus']);
+Route::post('/update-bus', [BusController::class, 'updateBus'])->name('update-bus');
 
 
 //Travels routes
 Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
 
 
-//Bus routes
-Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
-
-
 //Destinations routes
 Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
 
-
+//History routes
 Route::get('history', [HistoriesController::class, 'index']);
 
 

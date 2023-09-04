@@ -15,6 +15,32 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('types')->insert([
+            'id' => 1,
+            'name' => 'VIP',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('types')->insert([
+            'id' => 2,
+            'name' => 'CLASSIQUE',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('roles')->insert([
+            'id' => 1,
+            'name' => 'System administrator',
+            'description' => 'This is the System administrator and can do any thing in the application',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('roles')->insert([
+            'id' => 2,
+            'name' => 'Manager',
+            'description' => 'This is the Manager and can\'t do any thing in the application',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
         DB::table('users')->insert([
             'id' => 1,
             'first_name' => 'Admin',
@@ -69,38 +95,12 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        DB::table('managers')->insert([
-            'id' => 2,
-            'first_name' => 'MIT',
-            'last_name' => 'Idris',
-            'email' => 'thierry01@gmail.com',
-            'password' => Hash::make('123456789'),
-            'role_id' => 2,
-            'phone'=> '654894523',
-            'agency' => 'Global',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
         DB::table('voyages')->insert([
             'id' => 1,
             'name' => 'Douala',
             'location' => 'Cameroun',
             'details' => 'Douala is a beautiful city',
             'price' => '3000',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('roles')->insert([
-            'id' => 1,
-            'name' => 'System administrator',
-            'description' => 'This is the System administrator and can do any thing in the application',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('roles')->insert([
-            'id' => 2,
-            'name' => 'Manager',
-            'description' => 'This is the Manager and can\'t do any thing in the application',
             'created_at' => now(),
             'updated_at' => now()
         ]);

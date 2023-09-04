@@ -13,17 +13,19 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = Customer::where('status', 'active')->get();
-        Customer::active()->get();
-        // $customers = Customer::has('status')->get();
+        $customers = Customer::get();
 
         $activeCustomers = $customers->filter(function ($customer) {
             return $customer->status == 'active';
         });
+        $suspendedCustomers = $customers->filter(function ($customer) {
+            return $customer->status == 'suspended';
+        });
 
-        
-
-        return view('pages.customer-management', ['customers' => $customers, $activeCustomers]);
+        return view('pages.customer-management')
+        ->with('customers', $customers)
+        ->with('activeCustomers', $activeCustomers)
+        ->with('suspendedCustomers', $suspendedCustomers);
     }
 
     public function index2()

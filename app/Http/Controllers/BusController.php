@@ -2,17 +2,146 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bus;
+use App\Models\Histories;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class BusController extends Controller
 {
+
+    public function index()
+    {
+        $bus = Bus::get();
+        $types = Type::get();
+
+        return view('pages.bus-management')
+            ->with('bus', $bus)
+            ->with('types', $types);
+    }
+
+    public function updateBus(Request $request)
+    {
+        $attributes = $request->validate([
+            'type' => "required|max:20|string",
+            'immatriculation' => "required|max:50|string"
+        ]);
+        $response = [
+            "type" => "",
+            "message" => "",
+        ];
+
+        if ($this->checkBusType($attributes["type"])) {
+            $bus = Bus::create($attributes);
+            $user_id = auth()->user()->id;
+            Histories::create([
+                'notification' => "updated $bus->type bus successfully ",
+                'type' => "add",
+                'user_id' => $user_id,
+            ]);
+            $response = [
+                "type" => "success",
+                "message" => "Bus updated successfully",
+            ];
+        }
+        return redirect()->back()->with($response['type'], $response['message']);
+    }
+
+    public function addBus(Request $request)
+    {
+        $attributes = $request->validate([
+            'type' => "required|max:20|string",
+            'immatriculation' => "required|max:50|string"
+        ]);
+        $response = [
+            "type" => "",
+            "message" => "",
+        ];
+
+        if ($this->checkBusType($attributes["type"])) {
+            $bus = Bus::create($attributes);
+            $user_id = auth()->user()->id;
+            Histories::create([
+                'notification' => "added $bus->type bus successfully ",
+                'type' => "add",
+                'user_id' => $user_id,
+            ]);
+            $response = [
+                "type" => "success",
+                "message" => "Bus added successfully",
+            ];
+        }
+        return redirect()->back()->with($response['type'], $response['message']);
+    }
+
+    public function checkBusType($type)
+    {
+        if (Bus::where("type", $type)->count() > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function changeBusStatus($id, $status)
+    {
+
+        $response = [
+            "type" => "",
+            "message" => "",
+        ];
+        $bus = Bus::find($id);
+        if ($bus) {
+            $bus->status = $status;
+            $bus->save();
+
+            if ($status === "active") {
+                $response = [
+                    "type" => "success",
+                    "message" => "Bus activated successfully",
+                ];
+            } else {
+                $response = [
+                    "type" => "success",
+                    "message" => "Bus suspended successfully",
+                ];
+            }
+        } else {
+            $response = [
+                "type" => "danger",
+                "message" => "This Bus doesn't exist",
+            ];
+        }
+
+
+        return redirect()->back()->with($response['type'], $response["message"]);
+    }
+
+    public function deleteBus($id)
+    {
+
+        try {
+            $bus = Bus::find($id);
+            $bus->delete();
+            $response = [
+                "type" => "success",
+                "message" => "The bus has successfully deleted",
+            ];
+        } catch (\Throwable $th) {
+            $response = [
+                "type" => "danger",
+                "message" => "internal server error",
+            ];
+        }
+
+
+        return redirect()->back()->with($response['type'], $response['message']);
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view('pages.bus-management');
-    }
+
 
     /**
      * Show the form for creating a new resource.

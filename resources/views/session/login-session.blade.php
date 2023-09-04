@@ -9,7 +9,8 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-5 text-center mx-auto">
                         <h1 class="text-white mb-2 mt-5">Welcome!</h1>
-                        <p class="text-lead text-white">Welcome back! We're glad to see you again. Please enter your credentials to proceed.</p>
+                        <p class="text-lead text-white">Welcome back! We're glad to see you again. Please enter your
+                            credentials to proceed.</p>
                     </div>
                 </div>
             </div>
@@ -27,8 +28,7 @@
                                 <label>Email</label>
                                 <div class="mb-3">
                                     <input type="email" class="form-control" name="email" id="email"
-                                        placeholder="Email"  aria-label="Email"
-                                        aria-describedby="email-addon">
+                                        placeholder="Email" aria-label="Email" aria-describedby="email-addon">
                                     @error('email')
                                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                     @enderror
@@ -36,11 +36,18 @@
                                 <label>Password</label>
                                 <div class="mb-3">
                                     <input type="password" class="form-control" name="password" id="password"
-                                        placeholder="Password" aria-label="Password"
-                                        aria-describedby="password-addon">
+                                        placeholder="Password" aria-label="Password" aria-describedby="password-addon">
                                     @error('password')
                                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                     @enderror
+                                </div>
+                                <div>
+                                    <input type="radio" name="role" value="1" required>
+                                    <label for="">Admin</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="role" value="2" required>
+                                    <label for="">Manager</label>
                                 </div>
 
                                 <div class="text-center">
@@ -54,4 +61,3 @@
         </div>
     </section>
 @endsection
- 

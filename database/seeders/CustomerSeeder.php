@@ -24,15 +24,5 @@ class Customer extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        DB::table('customers')->insert([
-            'id' => 2,
-            'first_name' => 'Kempes',
-            'last_name' => 'Blaise',
-            'user_name' => 'Kempes90',
-            'email' => 'kempes@gmail.com',
-            'password' => Hash::make('123456789'),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
     }
 }

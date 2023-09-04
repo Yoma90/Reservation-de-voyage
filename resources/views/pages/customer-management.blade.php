@@ -157,8 +157,7 @@
                                 </div>
                             </thead>
                             <tbody>
-                                @foreach ($customers as $customer)
-                                @if($customer->status == 'active')
+                                @foreach ($activeCustomers as $customer)
                                 <tr>
                                     <td class="text-center">
                                         <p class="text-xs font-weight-bold mb-0">
@@ -201,7 +200,6 @@
                                         </span> -->
                                     </td>
                                 </tr>
-                                @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -249,8 +247,7 @@
                                 </div>
                             </thead>
                             <tbody>
-                                @foreach ($customers as $customer)
-                                @if($customer->status == 'suspended')
+                                @foreach ($suspendedCustomers as $customer)
                                 <tr>
                                     <td class="text-center">
                                         <p class="text-xs font-weight-bold mb-0">
@@ -292,7 +289,6 @@
                                         </span> -->
                                     </td>
                                 </tr>
-                                @endif
                                 @endforeach
                             </tbody>
                         </table>

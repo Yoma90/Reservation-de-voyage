@@ -36,7 +36,7 @@
                             {{ (auth()->user()->first_name) }} {{ (auth()->user()->last_name) }}
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                           System administrator
+                            {{ (auth()->user()->role->name) }}
                         </p>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <span class="alert-text text-white">
                             {{ $errors->first() }}</span>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                            <i class="fa fa-close" aria-hidden="true">qezedze</i>
+                            <i class="fa fa-close" aria-hidden="true"></i>
                         </button>
                     </div>
                     @endif
@@ -107,7 +107,7 @@
                             <div class="form-group">
                                 <label for="user-name" class="form-control-label">{{ __('Role') }}</label>
                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                    <input class="form-control" value="System administrator" type="text" id="user-role" name="role" placeholder="Role" disabled>
+                                    <input class="form-control" value=" {{auth()->user()->role->name}} " type="text" id="user-role" name="role" placeholder="Role" disabled>
                                     @error('role')
                                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                     @enderror
