@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bus;
 use App\Models\Customer;
 use App\Models\Histories;
 use App\Models\History;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ManagerController extends Controller
 {
+
     public function listManager()
     {
         $managers = Manager::get();
@@ -30,7 +32,6 @@ class ManagerController extends Controller
 
     public function changeManagerStatus($id, $status)
     {
-
 
         $response = [
             "type" => "",
@@ -109,7 +110,7 @@ class ManagerController extends Controller
             $user_id = auth()->user()->id;
             Histories::create([
                 'notification' => "added $managers->first_name manager successfully ",
-                'type' => "add ",
+                'type' => "add",
                 'user_id' => $user_id,
             ]);
             $response = [

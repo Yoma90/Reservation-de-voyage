@@ -13,6 +13,7 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\TravelController;
+use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,18 +80,22 @@ Route::get('/delete-manager/{id}', [ManagerController::class, 'deleteManager']);
 Route::post('/add-manager', [ManagerController::class, 'addManager'])->name('add-manager');
 
 
-//Travels routes
-Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
-
-
 //Bus routes
 Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
+Route::post('/add-bus', [BusController::class, 'addBus'])->name('add-bus');
+Route::get('bus-status/{id}/{status}', [BusController::class, 'changeBusStatus']);
+Route::get('/delete-bus/{id}', [BusController::class, 'deleteBus']);
+Route::post('/update-bus', [BusController::class, 'updateBus'])->name('update-bus');
+
+
+//Travels routes
+Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
 
 
 //Destinations routes
 Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
 
-
+//History routes
 Route::get('history', [HistoriesController::class, 'index']);
 
 

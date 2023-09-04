@@ -15,6 +15,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('types')->insert([
+            'id' => 1,
+            'name' => 'VIP',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('types')->insert([
+            'id' => 2,
+            'name' => 'CLASSIQUE',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
         DB::table('roles')->insert([
             'id' => 1,
             'name' => 'System administrator',

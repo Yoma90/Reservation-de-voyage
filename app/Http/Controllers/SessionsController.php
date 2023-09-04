@@ -20,9 +20,8 @@ class SessionsController extends Controller
         $attributes = request()->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'role' => 'required'
         ]);
-        dd($attributes);
+        // dd($attributes);
         if (Auth::attempt($attributes)) {
             session()->regenerate();
             $user_id = auth()->user()->id;
