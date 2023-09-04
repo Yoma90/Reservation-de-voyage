@@ -1,13 +1,18 @@
 <?php
 
+use App\Http\Controllers\BusController;
 use App\Http\Controllers\ChangePasswordController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\HistoriesController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionsController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
+use App\Http\Controllers\TravelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,10 +29,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-		return view('dashboard');
-	})->name('dashboard');
+	// Route::get('dashboard', [DashboardController::class, 'dash'])->name('dashboard');
+	Route::get('/', [DashboardController::class, 'home']);
+	// Route::get('dashboard', function () {
+	// 	return view('dashboard');
+	// })->name('dashboard');
 
 	Route::get('billing', function () {
 		return view('billing');
@@ -37,52 +43,88 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('profile');
 	})->name('profile');
 
-	Route::get('rtl', function () {
-		return view('rtl');
-	})->name('rtl');
+	// Route::get('customer-management', function () {
+	// 	return view('laravel-examples/customer-management');
+	// })->name('customer-management');
 
-	Route::get('user-management', function () {
-		return view('laravel-examples/user-management');
-	})->name('user-management');
+	// Route::get('manager-management', function () {
+	// 	return view('laravel-examples/manager-management');
+	// })->name('manager-management');
 
-	Route::get('tables', function () {
-		return view('tables');
-	})->name('tables');
-
-    Route::get('virtual-reality', function () {
-		return view('virtual-reality');
-	})->name('virtual-reality');
-
-    Route::get('static-sign-in', function () {
+	Route::get('static-sign-in', function () {
 		return view('static-sign-in');
 	})->name('sign-in');
 
-    Route::get('static-sign-up', function () {
+	Route::get('static-sign-up', function () {
 		return view('static-sign-up');
 	})->name('sign-up');
 
-    Route::get('/logout', [SessionsController::class, 'destroy']);
+	Route::get('/logout', [SessionsController::class, 'destroy']);
 	Route::get('/user-profile', [InfoUserController::class, 'create']);
 	Route::post('/user-profile', [InfoUserController::class, 'store']);
-    Route::get('/login', function () {
-		return view('dashboard');
-	})->name('sign-up');
+
+	Route::post('/user-profile/update', [InfoUserController::class, 'updateProfile']);
+
+	// Route::get('/login', function () {
+	// 	return view('dashboard');
+	// })->name('sign-up');
 });
 
+//Customers routes
+Route::get('customer-management', [CustomerController::class, 'listCustomers'])->name("customer-management");
+Route::get('dashboard', [CustomerController::class, 'listCustomer'])->name('dashboard');
+Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
+Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
+Route::get('customer-management', [CustomerController::class, 'index', 'index2']);
+// Route::get('customer-management', [CustomerController::class, 'index2']);
 
+
+//roles routes
+Route::get('manager-management', [RoleController::class, 'listRole'])->name('manager-management');
+
+
+//Managers routes
+Route::get('manager-management', [ManagerController::class, 'listManagers']);
+Route::get('dashboard', [ManagerController::class, 'listManager'])->name('dashboard');
+Route::get('manager-status/{id}/{status}', [ManagerController::class, 'changeManagerStatus']);
+Route::get('/delete-manager/{id}', [ManagerController::class, 'deleteManager']);
+Route::post('/add-manager', [ManagerController::class, 'addManager'])->name('add-manager');
+
+
+//Travels routes
+Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
+
+
+//Bus routes
+Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
+
+
+//Destinations routes
+Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
+
+
+Route::get('history', [HistoriesController::class, 'index']);
+
+
+
+//Change Password route
+
+
+
+//Récupération des utilisateurs
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/register', [RegisterController::class, 'create']);
-    Route::post('/register', [RegisterController::class, 'store']);
-    Route::get('/login', [SessionsController::class, 'create']);
-    Route::post('/session', [SessionsController::class, 'store']);
+	Route::get('/register', [RegisterController::class, 'create']);
+	Route::post('/register', [RegisterController::class, 'store']);
+	Route::get('/login', [SessionsController::class, 'create']);
+	Route::post('/session', [SessionsController::class, 'store']);
 	Route::get('/login/forgot-password', [ResetController::class, 'create']);
 	Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
+	Route::post('/change-password', [SessionsController::class, 'changeUserPassword']);
 	Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
 	Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
-
 });
 
 Route::get('/login', function () {
-    return view('session/login-session');
+	return view('session/login-session');
 })->name('login');
