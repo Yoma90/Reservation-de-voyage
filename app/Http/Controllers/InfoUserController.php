@@ -13,7 +13,7 @@ class InfoUserController extends Controller
 
     public function create()
     {
-        return view('laravel-examples/user-profile');
+        return view('pages/user-profile');
     }
 
     public function store(Request $request)
@@ -36,7 +36,7 @@ class InfoUserController extends Controller
             
         }
         else{
-            $attribute = request()->validate([
+            $attributes = request()->validate([
                 'email' => ['required', 'email', 'max:50', Rule::unique('users')->ignore(Auth::user()->id)],
             ]);
         }
@@ -46,6 +46,7 @@ class InfoUserController extends Controller
         ->update([
             'first_name'    => $attributes['first_name'],
             'last_name'    => $attributes['last_name'],
+            'phone'         => $attributes['phone'],
         ]);
 
 

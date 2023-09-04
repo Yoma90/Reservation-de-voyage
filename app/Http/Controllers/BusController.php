@@ -11,7 +11,7 @@ class BusController extends Controller
      */
     public function index()
     {
-        return view('laravel-examples.bus-management');
+        return view('pages.bus-management');
     }
 
     /**

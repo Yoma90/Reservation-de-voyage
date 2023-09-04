@@ -32,7 +32,7 @@
                         <div class="numbers">
                             <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Customers</p>
                             <h5 class="font-weight-bolder mb-0">
-                                0
+                                3
                                 <span class="text-danger text-sm font-weight-bolder"> </span>
                             </h5>
                         </div>
@@ -85,56 +85,83 @@
                 </div>
                 <div class="card-body p-3">
                     <div class="timeline timeline-one-side">
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="ni ni-bold-left  text-success text-gradient"></i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                    {{ (auth()->user()->first_name). ' ' .(auth()->user()->last_name) }} logged out Successfully
-                                </h6>
+                        @foreach ($histories as $history)
+                            @if ($history->type === 'add')
+                            <div class="timeline-block ">
+                                <span class="timeline-step">
+                                    <i class="ni ni-fat-add text-success text-gradient"></i>
+                                </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">
+                                        {{ $history->user->first_name . ' ' . $history->user->last_name . ' ' . $history->notification }}
+                                    </h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                                        {{ $history->created_at }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="ni ni-bold-right  text-success text-gradient"></i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                    {{ (auth()->user()->first_name). ' ' .(auth()->user()->last_name) }} logged in Successfully
-                                </h6>
+                            @endif
+                            @if ($history->type === 'delete')
+                            <div class="timeline-block ">
+                                <span class="timeline-step">
+                                    <i class="ni ni-fat-remove text-danger text-gradient"></i>
+                                </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">
+                                        {{ $history->user->first_name . ' ' . $history->user->last_name . ' ' . $history->notification }}
+                                    </h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                                        {{ $history->created_at }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="ni ni-bold-left text-success text-gradient"></i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                    {{ (auth()->user()->first_name). ' ' .(auth()->user()->last_name) }} logged out Successfully
-                                </h6>
+                            @endif
+                            @if ($history->type === 'change')
+                            <div class="timeline-block ">
+                                <span class="timeline-step">
+                                    <i class="ni ni-fat-delete text-info text-gradient"></i>
+                                </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">
+                                        {{ $history->user->first_name . ' ' . $history->user->last_name . ' ' . $history->notification }}
+                                    </h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                                        {{ $history->created_at }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="ni ni-bold-right  text-success text-gradient"></i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                    {{ (auth()->user()->first_name). ' ' .(auth()->user()->last_name) }} logged in Successfully
-                                </h6>
+                            @endif
+                            @if ($history->type === 'logout')
+                            <div class="timeline-block ">
+                                <span class="timeline-step">
+                                    <i class="ni ni-bold-left text-danger text-gradient"></i>
+                                </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">
+                                        {{ $history->user->first_name . ' ' . $history->user->last_name . ' ' . $history->notification }}
+                                    </h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                                        {{ $history->created_at }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="ni ni-bold-left text-success text-gradient"></i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                    {{ (auth()->user()->first_name). ' ' .(auth()->user()->last_name) }} logged out Successfully
-                                </h6>
+                            @endif
+                            @if ($history->type === 'login')
+                            <div class="timeline-block">
+                                <span class="timeline-step">
+                                    <i class="ni ni-bold-right text-success text-gradient"></i>
+                                </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">
+                                        {{ $history->user->first_name . ' ' . $history->user->last_name . ' ' . $history->notification }}
+                                    </h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                                        {{ $history->created_at }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>

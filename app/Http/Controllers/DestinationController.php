@@ -8,6 +8,6 @@ use Illuminate\View\ViewException;
 class DestinationController extends Controller
 {
     public function index(){
-        return view('laravel-examples.destination-management');
+        return view('pages.destination-management');
     }
 }

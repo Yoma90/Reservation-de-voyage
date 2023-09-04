@@ -14,6 +14,7 @@ class Manager extends Model
         'last_name',
         'email',
         'password',
+        'role_id',
         'phone',
         'status',
         'agency',

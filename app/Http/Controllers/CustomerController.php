@@ -9,19 +9,49 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
 
+    // UserController
+
+    public function index()
+    {
+        $customers = Customer::where('status', 'active')->get();
+        Customer::active()->get();
+        // $customers = Customer::has('status')->get();
+
+        $activeCustomers = $customers->filter(function ($customer) {
+            return $customer->status == 'active';
+        });
+
+        
+
+        return view('pages.customer-management', ['customers' => $customers, $activeCustomers]);
+    }
+
+    public function index2()
+    {
+        $customers = Customer::where('status', 'suspended')->get();
+        Customer::suspended()->get();
+        $customers = Customer::has('status')->get();
+
+        $suspendedCustomers = $customers->filter(function ($customer) {
+            return $customer->status == 'suspended';
+        });
+
+        return view('pages.customer-management', ['customers' => $customers, $suspendedCustomers]);
+    }
+
 
     public function listCustomer()
     {
         $customers = Customer::get();
 
         return view('dashboard')->with('customers', $customers);
-
     }
 
-    public function listCustomers(){
+    public function listCustomers()
+    {
         $customers = Customer::get();
 
-        return view('laravel-examples.customer-management')->with('customers', $customers);
+        return view('pages.customer-management')->with('customers', $customers);
     }
 
     public function changeUserStatus($id, $status)
@@ -70,7 +100,6 @@ class CustomerController extends Controller
                 "type" => "success",
                 "message" => "The customer has successfully deleted",
             ];
-            
         } catch (\Throwable $th) {
             $response = [
                 "type" => "danger",
@@ -82,21 +111,22 @@ class CustomerController extends Controller
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $response = (new UserService($request->first_name, $request->last_name, $request->user_name, $request->email, $request->password))->register($request->devicename);
         return response()->json($response);
     }
 
-    public function login(Request $request){
-
+    public function login(Request $request)
+    {
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // return Mobile_users::all();
-    }
+    // public function index()
+    // {
+    //     // return Mobile_users::all();
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -145,6 +175,4 @@ class CustomerController extends Controller
     {
         //
     }
-
-    
 }

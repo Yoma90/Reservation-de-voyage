@@ -21,19 +21,9 @@ class UserSeeder extends Seeder
             'last_name' => 'Super',
             'email' => 'kempes@gmail.com',
             'password' => Hash::make('secret'),
+            'role_id' => 1,
             'phone' => '658288757',
             'location' => 'Douala',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('users')->insert([
-            'id' => 2,
-            'first_name' => 'Kempes',
-            'last_name' => 'Blaise',
-            'email' => 'kempes90@gmail.com',
-            'password' => Hash::make('123456789'),
-            'phone' => '658288757',
-            'location' => 'Yaoundé',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -73,6 +63,7 @@ class UserSeeder extends Seeder
             'last_name' => 'Thierry',
             'email' => 'Miendjemthierry01@gmail.com',
             'password' => Hash::make('123456789'),
+            'role_id' =>2,
             'phone'=> '654894523',
             'agency' => 'Finexx',
             'created_at' => now(),
@@ -84,17 +75,32 @@ class UserSeeder extends Seeder
             'last_name' => 'Idris',
             'email' => 'thierry01@gmail.com',
             'password' => Hash::make('123456789'),
+            'role_id' => 2,
             'phone'=> '654894523',
             'agency' => 'Global',
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        Db::table('voyages')->insert([
+        DB::table('voyages')->insert([
             'id' => 1,
             'name' => 'Douala',
             'location' => 'Cameroun',
             'details' => 'Douala is a beautiful city',
             'price' => '3000',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('roles')->insert([
+            'id' => 1,
+            'name' => 'System administrator',
+            'description' => 'This is the System administrator and can do any thing in the application',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('roles')->insert([
+            'id' => 2,
+            'name' => 'Manager',
+            'description' => 'This is the Manager and can\'t do any thing in the application',
             'created_at' => now(),
             'updated_at' => now()
         ]);

@@ -20,6 +20,17 @@ class Customer extends Model
         'status',
     ];
 
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeSuspended($query)
+    {
+        return $query->where('status', 'suspended');
+    }
+    
     /**
      * The attributes that should be hidden for serialization.
      *

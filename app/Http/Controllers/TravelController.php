@@ -10,7 +10,7 @@ class TravelController extends Controller
 
     public function all(){
 
-        return view('laravel-examples.travel-management');
+        return view('pages.travel-management');
     }
     /**
      * Display a listing of the resource.

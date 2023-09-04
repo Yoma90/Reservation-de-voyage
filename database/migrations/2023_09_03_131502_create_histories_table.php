@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bus', function (Blueprint $table) {
+        Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->type();
-            $table->immatriculation();
+            $table->text("notification");
+            $table->string("type");
+            $table->foreignId("user_id")->constrained()->onUpdate("cascade");
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bus');
+        Schema::dropIfExists('histories');
     }
 };

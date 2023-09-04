@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Histories;
 use App\Models\History;
 use App\Models\Manager;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,9 +22,10 @@ class ManagerController extends Controller
 
     public function listManagers()
     {
+        $roles = Role::get();
         $managers = Manager::get();
 
-        return view('laravel-examples.manager-management')->with('managers', $managers);
+        return view('pages.manager-management')->with('managers', $managers)->with('roles', $roles);
     }
 
     public function changeManagerStatus($id, $status)
@@ -84,101 +87,51 @@ class ManagerController extends Controller
 
     public function addManager(Request $request)
     {
-
         $attributes = $request->validate([
             'first_name' => "required|max:50|string",
             'last_name' => "required|max:50|string",
             'email'     => "required|max:50|string",
             'phone' => "required|max:50|string",
+            'role_id' => "required|max:50",
             'agency' => "required|max:50|string",
         ]);
 
-
         $response = [
-            "type" => "success",
-            "message" => "Manager added successfully",
+            "type" => "",
+            "message" => "",
         ];
 
+        if ($this->checkManagerName($attributes['email'])) {
 
-        try {
-            // Crée un nouveau manager avec les attributs validés
-            $manager = new Manager([
-                'first_name' => $attributes['first_name'],
-                'last_name' => $attributes['last_name'],
-                'email' => $attributes['email'],
-                'phone' => $attributes['phone'],
-                'agency' => $attributes['agency'],
+            $managers = Manager::create($attributes);
+            $user_id = auth()->user()->id;
+            Histories::create([
+                'notification' => "added $managers->first_name manager successfully ",
+                'type' => "add ",
+                'user_id' => $user_id,
             ]);
-
-            // Enregistre le manager dans la base de données
-            $manager->save();
- 
             $response = [
-                'type' => 'success',
-                'message' => 'Manager added successfully',
+                "type" => "success",
+                "message" => "Manager added successfully",
             ];
-        } catch (\Exception $e) {
+        } else {
             $response = [
-                'type' => 'error',
-                'message' => 'Failed to add manager'
+                "type" => "danger",
+                "message" => "This Manager already exist",
             ];
         }
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
+
+    public function checkManagerName()
+    {
+        if (Manager::where("first_name")->count() > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    
 }
-
-/**
- * Display a listing of the resource.
- */
-// public function index()
-// {
-//     return Manager::all();
-// }
-
-/**
- * Show the form for creating a new resource.
- */
-// public function create()
-// {
-
-// }
-
-/**
- * Store a newly created resource in storage.
- */
-// public function store(Request $request)
-// {
-//     //
-// }
-
-/**
- * Display the specified resource.
- */
-// public function show(Manager $manager)
-// {
-//     //
-// }
-
-/**
- * Show the form for editing the specified resource.
- */
-// public function edit(Manager $manager)
-// {
-//     //
-// }
-
-/**
- * Update the specified resource in storage.
- */
-    // public function update(Request $request, Manager $manager)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  */
-    // public function destroy(Manager $manager)
-    // {
-    //
