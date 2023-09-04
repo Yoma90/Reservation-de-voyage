@@ -47,16 +47,6 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="recipient-name" class="col-form-label">Role</label>
-                                                    <select class="form-control" id="role_id" name="role_id" required>
-                                                        <option></option>
-                                                        @foreach($roles as $role)
-                                                            <option value=" {{$role->id}} "> {{$role->name}} </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Agency name</label>
                                                     <input type="text" class="form-control" id="agency" name="agency" required>
                                                 </div>

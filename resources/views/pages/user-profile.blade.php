@@ -36,7 +36,7 @@
                             {{ (auth()->user()->first_name) }} {{ (auth()->user()->last_name) }}
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                           System administrator
+                            {{ (auth()->user()->role->name) }}
                         </p>
                     </div>
                 </div>
