@@ -66,7 +66,6 @@ Route::get('customer-management', [CustomerController::class, 'listCustomers'])-
 Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
 Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
 Route::get('customer-management', [CustomerController::class, 'index', 'index2']);
-// Route::get('customer-management', [CustomerController::class, 'index2']);
 
 
 //roles routes
