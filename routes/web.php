@@ -95,13 +95,9 @@ Route::get('travel-management', [TravelController::class, 'all'])->name("travel-
 //Destinations routes
 Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
 
+
 //History routes
 Route::get('history', [HistoriesController::class, 'index']);
-
-
-
-//Change Password route
-
 
 
 //Récupération des utilisateurs

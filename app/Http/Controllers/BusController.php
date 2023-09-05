@@ -23,22 +23,15 @@ class BusController extends Controller
     public function updateBus(Request $request)
     {
         $attributes = $request->validate([
-            'type' => "required|max:20|string",
-            'immatriculation' => "required|max:50|string"
+            'type_id' => "required",
         ]);
         $response = [
             "type" => "",
             "message" => "",
         ];
 
-        if ($this->checkBusType($attributes["type"])) {
-            $bus = Bus::create($attributes);
-            $user_id = auth()->user()->id;
-            Histories::create([
-                'notification' => "updated $bus->type bus successfully ",
-                'type' => "add",
-                'user_id' => $user_id,
-            ]);
+        if ($this->checkBusType($attributes["type_id"])) {
+            $bus = Bus::updated($attributes);
             $response = [
                 "type" => "success",
                 "message" => "Bus updated successfully",
@@ -50,15 +43,14 @@ class BusController extends Controller
     public function addBus(Request $request)
     {
         $attributes = $request->validate([
-            'type' => "required|max:20|string",
-            'immatriculation' => "required|max:50|string"
+            'type_id' => "required",
+            'immatriculation' => "required"
         ]);
         $response = [
             "type" => "",
             "message" => "",
         ];
-
-        if ($this->checkBusType($attributes["type"])) {
+        if ($this->checkBusType($attributes["immatriculation"])) {
             $bus = Bus::create($attributes);
             $user_id = auth()->user()->id;
             Histories::create([
@@ -71,12 +63,15 @@ class BusController extends Controller
                 "message" => "Bus added successfully",
             ];
         }
+        else{
+
+        }
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
     public function checkBusType($type)
     {
-        if (Bus::where("type", $type)->count() > 0) {
+        if (Bus::where("immatriculation", $type)->count() > 0) {
             return false;
         } else {
             return true;

@@ -1,7 +1,7 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
-    <div>
+    <div >
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4 mx-4">
@@ -84,14 +84,6 @@
                                                             </select>
                                                         </div>
 
-                                                        <div class="form-group">
-                                                            <label for="recipient-name"
-                                                                class="col-form-label">Immatriculation</label>
-                                                            <input type="text" class="form-control" id="immatriculation"
-                                                                name="immatriculation" required>
-                                                        </div>
-
-
                                                         <div class="modal-footer">
                                                             <button type="submit"
                                                                 class="btn bg-gradient-primary">Add</button>
@@ -144,7 +136,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $bu->type }}
+                                                    {{ $bu->type->name }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
@@ -192,7 +184,6 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

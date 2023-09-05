@@ -10,8 +10,13 @@ class Bus extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type',
+        'type_id',
         'immatriculation',
         'status'
     ];
+
+    public function type()
+    {
+        return $this->belongsTo('App\Models\Type');
+    }
 }
