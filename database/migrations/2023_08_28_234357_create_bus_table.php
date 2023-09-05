@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('buses', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->foreignId('type_id')->constrained()->onUpdate('cascade');
             $table->string('immatriculation');
             $table->string('status')->default("active");
             $table->timestamps();

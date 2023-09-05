@@ -66,7 +66,6 @@ Route::get('customer-management', [CustomerController::class, 'listCustomers'])-
 Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
 Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
 Route::get('customer-management', [CustomerController::class, 'index', 'index2']);
-// Route::get('customer-management', [CustomerController::class, 'index2']);
 
 
 //roles routes
@@ -95,13 +94,9 @@ Route::get('travel-management', [TravelController::class, 'all'])->name("travel-
 //Destinations routes
 Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
 
+
 //History routes
 Route::get('history', [HistoriesController::class, 'index']);
-
-
-
-//Change Password route
-
 
 
 //Récupération des utilisateurs
