@@ -14,6 +14,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,11 +62,26 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
+//User route
+Route::get('user-management', [UserController::class, 'listUser'])->name('user-management');
+Route::post('/add-user', [UserController::class, 'addUser']);
+Route::get('/delete-user/{id}', [UserController::class, 'deleteUser']);
+Route::get('user-status/{id}/{status}', [UserController::class, 'changeUserStatus']);
+
+
+
+
+
+
+
+
+
+
 //Customers routes
 Route::get('customer-management', [CustomerController::class, 'listCustomers'])->name("customer-management");
 Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
 Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
-Route::get('customer-management', [CustomerController::class, 'index', 'index2']);
+Route::get('customer-management', [CustomerController::class, 'index']);
 
 
 //roles routes
@@ -85,6 +101,7 @@ Route::post('/add-bus', [BusController::class, 'addBus'])->name('add-bus');
 Route::get('bus-status/{id}/{status}', [BusController::class, 'changeBusStatus']);
 Route::get('/delete-bus/{id}', [BusController::class, 'deleteBus']);
 Route::post('/update-bus', [BusController::class, 'updateBus'])->name('update-bus');
+
 
 
 //Travels routes

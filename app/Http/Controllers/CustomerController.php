@@ -28,18 +28,18 @@ class CustomerController extends Controller
         ->with('suspendedCustomers', $suspendedCustomers);
     }
 
-    public function index2()
-    {
-        $customers = Customer::where('status', 'suspended')->get();
-        Customer::suspended()->get();
-        $customers = Customer::has('status')->get();
+    // public function index2()
+    // {
+    //     $customers = Customer::where('status', 'suspended')->get();
+    //     Customer::suspended()->get();
+    //     $customers = Customer::has('status')->get();
 
-        $suspendedCustomers = $customers->filter(function ($customer) {
-            return $customer->status == 'suspended';
-        });
+    //     $suspendedCustomers = $customers->filter(function ($customer) {
+    //         return $customer->status == 'suspended';
+    //     });
 
-        return view('pages.customer-management', ['customers' => $customers, $suspendedCustomers]);
-    }
+    //     return view('pages.customer-management', ['customers' => $customers, $suspendedCustomers]);
+    // }
 
 
     public function listCustomer()

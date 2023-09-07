@@ -22,4 +22,9 @@ class Type extends Model
     {
         return $this->hasMany('App\Models\Bus');
     }
+
+    public function buses()
+    {
+        return $this->hasMany(Bus::class);
+    }
 }

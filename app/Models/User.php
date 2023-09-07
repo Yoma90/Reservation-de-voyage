@@ -22,7 +22,10 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'phone',
+        'status',
+        'agency',
     ];
 
     /**
@@ -49,5 +52,8 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Role');
     }
 
-
+    public function histories()
+    {
+        return $this->belongsTo('App\Models\Histories');
+    }
 }

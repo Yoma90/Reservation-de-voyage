@@ -4,20 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Bus;
 use App\Models\Histories;
+use App\Models\Role;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
 class BusController extends Controller
 {
+    public function view()
+    {
+        $bus = Bus::with('type')->get();
+        $vipBus = $bus->where('type', 'VIP');
+        $classicBus = $bus->where('type', 'Classic');
+
+        return view('pages.bus-management')
+        ->with('bus', $bus)
+        ->with('vipBus', $vipBus)
+        ->with('classicBus', $classicBus);
+    }
 
     public function index()
     {
-        $bus = Bus::get();
+        $bus = Bus::with('type')->get();
         $types = Type::get();
+        $roles = Role::get();
+
+
+        $vipBus = $bus->where('type', 'VIP');
+        $classicBus = $bus->where('type', 'Classic');
 
         return view('pages.bus-management')
             ->with('bus', $bus)
-            ->with('types', $types);
+            ->with('types', $types)
+            ->with('bus', $bus)
+            ->with('roles', $roles)
+            ->with('vipBus', $vipBus)
+            ->with('classicBus', $classicBus);
     }
 
     public function updateBus(Request $request)
@@ -29,14 +50,17 @@ class BusController extends Controller
             "type" => "",
             "message" => "",
         ];
-
-        if ($this->checkBusType($attributes["type_id"])) {
-            $bus = Bus::updated($attributes);
-            $response = [
-                "type" => "success",
-                "message" => "Bus updated successfully",
-            ];
-        }
+        Bus::create($attributes);
+        $user_id = auth()->user()->id;
+        Histories::create([
+            'notification' => "updated bus successfully ",
+            'type' => "add",
+            'user_id' => $user_id,
+        ]);
+        $response = [
+            "type" => "success",
+            "message" => "Bus updated successfully",
+        ];
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
@@ -50,11 +74,11 @@ class BusController extends Controller
             "type" => "",
             "message" => "",
         ];
-        if ($this->checkBusType($attributes["immatriculation"])) {
+        if ($this->checkBusImmatriculation($attributes["immatriculation"])) {
             $bus = Bus::create($attributes);
             $user_id = auth()->user()->id;
             Histories::create([
-                'notification' => "added $bus->type bus successfully ",
+                'notification' => "added $bus->type_id bus successfully ",
                 'type' => "add",
                 'user_id' => $user_id,
             ]);
@@ -62,16 +86,14 @@ class BusController extends Controller
                 "type" => "success",
                 "message" => "Bus added successfully",
             ];
-        }
-        else{
-
+        } else {
         }
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-    public function checkBusType($type)
+    public function checkBusImmatriculation($type_id)
     {
-        if (Bus::where("immatriculation", $type)->count() > 0) {
+        if (Bus::where("immatriculation", $type_id)->count() > 0) {
             return false;
         } else {
             return true;

@@ -48,8 +48,6 @@ class UserSeeder extends Seeder
             'email' => 'kempes@gmail.com',
             'password' => Hash::make('secret'),
             'role_id' => 1,
-            'phone' => '658288757',
-            'location' => 'Douala',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -80,18 +78,6 @@ class UserSeeder extends Seeder
             'user_name' => 'BanolAC',
             'email' => 'ACBanol@gmail.com',
             'password' => Hash::make('123456789'),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('managers')->insert([
-            'id' => 1,
-            'first_name' => 'Miendjem',
-            'last_name' => 'Thierry',
-            'email' => 'Miendjemthierry01@gmail.com',
-            'password' => Hash::make('123456789'),
-            'role_id' =>2,
-            'phone'=> '654894523',
-            'agency' => 'Finexx',
             'created_at' => now(),
             'updated_at' => now()
         ]);

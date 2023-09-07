@@ -19,4 +19,16 @@ class Bus extends Model
     {
         return $this->belongsTo('App\Models\Type');
     }
+
+    public function scopeVip($query)
+    {
+        return $query->where('type', 'VIP');
+    }
+
+    public function scopeClassic($query)
+    {
+        return $query->where('type', 'Classic');
+    }
+
+
 }
