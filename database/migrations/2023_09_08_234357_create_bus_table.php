@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('buses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('type_id')->constrained()->onUpdate('cascade');
-            $table->string('immatriculation');
+            $table->string('immatriculation')->unique();
             $table->string('status')->default("active");
             $table->timestamps();
         });

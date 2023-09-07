@@ -21,7 +21,9 @@ class SessionsController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        // dd($attributes);
+
+        
+
         if (Auth::attempt($attributes)) {
             session()->regenerate();
             $user_id = auth()->user()->id;
@@ -51,7 +53,8 @@ class SessionsController extends Controller
 
         Auth::logout();
 
-        return redirect('/login')->with(['success' => 'You\'ve been logged out.']);
+        return view('/login')
+        ->with(['success' => 'You\'ve been logged out.']);
     }
 
     public function changeUserPassword(Request $request)

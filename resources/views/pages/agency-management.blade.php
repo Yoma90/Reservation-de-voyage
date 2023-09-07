@@ -8,25 +8,25 @@
                     <div class="card-header pb-0">
                         <div class="d-flex flex-row justify-content-between">
                             <div>
-                                <h5 class="mb-0">All Users</h5>
+                                <h5 class="mb-0">All Agencies</h5>
                             </div>
                             <div class="col-md-2">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal"
                                     data-bs-target="#exampleModalMessage">
-                                    +&nbsp; New User
+                                    +&nbsp; New Agency
                                 </button>
 
-                                <!-- Modal -->
+                                <!-- Modal for add agency-->
                                 <div class="modal fade" id="exampleModalMessage" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="mb-0">new user</h5>
+                                                <h5 class="mb-0">new agency</h5>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/add-user" method="POST">
+                                                <form action="/add-agency" method="POST">
                                                     @csrf
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">First
@@ -54,16 +54,11 @@
                                                             name="phone" required>
                                                     </div>
 
-                                                    @csrf
                                                     <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Role</label>
-                                                        <select class="form-control" id="role_id" name="role_id" required>
-                                                            <option></option>
-                                                            @foreach ($roles as $role)
-                                                                <option value="{{ $role->id }}">
-                                                                    {{ $role->name }}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <label for="recipient-name" class="col-form-label">Agency
+                                                            Name</label>
+                                                        <input type="text" class="form-control" id="agency"
+                                                            name="agency" required>
                                                     </div>
 
 
@@ -75,6 +70,44 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Modal for update agency-->
+                                @foreach ($agencies as $agency)
+                                    <div class="modal fade" id="exampleModalMessage{{ $agency->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="mb-0">new agency</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/update-agency" method="POST">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            {{ $agency->email }}
+                                                            <input type="text" class="form-control" value=""
+                                                                id="email" name="email" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Agency
+                                                                Name</label>
+                                                            <input type="text" class="form-control" id="agency"
+                                                                name="agency" required>
+                                                        </div>
+
+
+                                                        <div class="modal-footer">
+                                                            <button type="submit"
+                                                                class="btn bg-gradient-primary">Add</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -102,7 +135,11 @@
                                         </th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Role
+                                            Phone
+                                        </th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Agency
                                         </th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -115,56 +152,66 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($agencies as $agency)
                                         <tr>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $user->id }}
+                                                    {{ $agency->id }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $user->first_name }}
+                                                    {{ $agency->first_name }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $user->last_name }}
+                                                    {{ $agency->last_name }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $user->email }}
+                                                    {{ $agency->email }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $user->role->name }}
+                                                    {{ $agency->phone }}
+                                                </p>
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-xs font-weight-bold mb-0">
+                                                    {{ $agency->agency }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">
-                                                    {{ $user->created_at }}
+                                                    {{ $agency->created_at }}
                                                 </span>
                                             </td>
                                             <td class="text-center">
-                                                @if ($user->status === 'active')
-                                                    <a href="/user-status/{{ $user->id }}/suspended" class="mx-3"
-                                                        data-bs-toggle="tooltip" data-bs-original-title="suspend user">
+                                                @if ($agency->status === 'active')
+                                                    <a href="/agency-status/{{ $agency->id }}/suspended" class="mx-3"
+                                                        data-bs-toggle="tooltip" data-bs-original-title="suspend agency">
                                                         <i class="fas fa-stop"></i>
                                                     </a>
                                                 @else
-                                                    <a href="/user-status/{{ $user->id }}/active" class="mx-3"
-                                                        data-bs-toggle="tooltip" data-bs-original-title="activate user"><i
+                                                    <a href="/agency-status/{{ $agency->id }}/active" class="mx-3"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-original-title="activate agency"><i
                                                             class="fas fa-solid fa-check"></i>
                                                     </a>
                                                 @endif
                                                 <span>
                                                     <a class="mx-3" data-bs-toggle="tooltip"
-                                                        href="/delete-user/{{ $user->id }}"
-                                                        data-bs-original-title="delete user">
+                                                        href="/delete-agency/{{ $agency->id }}"
+                                                        data-bs-original-title="delete agency">
                                                         <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                                     </a>
+                                                    {{-- <a href="list-bus">
+                                                        <button id="" type="button"
+                                                            class="btn bg-gradient-info btn-block mb-2"></button>
+                                                    </a> --}}
                                                 </span>
                                             </td>
                                         </tr>

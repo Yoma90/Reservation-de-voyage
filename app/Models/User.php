@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Role');
     }
 
+    public function bus()
+    {
+        return $this->hasMany('App\Models\Bus');
+    }
+
     public function histories()
     {
         return $this->belongsTo('App\Models\Histories');

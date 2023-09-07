@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helper\UserService;
 use App\Models\Customer;
+use App\Models\Histories;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -74,11 +75,23 @@ class CustomerController extends Controller
                     "type" => "success",
                     "message" => "Customer activated successfully",
                 ];
+                $user_id = auth()->user()->id;
+                Histories::create([
+                    'notification' => "activated $customer->type_id customer successfully ",
+                    'type' => "change",
+                    'user_id' => $user_id,
+                ]);
             } else {
                 $response = [
                     "type" => "success",
                     "message" => "Customer suspended successfully",
                 ];
+                $user_id = auth()->user()->id;
+                Histories::create([
+                    'notification' => "suspended $customer->type_id customer successfully ",
+                    'type' => "change",
+                    'user_id' => $user_id,
+                ]);
             }
         } else {
             $response = [

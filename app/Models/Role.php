@@ -18,4 +18,8 @@ class Role extends Model
     {
         return $this->hasMany('App\Models\User');
     }
+
+    public function bus(){
+        return $this->hasMany('App\Models\Bus');
+    }
 }

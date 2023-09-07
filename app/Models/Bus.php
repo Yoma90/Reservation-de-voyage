@@ -12,12 +12,28 @@ class Bus extends Model
     protected $fillable = [
         'type_id',
         'immatriculation',
+        // 'agency_id',
         'status'
     ];
 
     public function type()
     {
         return $this->belongsTo('App\Models\Type');
+    }
+
+    public function agency()
+    {
+        return $this->belongsTo('App\Models\Agency');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role');
     }
 
     public function scopeVip($query)
