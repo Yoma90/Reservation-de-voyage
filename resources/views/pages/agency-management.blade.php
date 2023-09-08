@@ -29,38 +29,10 @@
                                                 <form action="/add-agency" method="POST">
                                                     @csrf
                                                     <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">First
-                                                            Name</label>
-                                                        <input type="text" class="form-control" id="first-name"
-                                                            name="first_name" required>
+                                                        <label for="recipient-name" class="col-form-label">Name</label>
+                                                        <input type="text" class="form-control" id="name"
+                                                            name="name" required>
                                                     </div>
-
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Last Name</label>
-                                                        <input type="text" class="form-control" id="last-name"
-                                                            name="last_name" required>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Email</label>
-                                                        <input type="email" class="form-control" id="email"
-                                                            name="email" required>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Phone
-                                                            Number</label>
-                                                        <input type="number" class="form-control" id="phone"
-                                                            name="phone" required>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Agency
-                                                            Name</label>
-                                                        <input type="text" class="form-control" id="agency"
-                                                            name="agency" required>
-                                                    </div>
-
 
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn bg-gradient-primary">Add</button>
@@ -72,7 +44,7 @@
                                 </div>
 
                                 <!-- Modal for update agency-->
-                                @foreach ($agencies as $agency)
+                                {{-- @foreach ($agencies as $agency)
                                     <div class="modal fade" id="exampleModalMessage{{ $agency->id }}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -106,7 +78,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @endforeach --}}
 
                             </div>
                         </div>
@@ -123,23 +95,11 @@
                                         </th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            First Name
+                                            Name
                                         </th>
                                         <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Last Name
-                                        </th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Email
-                                        </th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Phone
-                                        </th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Agency
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Status
                                         </th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -161,27 +121,12 @@
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $agency->first_name }}
+                                                    {{ $agency->name }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $agency->last_name }}
-                                                </p>
-                                            </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $agency->email }}
-                                                </p>
-                                            </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $agency->phone }}
-                                                </p>
-                                            </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $agency->agency }}
+                                                    {{ $agency->status }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
@@ -208,6 +153,12 @@
                                                         data-bs-original-title="view buses">
                                                         <i class="cursor-pointer fas fa-eye text-secondary"></i>
                                                     </a>
+                                                    {{-- <a
+
+                                                        data-bs-toggle="tooltip" href="list-bus">
+                                                        <button id="" type="button" title="view buses"
+                                                            class="btn bg-gradient-info btn-block mb-2"></button>
+                                                    </a> --}}
                                                 </span>
                                                 <span>
                                                     <a class="mx-3" data-bs-toggle="tooltip"

@@ -8,9 +8,11 @@ use App\Models\Histories;
 use App\Models\Role;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Throwable;
 
 class BusController extends Controller
 {
+
 
 
     public function listBuses(Agency $agencies)
@@ -70,26 +72,37 @@ class BusController extends Controller
             ->with('classicBus', $classicBus);
     }
 
-    public function updateBus(Request $request)
+    public function updateBus(Request $request, $id)
     {
-        $attributes = $request->validate([
+        $request->validate([
             'type_id' => "required",
         ]);
         $response = [
             "type" => "",
             "message" => "",
         ];
-        $bus = Bus::create($attributes);
-        $user_id = auth()->user()->id;
-        Histories::create([
-            'notification' => "updated bus successfully ",
-            'type' => "add",
-            'user_id' => $user_id,
-        ]);
-        $response = [
-            "type" => "success",
-            "message" => "Bus updated successfully",
-        ];
+        try {
+            $bus = Bus::findOrFail($id);
+            $bus->type_id = $request->input('type_id');
+            $bus->save();
+
+            $response = [
+                "type" => "success",
+                "message" => "Updated bus successfully"
+            ];
+
+            $user_id = auth()->user()->id;
+            Histories::create([
+                "notification" => "updated $bus->type_id bus successfully.",
+                "type" => "change",
+                "user_id" => $user_id,
+            ]);
+        } catch (Throwable $th) {
+            $response = [
+                "type" => "danger",
+                "message" => "Internal server error",
+            ];
+        }
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
@@ -99,7 +112,7 @@ class BusController extends Controller
     {
         $attributes = $request->validate([
             'type_id' => "required",
-            'immatriculation' => "required"
+            'immatriculation' => "required",
         ]);
         $response = [
             "type" => "",

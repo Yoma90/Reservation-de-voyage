@@ -42,14 +42,6 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="role">Role</label>
-                                    <select name="role" id="role" class="form-control">
-                                        <option value="admin">Administrator</option>
-                                        <option value="agency">Manager</option>
-                                    </select>
-                                </div>
-
                                 <div class="text-center">
                                     <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Sign in</button>
                                 </div>

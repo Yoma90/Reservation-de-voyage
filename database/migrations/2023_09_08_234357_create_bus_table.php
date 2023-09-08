@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Nullable;
 
 return new class extends Migration
 {
@@ -15,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('type_id')->constrained()->onUpdate('cascade');
             $table->string('immatriculation')->unique();
+            $table->foreignId('agency_id')->nullable()->constrained()->onUpdate('cascade');
             $table->string('status')->default("active");
             $table->timestamps();
         });

@@ -53,6 +53,18 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        // DB::table('agencies')->insert([
+        //     'id' => 1,
+        //     'first_name' => 'Thierry',
+        //     'last_name' => 'Miendjem',
+        //     'email' => 'mit@gmail.com',
+        //     'password' => Hash::make('123546789'),
+        //     'phone' => '658528672',
+        //     'role_id' => 2,
+        //     'agency' => 'Finexx',
+        //     'created_at' => now(),
+        //     'updated_at' => now()
+        // ]);
         DB::table('customers')->insert([
             'id' => 1,
             'first_name' => 'Kempes',

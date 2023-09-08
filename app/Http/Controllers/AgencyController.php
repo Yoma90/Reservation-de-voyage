@@ -39,7 +39,7 @@ class AgencyController extends Controller
                 ];
                 $user_id = auth()->user()->id;
                 Histories::create([
-                    'notification' => "activated $agency->first_name agency successfully ",
+                    'notification' => "activated $agency->name agency successfully ",
                     'type' => "change",
                     'user_id' => $user_id,
                 ]);
@@ -50,7 +50,7 @@ class AgencyController extends Controller
                 ];
                 $user_id = auth()->user()->id;
                 Histories::create([
-                    'notification' => "suspended $agency->first_name agency successfully ",
+                    'notification' => "suspended $agency->name agency successfully ",
                     'type' => "change",
                     'user_id' => $user_id,
                 ]);
@@ -79,7 +79,7 @@ class AgencyController extends Controller
             ];
             $user_id = auth()->user()->id;
             Histories::create([
-                'notification' => "deleted $agency->first_name agency successfully ",
+                'notification' => "deleted $agency->name agency successfully ",
                 'type' => "delete",
                 'user_id' => $user_id,
             ]);
@@ -93,15 +93,11 @@ class AgencyController extends Controller
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
- 
+
     public function addAgency(Request $request)
     {
         $attributes = $request->validate([
-            'first_name' => "required|max:50",
-            'last_name' => "required|max:50",
-            'email'     => "required|max:50",
-            'phone' => "required|max:50",
-            'agency' => "required|max:50",
+            'name' => "required|max:50",
         ]);
 
         $response = [
@@ -110,14 +106,12 @@ class AgencyController extends Controller
         ];
 
         try {
-            if ($this->checkEmail($attributes['email'])) {
-
-                $attributes['password'] = Hash::make('00000000');
+            if ($this->checkEmail($attributes['name'])) {
 
                 $agencies = Agency::create($attributes);
                 $user_id = auth()->user()->id;
                 Histories::create([
-                    'notification' => "added $agencies->first_name agency successfully ",
+                    'notification' => "added $agencies->name agency successfully ",
                     'type' => "add",
                     'user_id' => $user_id,
                 ]);
@@ -128,7 +122,7 @@ class AgencyController extends Controller
             } else {
                 $response = [
                     "type" => "danger",
-                    "message" => "This Agency email already exist",
+                    "message" => "This Agency name already exist",
                 ];
             }
         } catch (\Throwable $th) {
@@ -173,9 +167,9 @@ class AgencyController extends Controller
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-    public function checkEmail($email)
+    public function checkEmail($name)
     {
-        if (Agency::where("email", $email)->count() > 0) {
+        if (Agency::where("name", $name)->count() > 0) {
             return false;
         } else {
             return true;

@@ -46,11 +46,12 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <form action="{{ route('update-bus') }}" method="POST">
+                        <form action="{{ route('update-bus', $bu->id) }}" method="POST">
                             <div class="form-group">
                                 <h5>Update bus</h5>
                             </div>
                             @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 {{ $bu->immatriculation }}
                                 <input type="text" value=" {{ $bu->id }} " class="form-control" id="type"
@@ -114,13 +115,16 @@
                                         <div>
                                             <h5 class="mb-0">All Buses</h5>
                                         </div>
-                                        <div class="d-flex">
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn bg-gradient-success btn-block mb-3"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
-                                                +&nbsp; New Bus
-                                            </button>
-                                        </div>
+                                        @if (auth()->user()->role_id == 2)
+                                            <div class="d-flex">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn bg-gradient-success btn-block mb-3"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
+                                                    +&nbsp; New Bus
+                                                </button>
+                                            </div>
+                                        @endif
+
                                     </div>
                                 </div>
                                 <tr>
@@ -195,7 +199,8 @@
                                                 </a>
                                                 {{-- <a data-bs-toggle="modal"
                                                     data-bs-target="#exampleModalMessage{{ $bu->id }}"
-                                                    data-bs-toggle="tooltip" href="/update-bus/{{ $bu->id }}">
+                                                    data-bs-toggle="tooltip" href="/update-bus/{{ $bu->id }}"
+                                                    title="update bus">
                                                     <button id="" type="button"
                                                         class="btn bg-gradient-info btn-block mb-2"></button>
                                                 </a> --}}

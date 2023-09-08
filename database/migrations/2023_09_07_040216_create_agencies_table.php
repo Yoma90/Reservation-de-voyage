@@ -13,13 +13,8 @@ return new class extends Migration
     {
         Schema::create('agencies', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->bigInteger('phone')->nullable();
+            $table->string('name');
             $table->string('status')->default("active");
-            $table->string('agency');
             $table->timestamps();
         });
     }

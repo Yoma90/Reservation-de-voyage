@@ -9,13 +9,8 @@ class Agency extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'password',
-        'phone',
+        'name',
         'status',
-        'agency',
     ];
 
     protected $hidden = [
@@ -29,5 +24,13 @@ class Agency extends Model
 
     public function bus(){
         return $this->hasMany('App\Models\Bus');
+    }
+
+    public function user(){
+        return $this->hasOne('App\Models\User');
+    }
+
+    public function role(){
+        return $this->belongsTo('App\Models\Role');
     }
 }

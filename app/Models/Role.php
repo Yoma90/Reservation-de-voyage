@@ -22,4 +22,8 @@ class Role extends Model
     public function bus(){
         return $this->hasMany('App\Models\Bus');
     }
+
+    public function agency(){
+        return $this->hasMany('App\Models\Agency');
+    }
 }

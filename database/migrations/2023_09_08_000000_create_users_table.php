@@ -20,8 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->bigInteger('phone')->nullable();
-            $table->string('location')->nullable();
             $table->foreignId('role_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('agency_id')->nullable()->constrained()->onUpdate('cascade');
+            $table->string('location')->nullable();
             $table->string('status')->default("active");
             $table->rememberToken();
             $table->timestamps();

@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'role_id',
         'phone',
+        'agency_id',
         'location',
         'status',
     ];
@@ -50,6 +51,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo('App\Models\Role');
+    }
+
+    public function agency()
+    {
+        return $this->belongsTo('App\Models\Agency');
     }
 
     public function bus()

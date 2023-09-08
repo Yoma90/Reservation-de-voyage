@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Helper\UserService;
+use App\Models\Bus;
+use App\Models\Agency;
+use App\Models\Bus as ModelsBus;
 use App\Models\Customer;
 use App\Models\Histories;
 use App\Models\History;
@@ -22,23 +25,39 @@ class UserController extends Controller
         return response()->json($response);
     }
 
-    public function listUser()
+    public function index()
     {
-        $users = User::get();
-        $roles = Role::get();
-
-        return view('pages.user-management')
-        ->with('roles', $roles)
-        ->with('users', $users);
+        return view('pages.user-management');
     }
 
-    public function addUser(Request $request){
+    // public function listBusesByAgency($agency_id)
+    // {
+    //     $agencies = Agency::findOrFail($agency_id);
+    //     $bus = Bus::where('agency_id', $agencies->id)->get();
+
+    //     return view('pages.list-bus')->with('agencies', $agencies)->with('bus', $bus);
+    // }
+
+    public function listUser()
+    {
+        $users = User::where('id', '!=', auth()->user()->id)->get();
+        $roles = Role::get();
+        $agencies = Agency::get();
+
+        return view('pages.user-management')
+            ->with('agencies', $agencies)
+            ->with('roles', $roles)
+            ->with('users', $users);
+    }
+
+    public function addUser(Request $request)
+    {
         $attributes = $request->validate([
             'first_name' => "required|max:50",
             'last_name' => "required|max:50",
             'email'     => "required|max:50",
             'phone' => "required|max:50",
-            'role_id' => "required"
+            'agency_id' => "required|max:50"
         ]);
         $response = [
             'type' => "",
@@ -46,38 +65,31 @@ class UserController extends Controller
         ];
 
         try {
-            if ($attributes['role_id'] !== "1"){
-                if ($this->checkEmail($attributes['email'])) {
-                    $attributes['password'] = Hash::make('00000000');
-
-                    if ($attributes['role_id'] == 2) {
-                        $user = User::create($attributes);
-                            $response = [
-                                "type" => "success",
-                                "message" => "User added successfully",
-                            ];
-                            $user_id = auth()->user()->id;
-                            Histories::create([
-                                "notification" => " added $user->first_name user Successfully",
-                                "type" => "add",
-                                "user_id" => $user_id,
-                            ]);
-                    } else {
-                        $response = [
-                            "type" => "danger",
-                            "message" => "Cannot add an Administrator",
-                        ];
-                    }
+            if ($this->checkEmail($attributes['email'])) {
+                $attributes['password'] = Hash::make('00000000');
+                $attributes['role_id'] = ('2');
+                if ($this->checkAgencyId($attributes['agency_id'])) {
+                    $user = User::create($attributes);
+                    $response = [
+                        "type" => "success",
+                        "message" => "User added successfully",
+                    ];
+                    $user_id = auth()->user()->id;
+                    Histories::create([
+                        "notification" => " added $user->first_name user Successfully",
+                        "type" => "add",
+                        "user_id" => $user_id,
+                    ]);
                 } else {
                     $response = [
                         "type" => "danger",
-                        "message" => "This email has already been used",
+                        "message" => "This agency name has already been used",
                     ];
                 }
-            }else{
+            } else {
                 $response = [
-                    "type" => "warning",
-                    "message" => "Adding users are not yet available",
+                    "type" => "danger",
+                    "message" => "This email has already been used",
                 ];
             }
         } catch (\Throwable $th) {
@@ -89,13 +101,20 @@ class UserController extends Controller
 
 
         return redirect()->back()->with($response['type'], $response['message']);
-
-
     }
 
     public function checkEmail($email)
     {
         if (User::where("email", $email)->count() > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function checkAgencyId($agency)
+    {
+        if (User::where("agency_id", $agency)->count() > 0) {
             return false;
         } else {
             return true;
