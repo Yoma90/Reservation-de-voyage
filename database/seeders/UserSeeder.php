@@ -47,6 +47,8 @@ class UserSeeder extends Seeder
             'last_name' => 'Super',
             'email' => 'kempes@gmail.com',
             'password' => Hash::make('secret'),
+            'phone' => '658288757',
+            'location' => 'Yaoundé',
             'role_id' => 1,
             'created_at' => now(),
             'updated_at' => now()

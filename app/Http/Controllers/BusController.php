@@ -12,8 +12,10 @@ use Illuminate\Http\Request;
 class BusController extends Controller
 {
 
-    public function listBuses()
+
+    public function listBuses(Agency $agencies)
     {
+        $buses = $agencies->buses;
         // $bus = Bus::find('id', auth()->user())->get();
         $bus = Bus::with('type')->get();
         $roles = Role::get();
@@ -26,6 +28,7 @@ class BusController extends Controller
 
 
         return view('pages.list-bus')
+            ->with('buses', $buses)
             ->with('types', $types)
             ->with('bus', $bus)
             ->with('agencies', $agencies)
@@ -76,23 +79,23 @@ class BusController extends Controller
             "type" => "",
             "message" => "",
         ];
-            $bus = Bus::create($attributes);
-            $user_id = auth()->user()->id;
-            Histories::create([
-                'notification' => "updated bus successfully ",
-                'type' => "add",
-                'user_id' => $user_id,
-            ]);
-            $response = [
-                "type" => "success",
-                "message" => "Bus updated successfully",
-            ];
+        $bus = Bus::create($attributes);
+        $user_id = auth()->user()->id;
+        Histories::create([
+            'notification' => "updated bus successfully ",
+            'type' => "add",
+            'user_id' => $user_id,
+        ]);
+        $response = [
+            "type" => "success",
+            "message" => "Bus updated successfully",
+        ];
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
 
-            public function addBus(Request $request)
+    public function addBus(Request $request)
     {
         $attributes = $request->validate([
             'type_id' => "required",

@@ -187,7 +187,6 @@
                                                     <i class="cursor-pointer fas fa-solid fa-pen text-secondary"></i>
                                                 </a>
                                             </span>
-
                                             <span>
                                                 <a class="mx-3" data-bs-toggle="tooltip"
                                                     href="/delete-bus/{{ $bu->id }}"

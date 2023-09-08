@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class SessionsController extends Controller
 {
+
     public function create()
     {
         return view('session.login-session');
@@ -21,8 +22,6 @@ class SessionsController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
-        
 
         if (Auth::attempt($attributes)) {
             session()->regenerate();

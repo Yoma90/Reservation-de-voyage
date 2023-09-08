@@ -39,8 +39,8 @@ class AgencyController extends Controller
                 ];
                 $user_id = auth()->user()->id;
                 Histories::create([
-                    'notification' => "added $agency->first_name agency successfully ",
-                    'type' => "add",
+                    'notification' => "activated $agency->first_name agency successfully ",
+                    'type' => "change",
                     'user_id' => $user_id,
                 ]);
             } else {
@@ -50,8 +50,8 @@ class AgencyController extends Controller
                 ];
                 $user_id = auth()->user()->id;
                 Histories::create([
-                    'notification' => "added $agency->first_name agency successfully ",
-                    'type' => "add",
+                    'notification' => "suspended $agency->first_name agency successfully ",
+                    'type' => "change",
                     'user_id' => $user_id,
                 ]);
             }
@@ -93,7 +93,7 @@ class AgencyController extends Controller
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
-
+ 
     public function addAgency(Request $request)
     {
         $attributes = $request->validate([

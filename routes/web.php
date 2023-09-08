@@ -89,7 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bus-status/{id}/{status}', [BusController::class, 'changeBusStatus']);
     Route::get('/delete-bus/{id}', [BusController::class, 'deleteBus']);
     Route::post('/update-bus', [BusController::class, 'updateBus'])->name('update-bus');
-
+    // Route::get('bus-management', [BusController::class, 'edit'])->name('bus-management');
 
 
     //Travels routes
@@ -103,15 +103,13 @@ Route::group(['middleware' => 'auth'], function () {
 //Récupération des utilisateurs
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/register', [RegisterController::class, 'create']);
-    Route::post('/register', [RegisterController::class, 'store']);
+    // Route::get('/register', [RegisterController::class, 'create']);
+    // Route::post('/register', [RegisterController::class, 'store']);
     Route::get('/login', [SessionsController::class, 'create']);
     Route::post('/session', [SessionsController::class, 'store']);
-    Route::get('/login/forgot-password', [ResetController::class, 'create']);
-    Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
+    // Route::get('/login/forgot-password', [ResetController::class, 'create']);
+    // Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
     Route::post('/change-password', [SessionsController::class, 'changeUserPassword']);
-    Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
-    Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
 });
 
 Route::get('/login', function () {

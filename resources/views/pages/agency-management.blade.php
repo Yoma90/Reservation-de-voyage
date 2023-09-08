@@ -204,14 +204,17 @@
                                                 @endif
                                                 <span>
                                                     <a class="mx-3" data-bs-toggle="tooltip"
+                                                        href="list-bus"
+                                                        data-bs-original-title="view buses">
+                                                        <i class="cursor-pointer fas fa-eye text-secondary"></i>
+                                                    </a>
+                                                </span>
+                                                <span>
+                                                    <a class="mx-3" data-bs-toggle="tooltip"
                                                         href="/delete-agency/{{ $agency->id }}"
                                                         data-bs-original-title="delete agency">
                                                         <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                                     </a>
-                                                    {{-- <a href="list-bus">
-                                                        <button id="" type="button"
-                                                            class="btn bg-gradient-info btn-block mb-2"></button>
-                                                    </a> --}}
                                                 </span>
                                             </td>
                                         </tr>
