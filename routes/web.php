@@ -13,6 +13,7 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VilleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -111,7 +112,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/add-bus', [BusController::class, 'addBus'])->name('add-bus');
 
     // });
+
+    Route::post('/add-city', [VilleController::class, 'addCity'])->name('add-city');
+    Route::get('ville-management', [VilleController::class, 'listVille'])->name('ville-management');
+    Route::get('/delete-city/{id}', [VilleController::class, 'deleteCity']);
+    Route::get('city-status/{id}/{status}', [VilleController::class, 'changeCityStatus']);
 });
+
+
 
 
 

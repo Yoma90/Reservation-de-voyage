@@ -124,6 +124,8 @@ class UserController extends Controller
 
     public function changeUserStatus($id, $status)
     {
+
+
         $response = [
             "type" => "",
             "message" => "",
@@ -139,8 +141,8 @@ class UserController extends Controller
                     "message" => "User activated successfully",
                 ];
                 $user_id = auth()->user()->id;
-                Histories::create([
-                    "notification" => " activated $user->first_name user Successfully",
+                History::create([
+                    "notification" => " activated $user->name user Successfully",
                     "type" => "change",
                     "user_id" => $user_id,
                 ]);
@@ -150,8 +152,8 @@ class UserController extends Controller
                     "message" => "User suspended successfully",
                 ];
                 $user_id = auth()->user()->id;
-                Histories::create([
-                    "notification" => " suspended $user->first_name user Successfully",
+                History::create([
+                    "notification" => " suspended $user->name user Successfully",
                     "type" => "change",
                     "user_id" => $user_id,
                 ]);

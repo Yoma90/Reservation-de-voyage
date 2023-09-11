@@ -18,7 +18,6 @@ class BusController extends Controller
     public function listBuses(Agency $agencies)
     {
         $buses = $agencies->buses;
-        // $bus = Bus::find('id', auth()->user())->get();
         $bus = Bus::with('type')->get();
         $roles = Role::get();
         $agencies = Agency::get();

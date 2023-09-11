@@ -21,6 +21,11 @@ class Bus extends Model
         return $this->belongsTo('App\Models\Type');
     }
 
+    public function bus()
+    {
+        return $this->belongsTo('App\Models\User', 'agency_id');
+    }
+
     public function agency()
     {
         return $this->belongsTo('App\Models\Agency');
@@ -29,11 +34,6 @@ class Bus extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
-    }
-
-    public function role()
-    {
-        return $this->belongsTo('App\Models\Role');
     }
 
     public function scopeVip($query)

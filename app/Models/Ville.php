@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Agency extends Model
+class Ville extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'status',
@@ -22,19 +23,8 @@ class Agency extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public function bus(){
-        return $this->hasMany('App\Models\Bus');
-    }
 
-    public function user(){
-        return $this->hasOne('App\Models\User');
-    }
-
-    public function role(){
-        return $this->belongsTo('App\Models\Role');
-    }
-
-    public function ville(){
-        return $this->belongsTo('App\Models\Ville');
+    public function agency(){
+        return $this->hasMany('App\Models\Agency');
     }
 }

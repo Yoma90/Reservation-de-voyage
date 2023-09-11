@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function bus()
     {
-        return $this->hasMany('App\Models\Bus');
+        return $this->hasMany('App\Models\Bus', 'agency_id');
     }
 
     public function histories()
