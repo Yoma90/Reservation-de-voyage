@@ -168,7 +168,8 @@
 
             @if (auth()->user()->role_id == 1)
                 <li class="nav-item pb-2">
-                    <a class="nav-link {{ Request::is('ville-management') ? 'active' : '' }}" href="{{ url('ville-management') }}">
+                    <a class="nav-link {{ Request::is('ville-management') ? 'active' : '' }}"
+                        href="{{ url('ville-management') }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i style="font-size: 1rem;"
@@ -179,47 +180,50 @@
                     </a>
                 </li>
             @endif
+            @if (auth()->user()->role_id == 2)
+                <li class="nav-item pb-2">
+                    <a class="nav-link {{ Request::is('bus-management') ? 'active' : '' }}"
+                        href="{{ url('bus-management') }}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i style="font-size: 1rem;"
+                                class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ Request::is('bus-management') ? 'text-white' : 'text-dark' }} "
+                                aria-hidden="true"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Bus Management</span>
+                    </a>
+                </li>
+            @endif
+            @if (auth()->user()->role_id == 2)
+                <li class="nav-item pb-2">
+                    <a class="nav-link {{ Request::is('travel-management') ? 'active' : '' }}"
+                        href="{{ url('travel-management') }}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i style="font-size: 1rem;"
+                                class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ Request::is('travel-management') ? 'text-white' : 'text-dark' }} "
+                                aria-hidden="true"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Travel Management</span>
+                    </a>
+                </li>
+            @endif
 
-            <li class="nav-item pb-2">
-                <a class="nav-link {{ Request::is('bus-management') ? 'active' : '' }}"
-                    href="{{ url('bus-management') }}">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i style="font-size: 1rem;"
-                            class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ Request::is('bus-management') ? 'text-white' : 'text-dark' }} "
-                            aria-hidden="true"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Bus Management</span>
-                </a>
-            </li>
+            @if (auth()->user()->role_id == 2)
+                <li class="nav-item pb-2">
+                    <a class="nav-link {{ Request::is('destination-management') ? 'active' : '' }}"
+                        href="{{ url('destination-management') }}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i style="font-size: 1rem;"
+                                class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ Request::is('destination-management') ? 'text-white' : 'text-dark' }} "
+                                aria-hidden="true"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Destination Management</span>
+                    </a>
+                </li>
+            @endif
 
-
-            <li class="nav-item pb-2">
-                <a class="nav-link {{ Request::is('travel-management') ? 'active' : '' }}"
-                    href="{{ url('travel-management') }}">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i style="font-size: 1rem;"
-                            class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ Request::is('travel-management') ? 'text-white' : 'text-dark' }} "
-                            aria-hidden="true"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Travel Management</span>
-                </a>
-            </li>
-
-
-            <li class="nav-item pb-2">
-                <a class="nav-link {{ Request::is('destination-management') ? 'active' : '' }}"
-                    href="{{ url('destination-management') }}">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i style="font-size: 1rem;"
-                            class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ Request::is('destination-management') ? 'text-white' : 'text-dark' }} "
-                            aria-hidden="true"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Destination Management</span>
-                </a>
-            </li>
         </ul>
     </div>
 </aside>

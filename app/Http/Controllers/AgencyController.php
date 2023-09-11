@@ -3,20 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agency;
+use App\Models\AgencyVille;
 use App\Models\Histories;
 use App\Models\Role;
+use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AgencyController extends Controller
 {
+    public function listAgency(){
+        $agencies = Agency::get();
+        $villes = Ville::get();
+
+        return view('pages.list-agencies')
+        ->with('villes', $villes)
+        ->with('agencies', $agencies);
+    }
 
     public function listAgencies()
     {
+        $villes = Ville::get();
         $roles = Role::get();
         $agencies = Agency::get();
 
-        return view('pages.agency-management')->with('agencies', $agencies)->with('roles', $roles);
+        return view('pages.agency-management')
+        ->with('villes', $villes)
+        ->with('agencies', $agencies)->with('roles', $roles);
     }
 
     public function changeAgencyStatus($id, $status)
@@ -72,7 +85,7 @@ class AgencyController extends Controller
         try {
             $agency = Agency::find($id);
             $agency->delete();
-
+            dd($agency);
             $response = [
                 "type" => "success",
                 "message" => "The agency has successfully deleted",
@@ -97,7 +110,9 @@ class AgencyController extends Controller
     public function addAgency(Request $request)
     {
         $attributes = $request->validate([
-            'name' => "required|max:50",
+            'name' => "required",
+            'location' => 'required',
+            'ville_id' => "required"
         ]);
 
         $response = [
@@ -106,12 +121,17 @@ class AgencyController extends Controller
         ];
 
         try {
-            if ($this->checkEmail($attributes['name'])) {
+            // if ($this->checkEmail($attributes['name'])) {
 
-                $agencies = Agency::create($attributes);
+                $agency = Agency::create($attributes);
+                AgencyVille::create([
+                    'ville_id' => $attributes['ville_id'],
+                    'location' => $attributes['location'],
+                    'agency_id' => $agency->id,
+                ]);
                 $user_id = auth()->user()->id;
                 Histories::create([
-                    'notification' => "added $agencies->name agency successfully ",
+                    'notification' => "added $agency->name agency successfully ",
                     'type' => "add",
                     'user_id' => $user_id,
                 ]);
@@ -119,13 +139,14 @@ class AgencyController extends Controller
                     "type" => "success",
                     "message" => "Agency added successfully",
                 ];
-            } else {
-                $response = [
-                    "type" => "danger",
-                    "message" => "This Agency name already exist",
-                ];
-            }
+            // } else {
+            //     $response = [
+            //         "type" => "danger",
+            //         "message" => "This Agency name already exist",
+            //     ];
+            // }
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             $response = [
                 "type" => "danger",
                 "message" => "internal server error",
@@ -167,12 +188,12 @@ class AgencyController extends Controller
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-    public function checkEmail($name)
-    {
-        if (Agency::where("name", $name)->count() > 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+    // public function checkEmail($name)
+    // {
+    //     if (Agency::where("name", $name)->count() > 0) {
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+    // }
 }

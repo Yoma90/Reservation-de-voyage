@@ -10,6 +10,7 @@ class Agency extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        // 'user_id',
         'status',
     ];
 
@@ -34,7 +35,7 @@ class Agency extends Model
         return $this->belongsTo('App\Models\Role');
     }
 
-    public function ville(){
-        return $this->belongsTo('App\Models\Ville');
+    public function agency_ville(){
+        return $this->hasMany('App\Models\AgencyVille');
     }
 }

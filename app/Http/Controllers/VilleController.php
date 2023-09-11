@@ -14,8 +14,11 @@ class VilleController extends Controller
     }
     public function listVille(){
         $cities = Ville::get();
+        $agencies = Agency::get();
 
-        return view('pages.ville-management')->with('cities', $cities);
+        return view('pages.ville-management')
+        ->with('agencies', $agencies)
+        ->with('cities', $cities);
     }
 
     public function changeCityStatus($id, $status)

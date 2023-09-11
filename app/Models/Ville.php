@@ -23,8 +23,11 @@ class Ville extends Model
         'email_verified_at' => 'datetime',
     ];
 
+    public function manager(){
+        return $this->hasOne('App\Models\User');
+    }
 
-    public function agency(){
-        return $this->hasMany('App\Models\Agency');
+    public function agency_ville(){
+        return $this->hasMany('App\Models\AgencyVille');
     }
 }

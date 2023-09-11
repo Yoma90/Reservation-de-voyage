@@ -42,8 +42,91 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- end  --}}
 
-
+                                {{-- List agency modal --}}
+                                @foreach ($cities as $city)
+                                    <div class="modal fade" id="exampleModalMessage{{ $city->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="mb-0">Agency's list</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table class="table align-items-center mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th
+                                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                    ID
+                                                                </th>
+                                                                <th
+                                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                    Name
+                                                                </th>
+                                                                <th
+                                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                    Buses
+                                                                </th>
+                                                                <th
+                                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                    Location
+                                                                </th>
+                                                                <th
+                                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                    Status
+                                                                </th>
+                                                                <th
+                                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                    Creation Date
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        @foreach ($city->agency_ville as $agency_ville)
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="text-center">
+                                                                        <p class="text-xs font-weight-bold mb-0">
+                                                                            {{ $agency_ville->id }}
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <p class="text-xs font-weight-bold mb-0">
+                                                                            {{ $agency_ville->agency->name }}
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <p class="text-xs font-weight-bold mb-0">
+                                                                            {{ count($agency_ville->agency->bus) }}
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <p class="text-xs font-weight-bold mb-0">
+                                                                            {{ $agency_ville->location }}
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <p class="text-xs font-weight-bold mb-0">
+                                                                            {{ $agency_ville->agency->status }}
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <span
+                                                                            class="text-secondary text-xs font-weight-bold">
+                                                                            {{ $agency_ville->created_at }}
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        @endforeach
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                {{-- end  --}}
                             </div>
                         </div>
                     </div>
@@ -106,23 +189,21 @@
                                                     </a>
                                                 @else
                                                     <a href="/city-status/{{ $city->id }}/active" class="mx-3"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-original-title="activate city"><i
+                                                        data-bs-toggle="tooltip" data-bs-original-title="activate city"><i
                                                             class="fas fa-solid fa-check"></i>
                                                     </a>
                                                 @endif
                                                 <span>
-                                                    <a class="mx-3" data-bs-toggle="tooltip"
+                                                    {{-- <a class="mx-3" data-bs-toggle="tooltip"
                                                         href="list-agencies"
                                                         data-bs-original-title="view agencies">
                                                         <i class="cursor-pointer fas fa-eye text-secondary"></i>
-                                                    </a>
-                                                    {{-- <a
-
-                                                        data-bs-toggle="tooltip" href="list-bus">
-                                                        <button id="" type="button" title="view buses"
-                                                            class="btn bg-gradient-info btn-block mb-2"></button>
                                                     </a> --}}
+                                                    <a data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModalMessage{{ $city->id }}"
+                                                        data-bs-toggle="tooltip" href="/list-ville/{{ $city->id }}">
+                                                        <i class="cursor-pointer fas fa-eye text-secondary"></i>
+                                                    </a>
                                                 </span>
                                                 <span>
                                                     <a class="mx-3" data-bs-toggle="tooltip"

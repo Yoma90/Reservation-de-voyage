@@ -23,7 +23,7 @@
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="mb-0">New Agency</h5>
+                                                <h5 class="mb-0">new agency</h5>
                                             </div>
                                             <div class="modal-body">
                                                 <form action="/add-agency" method="POST">
@@ -34,25 +34,6 @@
                                                             name="name" required>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Ville</label>
-                                                        <select class="form-control" id="ville_id" name="ville_id"
-                                                            required>
-                                                            <option></option>
-                                                            @foreach ($villes as $ville)
-                                                                <option value="{{ $ville->id }}">
-                                                                    {{ $ville->name }}</option>
-                                                            @endforeach
-                                                        </select>
-
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Location</label>
-                                                        <input type="text" class="form-control" id="location"
-                                                            name="location" required>
-                                                    </div>
-
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn bg-gradient-primary">Add</button>
                                                     </div>
@@ -61,6 +42,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -77,10 +59,6 @@
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Name
-                                        </th>
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            created_by
                                         </th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -111,18 +89,13 @@
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $agency->user }}
-                                                </p>
-                                            </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">
                                                     {{ $agency->status }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
-                                                <p class="text-secondary text-xs font-weight-bold">
+                                                <span class="text-secondary text-xs font-weight-bold">
                                                     {{ $agency->created_at }}
-                                                </p>
+                                                </span>
                                             </td>
                                             <td class="text-center">
                                                 @if ($agency->status === 'active')
@@ -132,19 +105,23 @@
                                                     </a>
                                                 @else
                                                     <a href="/agency-status/{{ $agency->id }}/active" class="mx-3"
-                                                        data-bs-toggle="tooltip" data-bs-original-title="activate agency"><i
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-original-title="activate agency"><i
                                                             class="fas fa-solid fa-check"></i>
                                                     </a>
                                                 @endif
                                                 <span>
-                                                    <a class="mx-3" data-bs-toggle="tooltip" href="list-bus"
+                                                    <a class="mx-3" data-bs-toggle="tooltip"
+                                                        href="list-bus"
                                                         data-bs-original-title="view buses">
                                                         <i class="cursor-pointer fas fa-eye text-secondary"></i>
                                                     </a>
-                                                    {{-- <a data-bs-toggle="tooltip" href="list-bus">
+                                                    <a
+
+                                                        data-bs-toggle="tooltip" href="list-bus">
                                                         <button id="" type="button" title="view buses"
                                                             class="btn bg-gradient-info btn-block mb-2"></button>
-                                                    </a> --}}
+                                                    </a>
                                                 </span>
                                                 <span>
                                                     <a class="mx-3" data-bs-toggle="tooltip"

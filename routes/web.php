@@ -101,6 +101,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Travels routes
     Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
 
+    Route::get('list-agencies', [AgencyController::class, 'listAgency'])->name('list-agencies');
 
     //Destinations routes
     Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');

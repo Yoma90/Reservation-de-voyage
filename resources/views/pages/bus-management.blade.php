@@ -197,13 +197,13 @@
                                                     data-bs-original-title="delete bus">
                                                     <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                                 </a>
-                                                {{-- <a data-bs-toggle="modal"
+                                                <a data-bs-toggle="modal"
                                                     data-bs-target="#exampleModalMessage{{ $bu->id }}"
                                                     data-bs-toggle="tooltip" href="/update-bus/{{ $bu->id }}"
                                                     title="update bus">
                                                     <button id="" type="button"
                                                         class="btn bg-gradient-info btn-block mb-2"></button>
-                                                </a> --}}
+                                                </a>
                                             </span>
                                         </td>
                                     </tr>
