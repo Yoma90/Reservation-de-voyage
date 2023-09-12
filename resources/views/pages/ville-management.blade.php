@@ -17,7 +17,7 @@
                                     +&nbsp; New City
                                 </button>
 
-                                <!-- Modal for add agency-->
+                                <!-- Modal for add city-->
                                 <div class="modal fade" id="exampleModalMessage" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -26,12 +26,18 @@
                                                 <h5 class="mb-0">new city</h5>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/add-city" method="POST">
+                                                <form action="/add-city" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">Name</label>
                                                         <input type="text" class="form-control" id="name"
                                                             name="name" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">Image</label>
+                                                        <input type="file" class="form-control" id="image"
+                                                            name="image" required>
                                                     </div>
 
                                                     <div class="modal-footer">
@@ -146,6 +152,10 @@
                                         </th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Image
+                                        </th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Status
                                         </th>
                                         <th
@@ -170,6 +180,9 @@
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $city->name }}
                                                 </p>
+                                            </td>
+                                            <td class="text-center">
+                                                <img src="{{ asset('storage/' . $city->image) }}" width="50">
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">

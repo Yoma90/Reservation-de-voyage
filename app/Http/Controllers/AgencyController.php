@@ -84,8 +84,9 @@ class AgencyController extends Controller
 
         try {
             $agency = Agency::find($id);
+            // dd($agency);
+
             $agency->delete();
-            dd($agency);
             $response = [
                 "type" => "success",
                 "message" => "The agency has successfully deleted",
@@ -97,6 +98,7 @@ class AgencyController extends Controller
                 'user_id' => $user_id,
             ]);
         } catch (\Throwable $th) {
+            // dd($th->getMessage());
             $response = [
                 "type" => "danger",
                 "message" => "internal server error",

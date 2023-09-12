@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('villes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image_path')->nullable();
             $table->string('status')->default("active");
             $table->timestamps();
         });
@@ -22,8 +23,11 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+
+    public function down()
     {
-        Schema::dropIfExists('villes');
+        Schema::table('villes', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 };

@@ -62,7 +62,49 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <!-- Modal for update agency -->
+                            {{-- @foreach ($bus as $bu)
+                                <div class="modal fade" id="exampleModalMessage{{ $agency->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <form action="{{ route('update-agency', $agency->id) }}" method="POST">
+                                                    <div class="form-group">
+                                                        <h5>Update agency</h5>
+                                                    </div>
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="form-group">
+                                                        {{ $agency->name }}
+                                                        <input type="text" value=" {{ $agency->id }} "
+                                                            class="form-control" id="location" name="location" required
+                                                            disabled>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">Type</label>
+                                                        <select class="form-control" id="type_id" name="type_id" required>
+                                                            <option></option>
+                                                            @foreach ($types as $type)
+                                                                <option value="{{ $type->id }}">
+                                                                    {{ $type->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="submit"
+                                                            class="btn bg-gradient-primary">Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div> --}}
                     </div>
 
 
@@ -80,7 +122,7 @@
                                         </th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            created_by
+                                            Manager
                                         </th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -111,7 +153,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $agency->user }}
+                                                    {{ $agency->user->first_name }} {{ $agency->user->last_name }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
@@ -132,20 +174,30 @@
                                                     </a>
                                                 @else
                                                     <a href="/agency-status/{{ $agency->id }}/active" class="mx-3"
-                                                        data-bs-toggle="tooltip" data-bs-original-title="activate agency"><i
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-original-title="activate agency"><i
                                                             class="fas fa-solid fa-check"></i>
                                                     </a>
                                                 @endif
                                                 <span>
                                                     <a class="mx-3" data-bs-toggle="tooltip" href="list-bus"
                                                         data-bs-original-title="view buses">
-                                                        <i class="cursor-pointer fas fa-eye text-secondary"></i>
+                                                        <i class="cursor-pointer fas fa-solid fa-pen text-secondary"></i>
                                                     </a>
                                                     {{-- <a data-bs-toggle="tooltip" href="list-bus">
                                                         <button id="" type="button" title="view buses"
                                                             class="btn bg-gradient-info btn-block mb-2"></button>
                                                     </a> --}}
                                                 </span>
+                                                {{-- <span>
+                                                    <a class="mx-3" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModalMessage{{ $agency->id }}"
+                                                        data-bs-toggle="tooltip"
+                                                        href="/update-agency/{{ $agency->id }}"
+                                                        data-bs-original-title="update bus">
+                                                        <i class="cursor-pointer fas fa-solid fa-pen text-secondary"></i>
+                                                    </a>
+                                                </span> --}}
                                                 <span>
                                                     <a class="mx-3" data-bs-toggle="tooltip"
                                                         href="/delete-agency/{{ $agency->id }}"

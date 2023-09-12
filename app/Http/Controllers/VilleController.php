@@ -9,16 +9,18 @@ use Illuminate\Http\Request;
 
 class VilleController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('pages.ville-management');
     }
-    public function listVille(){
+    public function listVille()
+    {
         $cities = Ville::get();
         $agencies = Agency::get();
 
         return view('pages.ville-management')
-        ->with('agencies', $agencies)
-        ->with('cities', $cities);
+            ->with('agencies', $agencies)
+            ->with('cities', $cities);
     }
 
     public function changeCityStatus($id, $status)
@@ -99,42 +101,52 @@ class VilleController extends Controller
     public function addCity(Request $request)
     {
         $attributes = $request->validate([
-            'name' => "required|max:50",
+            'name' => 'required|max:50',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $response = [
-            "type" => "",
-            "message" => "",
+            'type' => '',
+            'message' => '',
         ];
 
         try {
+            if ($request->file('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/villes', $imageName); // Stocker l'image dans storage/app/public/villes
+                $attributes['image'] = 'villes/' . $imageName; // Chemin de l'image dans le stockage
+            }
+
             if ($this->checkName($attributes['name'])) {
-                $cities = Ville::create($attributes);
+                $city = Ville::create($attributes);
                 $user_id = auth()->user()->id;
                 Histories::create([
-                    'notification' => "added $cities->name city successfully ",
-                    'type' => "add",
+                    'notification' => "added $city->name city successfully ",
+                    'type' => 'add',
                     'user_id' => $user_id,
                 ]);
                 $response = [
-                    "type" => "success",
-                    "message" => "City added successfully",
+                    'type' => 'success',
+                    'message' => 'City added successfully',
                 ];
             } else {
                 $response = [
-                    "type" => "danger",
-                    "message" => "This City name already exist",
+                    'type' => 'danger',
+                    'message' => 'This City name already exists',
                 ];
             }
         } catch (\Throwable $th) {
             $response = [
-                "type" => "danger",
-                "message" => "internal server error",
+                'type' => 'danger',
+                'message' => 'Internal server error',
             ];
         }
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
+
+
 
     public function checkName($name)
     {
