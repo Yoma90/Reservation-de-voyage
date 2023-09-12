@@ -12,6 +12,7 @@ class Ville extends Model
     protected $fillable = [
         'name',
         'image_path',
+        'description',
         'status',
     ];
 
@@ -30,5 +31,15 @@ class Ville extends Model
 
     public function agency_ville(){
         return $this->hasMany('App\Models\AgencyVille');
+    }
+
+    public function getImagePathAttribute()
+    {
+        return env('APP_URL') ."/storage/villes/". $this->attributes['image_path'];
+    }
+
+    public function agency()
+    {
+        return $this->belongsToMany('App\Models\Agency', 'AgencyVille', 'ville_id', 'agency_id');
     }
 }

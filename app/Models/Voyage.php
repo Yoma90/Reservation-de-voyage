@@ -9,8 +9,8 @@ class Voyage extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'name',
-        'location',
+        'from',
+        'to',
         'details',
         'price',
     ];

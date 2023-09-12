@@ -53,7 +53,7 @@ class SessionsController extends Controller
             if (auth()->user()->role->id === 1) {
                 return redirect('dashboard')->with(['success' => 'You are logged in.']);
             } else {
-                return redirect('user-profile')->with(['success' => 'You are logged in.']);
+                return redirect('dashboard')->with(['success' => 'You are logged in.']);
             }
         } else {
 
@@ -72,7 +72,7 @@ class SessionsController extends Controller
 
         Auth::logout();
 
-        return view('/login')
+        return redirect('/login')
             ->with(['success' => 'You\'ve been logged out.']);
     }
 

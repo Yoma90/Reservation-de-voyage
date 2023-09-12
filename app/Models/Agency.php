@@ -38,4 +38,10 @@ class Agency extends Model
     public function agency_ville(){
         return $this->hasMany('App\Models\AgencyVille');
     }
+
+
+    public function villes()
+    {
+        return $this->belongsToMany('App\Models\Ville', 'AgencyVille', 'agency_id', 'ville_id');
+    }
 }

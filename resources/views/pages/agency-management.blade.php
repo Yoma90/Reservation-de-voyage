@@ -153,7 +153,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $agency->user->first_name }} {{ $agency->user->last_name }}
+                                                    {{ $agency->user->first_name }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
@@ -179,16 +179,6 @@
                                                             class="fas fa-solid fa-check"></i>
                                                     </a>
                                                 @endif
-                                                <span>
-                                                    <a class="mx-3" data-bs-toggle="tooltip" href="list-bus"
-                                                        data-bs-original-title="view buses">
-                                                        <i class="cursor-pointer fas fa-solid fa-pen text-secondary"></i>
-                                                    </a>
-                                                    {{-- <a data-bs-toggle="tooltip" href="list-bus">
-                                                        <button id="" type="button" title="view buses"
-                                                            class="btn bg-gradient-info btn-block mb-2"></button>
-                                                    </a> --}}
-                                                </span>
                                                 {{-- <span>
                                                     <a class="mx-3" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModalMessage{{ $agency->id }}"

@@ -26,7 +26,8 @@
                                                 <h5 class="mb-0">new city</h5>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/add-city" method="POST" enctype="multipart/form-data">
+                                                <form action="/add-city" method="POST" accept="image/*"
+                                                    enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">Name</label>
@@ -38,6 +39,12 @@
                                                         <label for="recipient-name" class="col-form-label">Image</label>
                                                         <input type="file" class="form-control" id="image"
                                                             name="image" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="recipient-name"
+                                                            class="col-form-label">Descrition</label>
+                                                        <textarea name="description" id="description" class="form-control" required cols="30" rows="5"></textarea>
                                                     </div>
 
                                                     <div class="modal-footer">
@@ -156,6 +163,10 @@
                                         </th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Description
+                                        </th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Status
                                         </th>
                                         <th
@@ -182,7 +193,12 @@
                                                 </p>
                                             </td>
                                             <td class="text-center">
-                                                <img src="{{ asset('storage/' . $city->image) }}" width="50">
+                                                <img src="{{ $city->image_path}}" width="100" class="rounded-3" >
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-xs font-weight-bold mb-0">
+                                                    {{ $city->description }}
+                                                </p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">

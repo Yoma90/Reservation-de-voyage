@@ -23,6 +23,18 @@ class VilleController extends Controller
             ->with('cities', $cities);
     }
 
+    public function listVilles()
+    {
+        $cities = Ville::where('id', auth()->user()->id)->get();
+        $agencies = Agency::get();
+        $villes = Ville::get();
+
+        return view('pages.city-management')
+            ->with('villes', $villes)
+            ->with('agencies', $agencies)
+            ->with('cities', $cities);
+    }
+
     public function changeCityStatus($id, $status)
     {
 
@@ -102,6 +114,7 @@ class VilleController extends Controller
     {
         $attributes = $request->validate([
             'name' => 'required|max:50',
+            'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -111,14 +124,12 @@ class VilleController extends Controller
         ];
 
         try {
-            if ($request->file('image')) {
-                $image = $request->file('image');
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('public/villes', $imageName); // Stocker l'image dans storage/app/public/villes
-                $attributes['image'] = 'villes/' . $imageName; // Chemin de l'image dans le stockage
-            }
-
             if ($this->checkName($attributes['name'])) {
+                $imageController = new ImageController();
+                $image = $request->file('image');
+                $imageFileName = $imageController->upload($image, 'villes');
+                $attributes['image_path'] = $imageFileName;
+                // dd($attributes);
                 $city = Ville::create($attributes);
                 $user_id = auth()->user()->id;
                 Histories::create([
@@ -137,6 +148,7 @@ class VilleController extends Controller
                 ];
             }
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             $response = [
                 'type' => 'danger',
                 'message' => 'Internal server error',
@@ -149,6 +161,49 @@ class VilleController extends Controller
 
 
     public function checkName($name)
+    {
+        if (Ville::where("name", $name)->count() > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    public function takeCity(Request $request)
+    {
+        $attributes = $request->validate([
+            'name' => 'required|exists:villes,id',
+        ]);
+
+        $response = [
+            'type' => '',
+            'message' => '',
+        ];
+
+
+        if ($this->checkVilleName($attributes['name'])) {
+            $user = auth()->user();
+
+            $city = Ville::findOrFail($request);
+            $city->name = $request->input('name');
+            $city->save();
+            dd($city);
+            $response = [
+                'type' => 'success',
+                'message' => 'City attributed successfully',
+            ];
+        } else {
+            $response = [
+                'type' => 'danger',
+                'message' => 'City not attributed to this manager',
+            ];
+        }
+
+        return redirect()->back()->with($response['type'], $response['message']);
+    }
+
+    public function checkVilleName($name)
     {
         if (Ville::where("name", $name)->count() > 0) {
             return false;

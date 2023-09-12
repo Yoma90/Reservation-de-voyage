@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Bus routes
     Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
-    Route::get('list-bus', [BusController::class, 'listBuses'])->name('list-bus');
+    // Route::get('list-bus', [BusController::class, 'listBuses'])->name('list-bus');
     Route::get('bus-status/{id}/{status}', [BusController::class, 'changeBusStatus']);
     Route::get('/delete-bus/{id}', [BusController::class, 'deleteBus']);
     Route::put('/update-bus/{id}', [BusController::class, 'updateBus'])->name('update-bus');
@@ -100,6 +100,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Travels routes
     Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
+    Route::post('/add-travel', [TravelController::class, 'addTravel'])->name('add-travel');
+
+
 
     Route::get('list-agencies', [AgencyController::class, 'listAgency'])->name('list-agencies');
 
@@ -118,6 +121,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('ville-management', [VilleController::class, 'listVille'])->name('ville-management');
     Route::get('/delete-city/{id}', [VilleController::class, 'deleteCity']);
     Route::get('city-status/{id}/{status}', [VilleController::class, 'changeCityStatus']);
+
+
+
+    // Route::post('/add-city', [VilleController::class, 'addCity'])->name('add-city');
+    Route::post('/take-city', [VilleController::class, 'takeCity'])->name('add-city');
+    Route::get('city-management', [VilleController::class, 'listVilles'])->name('city-management');
+    // Route::get('/delete-city/{id}', [VilleController::class, 'deleteCity']);
+    // Route::get('city-status/{id}/{status}', [VilleController::class, 'changeCityStatus']);
 });
 
 

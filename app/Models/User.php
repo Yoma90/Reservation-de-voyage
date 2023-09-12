@@ -67,4 +67,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Histories');
     }
+
+    // app/Models/User.php
+
+    // public function villes()
+    // {
+    //     return $this->belongsToMany('App\Models\Ville', 'user_villes', 'user_id', 'ville_id');
+    // }
 }
