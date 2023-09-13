@@ -17,7 +17,7 @@ class DashboardController extends Controller
     {
         $bus = Bus::get();
         $types = Type::get();
-        $users = User::get();
+        $users = User::where('id', '!=', auth()->user()->id)->get();
         $agencies = Agency::get();
         $customers = Customer::get();
         $histories = Histories::orderBy("id", "DESC")->with('user')->limit(5)->get();
@@ -30,6 +30,21 @@ class DashboardController extends Controller
         ->with("types", $types)
         ->with("users", $users)
         ->with("agencies", $agencies);
+    }
+
+    public function index()
+    {
+        $bus = Bus::where('id', auth()->user()->id)->get();
+        $types = Type::get();
+        $customers = Customer::get();
+        $histories = Histories::orderBy("id", "DESC")->with('user')->limit(5)->get();
+
+
+        return view('manager-dashboard')
+        ->with("customers", $customers)
+        ->with("histories", $histories)
+        ->with("bus", $bus)
+        ->with("types", $types);
     }
 
 }

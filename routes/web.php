@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Route::middleware(['user-role:1'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'home'])->name('dashboard');
+    Route::get('manager-dashboard', [DashboardController::class, 'index'])->name('manager-dashboard');
 
 
     //Customers routes
@@ -100,6 +101,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Travels routes
     Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
+    Route::get('travel-status/{id}/{status}', [TravelController::class, 'changeTravelStatus']);
     Route::post('/add-travel', [TravelController::class, 'addTravel'])->name('add-travel');
 
 
@@ -125,7 +127,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // Route::post('/add-city', [VilleController::class, 'addCity'])->name('add-city');
-    Route::post('/take-city', [VilleController::class, 'takeCity'])->name('add-city');
+    Route::post('/take-city', [VilleController::class, 'takeCity'])->name('take-city');
     Route::get('city-management', [VilleController::class, 'listVilles'])->name('city-management');
     // Route::get('/delete-city/{id}', [VilleController::class, 'deleteCity']);
     // Route::get('city-status/{id}/{status}', [VilleController::class, 'changeCityStatus']);

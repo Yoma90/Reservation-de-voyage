@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agency;
+use App\Models\AgencyVille;
 use App\Models\Histories;
 use App\Models\Ville;
 use Illuminate\Http\Request;
@@ -175,20 +176,20 @@ class VilleController extends Controller
         $attributes = $request->validate([
             'name' => 'required|exists:villes,id',
         ]);
+        // dd($attributes);
 
         $response = [
             'type' => '',
             'message' => '',
         ];
 
-
         if ($this->checkVilleName($attributes['name'])) {
             $user = auth()->user();
+            $cityId = $request->input('name');
+            $city = AgencyVille::findOrFail($cityId);
+            // dd($city);
 
-            $city = Ville::findOrFail($request);
-            $city->name = $request->input('name');
             $city->save();
-            dd($city);
             $response = [
                 'type' => 'success',
                 'message' => 'City attributed successfully',
@@ -203,9 +204,10 @@ class VilleController extends Controller
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
+
     public function checkVilleName($name)
     {
-        if (Ville::where("name", $name)->count() > 0) {
+        if (AgencyVille::where("ville_id", $name)->count() > 0) {
             return false;
         } else {
             return true;

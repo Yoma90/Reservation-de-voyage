@@ -9,6 +9,52 @@ use Illuminate\Http\Request;
 
 class TravelController extends Controller
 {
+    public function changeTravelStatus($id, $status)
+    {
+
+        $response = [
+            "type" => "",
+            "message" => "",
+        ];
+        $city = Travel::find($id);
+        if ($city) {
+            $city->status = $status;
+            $city->save();
+
+            if ($status === "active") {
+
+                $response = [
+                    "type" => "success",
+                    "message" => "City activated successfully",
+                ];
+                $user_id = auth()->user()->id;
+                Histories::create([
+                    'notification' => "activated $city->name city successfully ",
+                    'type' => "change",
+                    'user_id' => $user_id,
+                ]);
+            } else {
+                $response = [
+                    "type" => "success",
+                    "message" => "City suspended successfully",
+                ];
+                $user_id = auth()->user()->id;
+                Histories::create([
+                    'notification' => "suspended $city->name city successfully ",
+                    'type' => "change",
+                    'user_id' => $user_id,
+                ]);
+            }
+        } else {
+            $response = [
+                "type" => "danger",
+                "message" => "This City doesn't exist",
+            ];
+        }
+
+
+        return redirect()->back()->with($response['type'], $response["message"]);
+    }
 
     public function all()
     {

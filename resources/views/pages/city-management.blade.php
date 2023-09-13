@@ -26,7 +26,7 @@
                                                 <h5 class="mb-0">new city</h5>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/add-city" method="POST">
+                                                <form action="/take-city" method="POST">
                                                     @csrf
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">Name</label>

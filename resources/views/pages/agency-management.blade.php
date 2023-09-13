@@ -153,7 +153,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $agency->user->first_name }}
+                                                    {{ $agency->user->last_name }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
