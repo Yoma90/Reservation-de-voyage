@@ -26,9 +26,9 @@ class AgencyController extends Controller
             if ($villes->isEmpty()) {
                 $response = [
                     'error' => 'City not found',
-                    'message' => 'The requested city does not exist in the database.'
+                    'message' => 'Unprocessable entry.'
                 ];
-                $code = 404;
+                $code = 422;
             } else {
                 $response = [
                     "data" => $villes,
