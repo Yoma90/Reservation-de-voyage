@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('buses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('type_id')->constrained()->onUpdate('cascade');
+            $table->string('places');
             $table->string('immatriculation')->unique();
             $table->foreignId('agency_id')->nullable()->constrained()->onUpdate('cascade');
             $table->string('status')->default("active");

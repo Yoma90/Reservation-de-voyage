@@ -130,7 +130,6 @@ class VilleController extends Controller
                 $image = $request->file('image');
                 $imageFileName = $imageController->upload($image, 'villes');
                 $attributes['image_path'] = $imageFileName;
-                // dd($attributes);
                 $city = Ville::create($attributes);
                 $user_id = auth()->user()->id;
                 Histories::create([
@@ -184,7 +183,7 @@ class VilleController extends Controller
         ];
 
         if ($this->checkVilleName($attributes['name'])) {
-            $user = auth()->user();
+            // $user = auth()->user();
             $cityId = $request->input('name');
             $city = AgencyVille::findOrFail($cityId);
             // dd($city);

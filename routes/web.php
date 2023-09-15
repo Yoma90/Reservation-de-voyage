@@ -126,11 +126,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-    // Route::post('/add-city', [VilleController::class, 'addCity'])->name('add-city');
     Route::post('/take-city', [VilleController::class, 'takeCity'])->name('take-city');
     Route::get('city-management', [VilleController::class, 'listVilles'])->name('city-management');
-    // Route::get('/delete-city/{id}', [VilleController::class, 'deleteCity']);
-    // Route::get('city-status/{id}/{status}', [VilleController::class, 'changeCityStatus']);
 });
 
 

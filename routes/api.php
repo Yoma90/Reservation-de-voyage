@@ -75,11 +75,6 @@ Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    // Route::post('/add-bus', [BusController::class, 'addBus']);
-    Route::post('/add-city', [VilleController::class, 'addCity']);
-    // Route::get('/delete-bus/{id}', [BusController::class, 'deleteBus']);
-    // Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
-    // Route::put('/update-bus/{id}', [BusController::class, 'updateBus'])->name('update-bus');
     Route::get('/list-ville', [ApiVilleController::class, 'listVille'])->name('list-ville');
     Route::get('/list-agencies/{id}', [AgencyController::class, 'listAgency'])->name('list-agencies');
 });

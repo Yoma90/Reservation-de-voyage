@@ -75,6 +75,7 @@ class BusController extends Controller
     {
         $request->validate([
             'type_id' => "required",
+            'places' => 'required',
         ]);
         $response = [
             "type" => "",
@@ -82,6 +83,7 @@ class BusController extends Controller
         ];
         try {
             $bus = Bus::findOrFail($id);
+            $bus->places = $request->input('places');
             $bus->type_id = $request->input('type_id');
             $bus->save();
 
@@ -97,6 +99,7 @@ class BusController extends Controller
                 "user_id" => $user_id,
             ]);
         } catch (Throwable $th) {
+            dd($th->getMessage());
             $response = [
                 "type" => "danger",
                 "message" => "Internal server error",
@@ -111,6 +114,7 @@ class BusController extends Controller
     {
         $attributes = $request->validate([
             'type_id' => "required",
+            'places' => 'required',
             'immatriculation' => "required",
         ]);
         $response = [
@@ -140,6 +144,7 @@ class BusController extends Controller
                 ];
             }
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             $response = [
                 "type" => "danger",
                 "message" => "internal server error",

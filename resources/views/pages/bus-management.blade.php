@@ -24,6 +24,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Number of places</label>
+                            <input type="number" class="form-control" id="places" name="places" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Immatriculation</label>
                             <input type="text" class="form-control" id="immatriculation" name="immatriculation" required>
                         </div>
@@ -57,6 +62,12 @@
                                 <input type="text" value=" {{ $bu->id }} " class="form-control" id="type"
                                     name="type" required disabled>
                             </div>
+
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Number of places</label>
+                                <input type="number" class="form-control" id="places" name="places" required>
+                            </div>
+
 
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Type</label>
@@ -140,6 +151,10 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Places
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
                                     </th>
                                     <th
@@ -164,6 +179,11 @@
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $bu->immatriculation }}
+                                            </p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $bu->places }}
                                             </p>
                                         </td>
                                         <td class="text-center">
@@ -244,6 +264,10 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Places
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
                                     </th>
                                     <th
@@ -268,6 +292,11 @@
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $bu1->immatriculation }}
+                                            </p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $bu1->places }}
                                             </p>
                                         </td>
                                         <td class="text-center">
@@ -340,6 +369,10 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Places
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
                                     </th>
                                     <th
@@ -364,6 +397,11 @@
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $bu->immatriculation }}
+                                            </p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $bu->places }}
                                             </p>
                                         </td>
                                         <td class="text-center">

@@ -37,8 +37,13 @@
 
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">Image</label>
-                                                        <input type="file" class="form-control" id="image"
-                                                            name="image" required>
+                                                        <div class="image-preview" id="imagePreview">
+                                                            <img src="" alt="Image Preview" id="previewImage">
+                                                            <span class="close-button" id="closeButton">&#10006;</span>
+                                                        </div>
+                                                        <input type="file" class="form-control" id="imageInput"
+                                                            placeholder="Categorie image" name="image" required>
+
                                                     </div>
 
                                                     <div class="form-group">
@@ -50,6 +55,31 @@
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn bg-gradient-primary">Add</button>
                                                     </div>
+
+                                                    <script>
+                                                        const imageInput = document.getElementById('imageInput');
+                                                        const imagePreview = document.getElementById('imagePreview');
+                                                        const previewImage = document.getElementById('previewImage');
+                                                        const closeButton = document.getElementById('closeButton');
+
+                                                        closeButton.style.cursor = 'pointer';
+                                                        imageInput.addEventListener('change', function() {
+                                                            const file = this.files[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+
+                                                                reader.onload = function(e) {
+                                                                    previewImage.src = e.target.result;
+                                                                    imagePreview.style.display = 'block';
+                                                                };
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        });
+                                                        closeButton.addEventListener('click', function() {
+                                                            imagePreview.style.display = 'none';
+                                                            imageInput.value = '';
+                                                        });
+                                                    </script>
                                                 </form>
                                             </div>
                                         </div>
@@ -193,7 +223,7 @@
                                                 </p>
                                             </td>
                                             <td class="text-center">
-                                                <img src="{{ $city->image_path}}" width="100" class="rounded-3" >
+                                                <img src="{{ $city->image_path }}" width="100" class="rounded-3">
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
