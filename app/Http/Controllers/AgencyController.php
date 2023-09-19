@@ -27,6 +27,7 @@ class AgencyController extends Controller
         $roles = Role::get();
         $agencies = Agency::get();
 
+        // dd($agencies);
         return view('pages.agency-management')
         ->with('villes', $villes)
         ->with('agencies', $agencies)->with('roles', $roles);

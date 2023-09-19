@@ -153,7 +153,11 @@
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
+                                                    @if (isset($agency->user))
                                                     {{ $agency->user->last_name }}
+                                                    @else
+                                                        No Manager attributed
+                                                    @endif
                                                 </p>
                                             </td>
                                             <td class="text-center">

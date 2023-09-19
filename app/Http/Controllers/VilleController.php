@@ -101,6 +101,7 @@ class VilleController extends Controller
                 'user_id' => $user_id,
             ]);
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             $response = [
                 "type" => "danger",
                 "message" => "internal server error",
