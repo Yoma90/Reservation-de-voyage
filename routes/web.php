@@ -7,13 +7,13 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\HistoriesController;
 use App\Http\Controllers\InfoUserController;
-use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\TravelController;
-use App\Http\Controllers\TypeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VilleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,87 +32,123 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return redirect('dashboard');
+    });
+
+    // Route::middleware(['user-role:1'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'home'])->name('dashboard');
+    Route::get('manager-dashboard', [DashboardController::class, 'index'])->name('manager-dashboard');
 
 
-	Route::get('dashboard', [DashboardController::class, 'home'])->name('dashboard');
-
-	Route::get('billing', function () {
-		return view('billing');
-	})->name('billing');
-
-	Route::get('profile', function () {
-		return view('profile');
-	})->name('profile');
+    //Customers routes
+    Route::get('customer-management', [CustomerController::class, 'listCustomers'])->name("customer-management");
+    Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
+    Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
+    Route::get('customer-management', [CustomerController::class, 'index']);
 
 
-	Route::get('static-sign-in', function () {
-		return view('static-sign-in');
-	})->name('sign-in');
+    //Managers routes
+    Route::get('agency-management', [AgencyController::class, 'listAgencies'])->name('agency-management');
+    Route::get('/update-agency', [AgencyController::class, 'updateAgency'])->name('update-agency');
+    Route::get('agency-status/{id}/{status}', [AgencyController::class, 'changeAgencyStatus']);
+    Route::get('/delete-agency/{id}', [AgencyController::class, 'deleteAgency']);
+    Route::post('/add-agency', [AgencyController::class, 'addAgency'])->name('add-agency');
 
-	Route::get('static-sign-up', function () {
-		return view('static-sign-up');
-	})->name('sign-up');
 
-	Route::get('/logout', [SessionsController::class, 'destroy']);
-	Route::get('/user-profile', [InfoUserController::class, 'create']);
-	Route::post('/user-profile', [InfoUserController::class, 'store']);
+    //History routes
+    Route::get('history', [HistoriesController::class, 'index']);
+    // });
 
-	Route::post('/user-profile/update', [InfoUserController::class, 'updateProfile']);
 
+
+    Route::get('billing', function () {
+        return view('billing');
+    })->name('billing');
+
+    Route::get('profile', function () {
+        return view('profile');
+    })->name('profile');
+
+
+    Route::get('static-sign-in', function () {
+        return view('static-sign-in');
+    })->name('sign-in');
+
+    Route::get('static-sign-up', function () {
+        return view('static-sign-up');
+    })->name('sign-up');
+
+    Route::get('/logout', [SessionsController::class, 'destroy']);
+    Route::get('/user-profile', [InfoUserController::class, 'create']);
+    Route::post('/user-profile', [InfoUserController::class, 'store']);
+    Route::post('/user-profile/update', [InfoUserController::class, 'updateProfile']);
+
+    Route::get('user-management', [UserController::class, 'listUser'])->name('user-management');
+    Route::post('/add-user', [UserController::class, 'addUser'])->name('add-user');
+
+    //Bus routes
+    Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
+    // Route::get('list-bus', [BusController::class, 'listBuses'])->name('list-bus');
+    Route::get('bus-status/{id}/{status}', [BusController::class, 'changeBusStatus']);
+    Route::get('/delete-bus/{id}', [BusController::class, 'deleteBus']);
+    Route::put('/update-bus/{id}', [BusController::class, 'updateBus'])->name('update-bus');
+
+
+    // Route::get('list-bus', [UserController::class, 'listBusesByAgency'])->name('list-bus');
+    // Route::get('bus-management', [BusController::class, 'edit'])->name('bus-management');
+
+
+    //Travels routes
+    Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
+    Route::get('travel-status/{id}/{status}', [TravelController::class, 'changeTravelStatus']);
+    Route::post('/add-travel', [TravelController::class, 'addTravel'])->name('add-travel');
+
+
+
+    Route::get('list-agencies', [AgencyController::class, 'listAgency'])->name('list-agencies');
+
+    //Destinations routes
+    Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
+
+
+
+    // Route::middleware(['user-role:2'])->group(function () {
+
+        Route::post('/add-bus', [BusController::class, 'addBus'])->name('add-bus');
+
+    // });
+
+    Route::post('/add-city', [VilleController::class, 'addCity'])->name('add-city');
+    Route::get('ville-management', [VilleController::class, 'listVille'])->name('ville-management');
+    Route::get('/delete-city/{id}', [VilleController::class, 'deleteCity']);
+    Route::get('city-status/{id}/{status}', [VilleController::class, 'changeCityStatus']);
+
+
+
+    Route::post('/take-city', [VilleController::class, 'takeCity'])->name('take-city');
+    Route::get('city-management', [VilleController::class, 'listVilles'])->name('city-management');
 });
 
-//Customers routes
-Route::get('customer-management', [CustomerController::class, 'listCustomers'])->name("customer-management");
-Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
-Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
-Route::get('customer-management', [CustomerController::class, 'index', 'index2']);
 
 
-//roles routes
-Route::get('manager-management', [RoleController::class, 'listRole'])->name('manager-management');
 
-
-//Managers routes
-Route::get('manager-management', [ManagerController::class, 'listManagers']);
-Route::get('manager-status/{id}/{status}', [ManagerController::class, 'changeManagerStatus']);
-Route::get('/delete-manager/{id}', [ManagerController::class, 'deleteManager']);
-Route::post('/add-manager', [ManagerController::class, 'addManager'])->name('add-manager');
-
-
-//Bus routes
-Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
-Route::post('/add-bus', [BusController::class, 'addBus'])->name('add-bus');
-Route::get('bus-status/{id}/{status}', [BusController::class, 'changeBusStatus']);
-Route::get('/delete-bus/{id}', [BusController::class, 'deleteBus']);
-Route::post('/update-bus', [BusController::class, 'updateBus'])->name('update-bus');
-
-
-//Travels routes
-Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
-
-
-//Destinations routes
-Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
-
-
-//History routes
-Route::get('history', [HistoriesController::class, 'index']);
 
 
 //Récupération des utilisateurs
 
 Route::group(['middleware' => 'guest'], function () {
-	Route::get('/register', [RegisterController::class, 'create']);
-	Route::post('/register', [RegisterController::class, 'store']);
-	Route::get('/login', [SessionsController::class, 'create']);
-	Route::post('/session', [SessionsController::class, 'store']);
-	Route::get('/login/forgot-password', [ResetController::class, 'create']);
-	Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
-	Route::post('/change-password', [SessionsController::class, 'changeUserPassword']);
-	Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
-	Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
+    // Route::get('/register', [RegisterController::class, 'create']);
+    // Route::post('/register', [RegisterController::class, 'store']);
+    Route::get('/login', [SessionsController::class, 'create'])->name('login');
+    Route::post('/session', [SessionsController::class, 'store']);
+
+    // Route::get('/login2', [SessionsController::class, 'create2']);
+    // Route::get('/login/forgot-password', [ResetController::class, 'create']);
+    // Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
+    Route::post('/change-password', [SessionsController::class, 'changeUserPassword']);
 });
 
 Route::get('/login', function () {
-	return view('session/login-session');
+    return view('session/login-session');
 })->name('login');

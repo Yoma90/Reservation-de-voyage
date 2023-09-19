@@ -1,22 +1,22 @@
 @extends('layouts.user_type.guest')
 
 @section('content')
-    <section class="min-vh-100 mb-8">
-        <div class="page-header align-items-start min-vh-50 pt-5 pb-11 mx-3 border-radius-lg"
+    <section class="min-vh-100 mb-5">
+        <div class="page-header align-items-start min-vh-50 pt-10 pb-11 mx-3 border-radius-lg"
             style="background-image: url('../assets/img/fond.jpeg');">
             <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container">
-                <div class="row justify-content-center">
+                {{-- <div class="row justify-content-center">
                     <div class="col-lg-5 text-center mx-auto">
                         <h1 class="text-white mb-2 mt-5">Welcome!</h1>
                         <p class="text-lead text-white">Welcome back! We're glad to see you again. Please enter your
                             credentials to proceed.</p>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="container">
-            <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+            <div class="row mt-lg-n15 mt-md-n11 mt-n15">
                 <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
                     <div class="card z-index-0">
                         <div class="card-header text-center pt-4">
@@ -40,14 +40,6 @@
                                     @error('password')
                                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                     @enderror
-                                </div>
-                                <div>
-                                    <input type="radio" name="role" value="1" required>
-                                    <label for="">Admin</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="role" value="2" required>
-                                    <label for="">Manager</label>
                                 </div>
 
                                 <div class="text-center">
