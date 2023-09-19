@@ -24,9 +24,9 @@ class CustomerController extends Controller
         });
 
         return view('pages.customer-management')
-        ->with('customers', $customers)
-        ->with('activeCustomers', $activeCustomers)
-        ->with('suspendedCustomers', $suspendedCustomers);
+            ->with('customers', $customers)
+            ->with('activeCustomers', $activeCustomers)
+            ->with('suspendedCustomers', $suspendedCustomers);
     }
 
     // public function index2()
@@ -65,38 +65,46 @@ class CustomerController extends Controller
             "type" => "",
             "message" => "",
         ];
-        $customer = Customer::find($id);
-        if ($customer) {
-            $customer->status = $status;
-            $customer->save();
 
-            if ($status === "active") {
-                $response = [
-                    "type" => "success",
-                    "message" => "Customer activated successfully",
-                ];
-                $user_id = auth()->user()->id;
-                Histories::create([
-                    'notification' => "activated $customer->type_id customer successfully ",
-                    'type' => "change",
-                    'user_id' => $user_id,
-                ]);
+        try {
+            $customer = Customer::find($id);
+            if ($customer) {
+                $customer->status = $status;
+                $customer->save();
+
+                if ($status === "active") {
+                    $response = [
+                        "type" => "success",
+                        "message" => "Customer activated successfully",
+                    ];
+                    $user_id = auth()->user()->id;
+                    Histories::create([
+                        'notification' => "activated $customer->type_id customer successfully ",
+                        'type' => "change",
+                        'user_id' => $user_id,
+                    ]);
+                } else {
+                    $response = [
+                        "type" => "success",
+                        "message" => "Customer suspended successfully",
+                    ];
+                    $user_id = auth()->user()->id;
+                    Histories::create([
+                        'notification' => "suspended $customer->type_id customer successfully ",
+                        'type' => "change",
+                        'user_id' => $user_id,
+                    ]);
+                }
             } else {
                 $response = [
-                    "type" => "success",
-                    "message" => "Customer suspended successfully",
+                    "type" => "danger",
+                    "message" => "This Customer doesn't exist",
                 ];
-                $user_id = auth()->user()->id;
-                Histories::create([
-                    'notification' => "suspended $customer->type_id customer successfully ",
-                    'type' => "change",
-                    'user_id' => $user_id,
-                ]);
             }
-        } else {
+        } catch (\Throwable $th) {
             $response = [
                 "type" => "danger",
-                "message" => "This Customer doesn't exist",
+                "message" => "Internal server error",
             ];
         }
 

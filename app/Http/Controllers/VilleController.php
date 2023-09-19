@@ -181,23 +181,30 @@ class VilleController extends Controller
             'message' => '',
         ];
 
-        if ($this->checkVilleName($attributes['name'])) {
-            // $user = auth()->user();
-            $cityId = $request->input('name');
-            $city = AgencyVille::findOrFail($cityId);
-            // dd($city);
+        try {
+            if ($this->checkVilleName($attributes['name'])) {
+                $cityId = $request->input('name');
+                $city = AgencyVille::findOrFail($cityId);
 
-            $city->save();
-            $response = [
-                'type' => 'success',
-                'message' => 'City attributed successfully',
-            ];
-        } else {
+                $city->save();
+                $response = [
+                    'type' => 'success',
+                    'message' => 'City attributed successfully',
+                ];
+            } else {
+                $response = [
+                    'type' => 'danger',
+                    'message' => 'City not attributed to this manager',
+                ];
+            }
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
             $response = [
                 'type' => 'danger',
-                'message' => 'City not attributed to this manager',
+                'message' => 'Internal server error',
             ];
         }
+
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
