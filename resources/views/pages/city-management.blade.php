@@ -17,7 +17,7 @@
                                     +&nbsp; New City
                                 </button>
 
-                                <!-- Modal for add city-->
+                                <!-- Modal for take city-->
                                 <div class="modal fade" id="exampleModalMessage" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">

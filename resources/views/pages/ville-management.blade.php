@@ -87,6 +87,7 @@
                                 </div>
                                 {{-- end  --}}
 
+
                                 {{-- List agency modal --}}
                                 @foreach ($cities as $city)
                                     <div class="modal fade" id="exampleModalMessage{{ $city->id }}" tabindex="-1"

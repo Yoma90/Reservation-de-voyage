@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\Api\User;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\VilleController as ApiVilleController;
+use App\Http\Controllers\Api\VilleController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\CustomerController;
@@ -13,7 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VoyageController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\MobileApiController;
-use App\Http\Controllers\VilleController;
+// use App\Http\Controllers\VilleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +41,9 @@ Route::group(['namespace' => 'Api'], function () {
     Route::post("/register", [AuthController::class, "register"]);
     Route::post("/logout", [AuthController::class, "logout"]);
     Route::post("/login", [AuthController::class, "login"]);
+
+    Route::get('/list-agencies/{id}', [AgencyController::class, 'listAgency'])->name('list-agencies');
+    Route::get('/list-ville', [VilleController::class, 'listCity'])->name('list-ville');
 
     Route::resource("voyages", VoyageController::class);
     Route::post("voyages", [VoyageController::class, 'store']);
@@ -75,8 +78,6 @@ Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('/list-ville', [ApiVilleController::class, 'listVille'])->name('list-ville');
-    Route::get('/list-agencies/{id}', [AgencyController::class, 'listAgency'])->name('list-agencies');
 });
 Route::prefix('mobile')->group(function () {
     Route::post('/add-bus', [MobileApiController::class, 'addBus']);

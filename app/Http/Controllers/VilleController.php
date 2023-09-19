@@ -159,7 +159,6 @@ class VilleController extends Controller
     }
 
 
-
     public function checkName($name)
     {
         if (Ville::where("name", $name)->count() > 0) {
@@ -206,7 +205,7 @@ class VilleController extends Controller
 
     public function checkVilleName($name)
     {
-        if (AgencyVille::where("ville_id", $name)->count() > 0) {
+        if (AgencyVille::where("name", $name)->count() > 0) {
             return false;
         } else {
             return true;

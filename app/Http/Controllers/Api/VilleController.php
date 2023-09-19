@@ -13,7 +13,7 @@ class VilleController extends Controller
         $this->middleware("auth:sanctum");
     }
 
-    public function listVille(){
+    public function listCity(){
         $response = [];
         $code = 400;
 
