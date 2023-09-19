@@ -148,7 +148,7 @@
             </div>
             <div class="card-body pt-4 p-3">
 
-                <form action="/change-password" method="POST" role="form text-left">
+                <form action="/change-password" method="POST">
                     @csrf
 
                     <div class="row">

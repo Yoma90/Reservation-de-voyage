@@ -1,95 +1,6 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
-    <!-- Modal for add bus -->
-    <div class="modal fade" id="exampleModalMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="mb-0">Add a new bus</h5>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('add-bus') }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Type</label>
-                            <select class="form-control" id="type_id" name="type_id" required>
-                                <option></option>
-                                @foreach ($types as $type)
-                                    <option value="{{ $type->id }}">
-                                        {{ $type->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Number of places</label>
-                            <input type="number" class="form-control" id="places" name="places" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Immatriculation</label>
-                            <input type="text" class="form-control" id="immatriculation" name="immatriculation" required>
-                        </div>
-
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn bg-gradient-primary">Add</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal for update bus -->
-    @foreach ($bus as $bu)
-        <div class="modal fade" id="exampleModalMessage{{ $bu->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <form action="{{ route('update-bus', $bu->id) }}" method="POST">
-                            <div class="form-group">
-                                <h5>Update bus</h5>
-                            </div>
-                            @csrf
-                            @method('PUT')
-                            <div class="form-group">
-                                {{ $bu->immatriculation }}
-                                <input type="text" value=" {{ $bu->id }} " class="form-control" id="type"
-                                    name="type" required disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Number of places</label>
-                                <input type="number" class="form-control" id="places" name="places" required>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Type</label>
-                                <select class="form-control" id="type_id" name="type_id" required>
-                                    <option></option>
-                                    @foreach ($types as $type)
-                                        <option value="{{ $type->id }}">
-                                            {{ $type->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn bg-gradient-primary">Update</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-
     <div class="nav-wrapper position-relative end-0">
         <ul class="nav nav-pills nav-fill p-1" role="tablist">
             <li class="nav-item">
@@ -126,16 +37,6 @@
                                         <div>
                                             <h5 class="mb-0">All Buses</h5>
                                         </div>
-                                        @if (auth()->user()->role_id == 2)
-                                            <div class="d-flex">
-                                                <!-- Button trigger modal -->
-                                                <button type="button" class="btn bg-gradient-success btn-block mb-3"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
-                                                    +&nbsp; New Bus
-                                                </button>
-                                            </div>
-                                        @endif
-
                                     </div>
                                 </div>
                                 <tr>
@@ -151,7 +52,7 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Places
+                                        Agency
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -165,6 +66,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($bus as $bu)
+                                @foreach ($agencies as $agency )
+
                                     <tr>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
@@ -183,7 +86,7 @@
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $bu->places }}
+                                                {{ $agency->agency }}
                                             </p>
                                         </td>
                                         <td class="text-center">
@@ -211,22 +114,17 @@
                                                     <i class="cursor-pointer fas fa-solid fa-pen text-secondary"></i>
                                                 </a>
                                             </span>
+
                                             <span>
                                                 <a class="mx-3" data-bs-toggle="tooltip"
                                                     href="/delete-bus/{{ $bu->id }}"
                                                     data-bs-original-title="delete bus">
                                                     <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                                 </a>
-                                                {{-- <a data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalMessage{{ $bu->id }}"
-                                                    data-bs-toggle="tooltip" href="/update-bus/{{ $bu->id }}"
-                                                    title="update bus">
-                                                    <button id="" type="button"
-                                                        class="btn bg-gradient-info btn-block mb-2"></button>
-                                                </a> --}}
                                             </span>
                                         </td>
                                     </tr>
+                                @endforeach
                                 @endforeach
                             </tbody>
                         </table>
@@ -236,9 +134,7 @@
         </div>
 
         {{-- vip --}}
-        <div class="tab-pane
-                                                        fade" id="vip-tabs-simple"
-            role="tabpanel" aria-labelledby="vip-tabs-simple-tab">
+        <div class="tab-pane fade" id="vip-tabs-simple" role="tabpanel" aria-labelledby="vip-tabs-simple-tab">
             <div class="container-fluid py-4">
                 <div class="card">
                     <div class="table-responsive p-0">
@@ -264,10 +160,6 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Places
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
                                     </th>
                                     <th
@@ -277,49 +169,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($vipBus as $bu1)
+                                @foreach ($vipBus as $bu)
                                     <tr>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $bu1->id }}
+                                                {{ $bu->id }}
                                             </p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $bu1->type->name }}
+                                                {{ $bu->type->name }}
                                             </p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $bu1->immatriculation }}
+                                                {{ $bu->immatriculation }}
                                             </p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $bu1->places }}
+                                                {{ $bu->created_at }}
                                             </p>
                                         </td>
                                         <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">
-                                                {{ $bu1->created_at }}
-                                            </p>
-                                        </td>
-                                        <td class="text-center">
-                                            @if ($bu1->status === 'active')
-                                                <a href="/bus-status/{{ $bu1->id }}/suspended" class="mx-3"
+                                            @if ($bu->status === 'active')
+                                                <a href="/bus-status/{{ $bu->id }}/suspended" class="mx-3"
                                                     data-bs-toggle="tooltip" data-bs-original-title="suspend bus">
                                                     <i class="fas fa-stop"></i>
                                                 </a>
                                             @else
-                                                <a href="/bus-status/{{ $bu1->id }}/active" class="mx-3"
+                                                <a href="/bus-status/{{ $bu->id }}/active" class="mx-3"
                                                     data-bs-toggle="tooltip" data-bs-original-title="activate bus"><i
                                                         class="fas fa-solid fa-check"></i>
                                                 </a>
                                             @endif
                                             <span>
                                                 <a class="mx-3" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalMessage{{ $bu1->id }}"
-                                                    data-bs-toggle="tooltip" href="/update-bus/{{ $bu1->id }}"
+                                                    data-bs-target="#exampleModalMessage{{ $bu->id }}"
+                                                    data-bs-toggle="tooltip" href="/update-bus/{{ $bu->id }}"
                                                     data-bs-original-title="update bus">
                                                     <i class="cursor-pointer fas fa-solid fa-pen text-secondary"></i>
                                                 </a>
@@ -327,7 +214,7 @@
 
                                             <span>
                                                 <a class="mx-3" data-bs-toggle="tooltip"
-                                                    href="/delete-bus/{{ $bu1->id }}"
+                                                    href="/delete-bus/{{ $bu->id }}"
                                                     data-bs-original-title="delete bus">
                                                     <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                                 </a>
@@ -369,10 +256,6 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Places
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
                                     </th>
                                     <th
@@ -397,11 +280,6 @@
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $bu->immatriculation }}
-                                            </p>
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">
-                                                {{ $bu->places }}
                                             </p>
                                         </td>
                                         <td class="text-center">

@@ -2,79 +2,6 @@
 
 @section('content')
     <div class="row">
-        @if (auth()->user()->role_id == 1)
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Users</p>
-                                    <h5 class="font-weight-bolder mb-0">
-                                        {{ count($users) }}
-                                        <span class="text-danger text-sm font-weight-bolder"> </span>
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @if (auth()->user()->role_id == 1)
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Agencies</p>
-                                    <h5 class="font-weight-bolder mb-0">
-                                        {{ count($agencies) }}
-                                        <span class="text-danger text-sm font-weight-bolder"> </span>
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-
-        {{-- <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ">
-        <div class="card ">
-            <div class="card-body p-3">
-                <div class="row">
-                    <div class="col-8 ">
-                        <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Managers</p>
-                            <h5 class="font-weight-bolder mb-0">
-                                {{ count($users) }}
-                                <span class="text-success text-sm font-weight-bolder"> </span>
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="col-4 text-end">
-                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                            <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
                 <div class="card-body p-3">
@@ -148,7 +75,6 @@
                             </div>
                         </div>
                         <h6 class="ms-2 mt-4 mb-0"> Active Customers </h6>
-                        <!-- <p class="text-sm ms-2"> (<span class="font-weight-bolder">+23%</span>) than last week </p> -->
                     </div>
                 </div>
             </div>
@@ -262,7 +188,7 @@
                         borderRadius: 4,
                         borderSkipped: false,
                         backgroundColor: "#fff",
-                        data: [5, 0, 10, 0, 0, 80, 0, 0, 20, 0, 0, 0],
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         maxBarThickness: 6
                     }, ],
                 },
@@ -344,7 +270,7 @@
                         borderWidth: 3,
                         backgroundColor: gradientStroke1,
                         fill: true,
-                        data: [5, 10, 0, 0, 0, 80, 0, 0, 20, 0, 0, 0],
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         maxBarThickness: 6
 
                     }, ],

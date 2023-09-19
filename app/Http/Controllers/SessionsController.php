@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agency;
 use App\Models\Histories;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,9 +12,24 @@ use Illuminate\Support\Facades\Hash;
 
 class SessionsController extends Controller
 {
+    // public function create2()
+    // {
+    //     $roles = Role::get();
+    //     $agencies = Agency::get();
+
+    //     return view('session.login-session')
+    //     ->with('roles', $roles)
+    //     ->with('agencies', $agencies);
+    // }
+
     public function create()
     {
-        return view('session.login-session');
+        $roles = Role::get();
+        $agencies = Agency::get();
+
+        return view('session.login-session')
+            ->with('roles', $roles)
+            ->with('agencies', $agencies);
     }
 
     public function store()
@@ -21,10 +38,13 @@ class SessionsController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        // dd($attributes);
+
+
         if (Auth::attempt($attributes)) {
+
             session()->regenerate();
             $user_id = auth()->user()->id;
+
             Histories::create([
                 "notification" => " logged in Successfully",
                 "type" => "login",
@@ -32,8 +52,9 @@ class SessionsController extends Controller
             ]);
             if (auth()->user()->role->id === 1) {
                 return redirect('dashboard')->with(['success' => 'You are logged in.']);
+            } else {
+                return redirect('dashboard')->with(['success' => 'You are logged in.']);
             }
-            return redirect('user-profile');
         } else {
 
             return back()->withErrors(['email' => 'Email or password invalid.']);
@@ -51,7 +72,8 @@ class SessionsController extends Controller
 
         Auth::logout();
 
-        return redirect('/login')->with(['success' => 'You\'ve been logged out.']);
+        return redirect('/login')
+            ->with(['success' => 'You\'ve been logged out.']);
     }
 
     public function changeUserPassword(Request $request)

@@ -11,7 +11,9 @@ class Bus extends Model
 
     protected $fillable = [
         'type_id',
+        'places',
         'immatriculation',
+        'agency_id',
         'status'
     ];
 
@@ -19,4 +21,31 @@ class Bus extends Model
     {
         return $this->belongsTo('App\Models\Type');
     }
+
+    public function bus()
+    {
+        return $this->belongsTo('App\Models\User', 'agency_id');
+    }
+
+    public function agency()
+    {
+        return $this->belongsTo('App\Models\Agency');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function scopeVip($query)
+    {
+        return $query->where('type', 'VIP');
+    }
+
+    public function scopeClassic($query)
+    {
+        return $query->where('type', 'Classic');
+    }
+
+
 }
