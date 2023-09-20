@@ -32,15 +32,17 @@
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">Name</label>
                                                         <input type="text" class="form-control" id="name"
-                                                            name="name" required>
+                                                            name="name" required>width="300" height="300"
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">Image</label>
                                                         <div class="image-preview" id="imagePreview">
-                                                            <img src="" alt="Image Preview" id="previewImage">
+                                                            <img src="" alt="Image Preview" id="previewImage"
+                                                                width="300" height="200">
                                                             <span class="close-button" id="closeButton">&#10006;</span>
                                                         </div>
+
                                                         <input type="file" class="form-control" id="imageInput"
                                                             placeholder="Categorie image" name="image" required>
 

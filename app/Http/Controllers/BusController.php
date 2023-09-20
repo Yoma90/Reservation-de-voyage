@@ -55,13 +55,16 @@ class BusController extends Controller
 
     public function index()
     {
-        $bus = Bus::get();
+        // $bus = Bus::get();
         $types = Type::get();
         $roles = Role::get();
 
+        // dd(auth()->user()->agency->id);
+        $bus = Bus::where('agency_id', auth()->user()->agency->id)->get();
+        // dd($allBus);
 
-        $vipBus = Bus::get()->where('type_id', 1);
-        $classicBus = Bus::get()->where('type_id', 2);
+        $vipBus = $bus->where('type_id', 1);
+        $classicBus = $bus->where('type_id', 2);
 
         return view('pages.bus-management')
             ->with('bus', $bus)
