@@ -45,7 +45,7 @@
                                                     ID
                                                 </th>
                                                 <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     First Name
                                                 </th>
                                                 <th
@@ -75,7 +75,7 @@
                                 <tbody>
                                     @foreach ($customers as $customer)
                                         <tr>
-                                            <td class="text-center">
+                                            <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $customer->id }}
                                                 </p>
@@ -154,7 +154,7 @@
                                                     ID
                                                 </th>
                                                 <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     First Name
                                                 </th>
                                                 <th
@@ -184,7 +184,7 @@
                                 <tbody>
                                     @foreach ($activeCustomers as $customer)
                                         <tr>
-                                            <td class="text-center">
+                                            <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $customer->id }}
                                                 </p>
@@ -253,7 +253,7 @@
                                                     ID
                                                 </th>
                                                 <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     First Name
                                                 </th>
                                                 <th
@@ -283,7 +283,7 @@
                                 <tbody>
                                     @foreach ($suspendedCustomers as $customer)
                                         <tr>
-                                            <td class="text-center">
+                                            <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $customer->id }}
                                                 </p>

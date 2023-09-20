@@ -90,7 +90,7 @@
                                             ID
                                         </th>
                                         <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             First Name
                                         </th>
                                         <th
@@ -126,7 +126,7 @@
                                 <tbody>
                                     @foreach ($users as $user)
                                         <tr>
-                                            <td class="text-center">
+                                            <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $user->id }}
                                                 </p>

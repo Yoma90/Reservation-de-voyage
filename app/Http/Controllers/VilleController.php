@@ -85,32 +85,44 @@ class VilleController extends Controller
 
     public function deleteCity($id)
     {
-
         try {
             $city = Ville::find($id);
-            $city->delete();
 
-            $response = [
-                "type" => "success",
-                "message" => "The city has successfully deleted",
-            ];
-            $user_id = auth()->user()->id;
-            Histories::create([
-                'notification' => "deleted $city->name city successfully ",
-                'type' => "delete",
-                'user_id' => $user_id,
-            ]);
+            if ($city && $city->status === 'suspended') {
+                $city->delete();
+
+                $response = [
+                    "type" => "success",
+                    "message" => "The city has been successfully deleted",
+                ];
+                $user_id = auth()->user()->id;
+                Histories::create([
+                    'notification' => "deleted $city->name city successfully ",
+                    'type' => "delete",
+                    'user_id' => $user_id,
+                ]);
+            } elseif ($city && $city->status !== 'suspended') {
+                $response = [
+                    "type" => "danger",
+                    "message" => "You can only delete a suspended city",
+                ];
+            } else {
+                $response = [
+                    "type" => "danger",
+                    "message" => "City not found",
+                ];
+            }
         } catch (\Throwable $th) {
             dd($th->getMessage());
             $response = [
                 "type" => "danger",
-                "message" => "internal server error",
+                "message" => "Internal server error",
             ];
         }
 
-
         return redirect()->back()->with($response['type'], $response['message']);
     }
+
 
     public function addCity(Request $request)
     {
