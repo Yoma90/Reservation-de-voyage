@@ -95,10 +95,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/update-bus/{id}', [BusController::class, 'updateBus'])->name('update-bus');
 
 
-    // Route::get('list-bus', [UserController::class, 'listBusesByAgency'])->name('list-bus');
-    // Route::get('bus-management', [BusController::class, 'edit'])->name('bus-management');
-
-
     //Travels routes
     Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
     Route::get('travel-status/{id}/{status}', [TravelController::class, 'changeTravelStatus']);

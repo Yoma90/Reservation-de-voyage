@@ -184,22 +184,16 @@ class VilleController extends Controller
 
     public function takeCity(Request $request)
     {
-        $attributes = $request->validate([
+        $request->validate([
             'name' => 'required|exists:villes,id',
         ]);
-        // dd($attributes);
-
-        $response = [
-            'type' => '',
-            'message' => '',
-        ];
 
         try {
-            if ($this->checkVilleName($attributes['name'])) {
-                $cityId = $request->input('name');
-                $city = AgencyVille::findOrFail($cityId);
+            $cityId = $request->input('name');
+            $user = $request->user();
 
-                $city->save();
+            if (!$user->villes->contains($cityId)) {
+                $user->villes()->attach($cityId);
                 $response = [
                     'type' => 'success',
                     'message' => 'City attributed successfully',
@@ -207,9 +201,10 @@ class VilleController extends Controller
             } else {
                 $response = [
                     'type' => 'danger',
-                    'message' => 'City not attributed to this manager',
+                    'message' => 'City is already in your list',
                 ];
             }
+
         } catch (\Throwable $th) {
             dd($th->getMessage());
             $response = [
@@ -218,17 +213,8 @@ class VilleController extends Controller
             ];
         }
 
-
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-
-    public function checkVilleName($name)
-    {
-        if (AgencyVille::where("name", $name)->count() > 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 }
+

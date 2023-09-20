@@ -41,6 +41,6 @@ class Agency extends Model
 
     public function villes()
     {
-        return $this->belongsToMany('App\Models\Ville', 'AgencyVille', 'agency_id', 'ville_id');
+        return $this->belongsToMany('App\Models\Ville', 'agency_ville');
     }
 }

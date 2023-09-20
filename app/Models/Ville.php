@@ -29,6 +29,10 @@ class Ville extends Model
         return $this->hasOne('App\Models\User');
     }
 
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function agency_ville(){
         return $this->hasMany('App\Models\AgencyVille');
     }
@@ -40,6 +44,6 @@ class Ville extends Model
 
     public function agency()
     {
-        return $this->belongsToMany('App\Models\Agency', 'AgencyVille', 'ville_id', 'agency_id');
+        return $this->belongsToMany('App\Models\Agency', 'agency_ville');
     }
 }
