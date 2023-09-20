@@ -24,9 +24,9 @@ class CustomerController extends Controller
         });
 
         return view('pages.customer-management')
-        ->with('customers', $customers)
-        ->with('activeCustomers', $activeCustomers)
-        ->with('suspendedCustomers', $suspendedCustomers);
+            ->with('customers', $customers)
+            ->with('activeCustomers', $activeCustomers)
+            ->with('suspendedCustomers', $suspendedCustomers);
     }
 
     // public function index2()
@@ -57,7 +57,7 @@ class CustomerController extends Controller
         return view('pages.customer-management')->with('customers', $customers);
     }
 
-    public function changeUserStatus($id, $status)
+    public function changeCustomerStatus($id, $status)
     {
 
 
@@ -65,38 +65,46 @@ class CustomerController extends Controller
             "type" => "",
             "message" => "",
         ];
-        $customer = Customer::find($id);
-        if ($customer) {
-            $customer->status = $status;
-            $customer->save();
 
-            if ($status === "active") {
-                $response = [
-                    "type" => "success",
-                    "message" => "Customer activated successfully",
-                ];
-                $user_id = auth()->user()->id;
-                Histories::create([
-                    'notification' => "activated $customer->type_id customer successfully ",
-                    'type' => "change",
-                    'user_id' => $user_id,
-                ]);
+        try {
+            $customer = Customer::find($id);
+            if ($customer) {
+                $customer->status = $status;
+                $customer->save();
+
+                if ($status === "active") {
+                    $response = [
+                        "type" => "success",
+                        "message" => "Customer activated successfully",
+                    ];
+                    $user_id = auth()->user()->id;
+                    Histories::create([
+                        'notification' => "activated $customer->type_id customer successfully ",
+                        'type' => "change",
+                        'user_id' => $user_id,
+                    ]);
+                } else {
+                    $response = [
+                        "type" => "success",
+                        "message" => "Customer suspended successfully",
+                    ];
+                    $user_id = auth()->user()->id;
+                    Histories::create([
+                        'notification' => "suspended $customer->type_id customer successfully ",
+                        'type' => "change",
+                        'user_id' => $user_id,
+                    ]);
+                }
             } else {
                 $response = [
-                    "type" => "success",
-                    "message" => "Customer suspended successfully",
+                    "type" => "danger",
+                    "message" => "This Customer doesn't exist",
                 ];
-                $user_id = auth()->user()->id;
-                Histories::create([
-                    'notification' => "suspended $customer->type_id customer successfully ",
-                    'type' => "change",
-                    'user_id' => $user_id,
-                ]);
             }
-        } else {
+        } catch (\Throwable $th) {
             $response = [
                 "type" => "danger",
-                "message" => "This Customer doesn't exist",
+                "message" => "Internal server error",
             ];
         }
 
@@ -126,68 +134,11 @@ class CustomerController extends Controller
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-    public function register(Request $request)
-    {
-        $response = (new UserService($request->first_name, $request->last_name, $request->user_name, $request->email, $request->password))->register($request->devicename);
-        return response()->json($response);
-    }
-
-    public function login(Request $request)
-    {
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index()
+    // public function register(Request $request)
     // {
-    //     // return Mobile_users::all();
+    //     $response = (new UserService($request->first_name, $request->last_name, $request->user_name, $request->email, $request->password))->register($request->devicename);
+    //     return response()->json($response);
     // }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Customer $customers)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Customer $customers)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Customer $customers)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Customer $customers)
-    {
-        //
-    }
 }

@@ -106,19 +106,19 @@
                                                                     ID
                                                                 </th>
                                                                 <th
-                                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                     Name
                                                                 </th>
                                                                 <th
-                                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                     Buses
                                                                 </th>
                                                                 <th
-                                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                     Location
                                                                 </th>
                                                                 <th
-                                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                     Status
                                                                 </th>
                                                                 <th
@@ -130,7 +130,7 @@
                                                         @foreach ($city->agency_ville as $agency_ville)
                                                             <tbody>
                                                                 <tr>
-                                                                    <td class="text-center">
+                                                                    <td class="ps-4">
                                                                         <p class="text-xs font-weight-bold mb-0">
                                                                             {{ $agency_ville->id }}
                                                                         </p>
@@ -185,19 +185,19 @@
                                             ID
                                         </th>
                                         <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Name
                                         </th>
                                         <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Image
                                         </th>
                                         <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Description
                                         </th>
                                         <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Status
                                         </th>
                                         <th
@@ -213,7 +213,7 @@
                                 <tbody>
                                     @foreach ($cities as $city)
                                         <tr>
-                                            <td class="text-center">
+                                            <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $city->id }}
                                                 </p>

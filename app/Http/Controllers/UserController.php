@@ -130,44 +130,53 @@ class UserController extends Controller
             "type" => "",
             "message" => "",
         ];
-        $user = User::find($id);
-        if ($user) {
-            $user->status = $status;
-            $user->save();
 
-            if ($status === "active") {
-                $response = [
-                    "type" => "success",
-                    "message" => "User activated successfully",
-                ];
-                $user_id = auth()->user()->id;
-                History::create([
-                    "notification" => " activated $user->name user Successfully",
-                    "type" => "change",
-                    "user_id" => $user_id,
-                ]);
+        try {
+            $user = User::find($id);
+            if ($user) {
+                $user->status = $status;
+                $user->save();
+
+                if ($status === "active") {
+                    $response = [
+                        "type" => "success",
+                        "message" => "User activated successfully",
+                    ];
+                    $user_id = auth()->user()->id;
+                    Histories::create([
+                        'notification' => "activated $user->type_id user successfully ",
+                        'type' => "change",
+                        'user_id' => $user_id,
+                    ]);
+                } else {
+                    $response = [
+                        "type" => "success",
+                        "message" => "User suspended successfully",
+                    ];
+                    $user_id = auth()->user()->id;
+                    Histories::create([
+                        'notification' => "suspended $user->type_id user successfully ",
+                        'type' => "change",
+                        'user_id' => $user_id,
+                    ]);
+                }
             } else {
                 $response = [
-                    "type" => "success",
-                    "message" => "User suspended successfully",
+                    "type" => "danger",
+                    "message" => "This User doesn't exist",
                 ];
-                $user_id = auth()->user()->id;
-                History::create([
-                    "notification" => " suspended $user->name user Successfully",
-                    "type" => "change",
-                    "user_id" => $user_id,
-                ]);
             }
-        } else {
+        } catch (\Throwable $th) {
             $response = [
                 "type" => "danger",
-                "message" => "This user doesn't exist",
+                "message" => "Internal server error",
             ];
         }
 
 
         return redirect()->back()->with($response['type'], $response["message"]);
     }
+
 
 
     public function deleteUser($id)

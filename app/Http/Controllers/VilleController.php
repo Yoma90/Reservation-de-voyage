@@ -85,31 +85,44 @@ class VilleController extends Controller
 
     public function deleteCity($id)
     {
-
         try {
             $city = Ville::find($id);
-            $city->delete();
 
-            $response = [
-                "type" => "success",
-                "message" => "The city has successfully deleted",
-            ];
-            $user_id = auth()->user()->id;
-            Histories::create([
-                'notification' => "deleted $city->name city successfully ",
-                'type' => "delete",
-                'user_id' => $user_id,
-            ]);
+            if ($city && $city->status === 'suspended') {
+                $city->delete();
+
+                $response = [
+                    "type" => "success",
+                    "message" => "The city has been successfully deleted",
+                ];
+                $user_id = auth()->user()->id;
+                Histories::create([
+                    'notification' => "deleted $city->name city successfully ",
+                    'type' => "delete",
+                    'user_id' => $user_id,
+                ]);
+            } elseif ($city && $city->status !== 'suspended') {
+                $response = [
+                    "type" => "danger",
+                    "message" => "You can only delete a suspended city",
+                ];
+            } else {
+                $response = [
+                    "type" => "danger",
+                    "message" => "City not found",
+                ];
+            }
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             $response = [
                 "type" => "danger",
-                "message" => "internal server error",
+                "message" => "Internal server error",
             ];
         }
 
-
         return redirect()->back()->with($response['type'], $response['message']);
     }
+
 
     public function addCity(Request $request)
     {
@@ -171,44 +184,37 @@ class VilleController extends Controller
 
     public function takeCity(Request $request)
     {
-        $attributes = $request->validate([
+        $request->validate([
             'name' => 'required|exists:villes,id',
         ]);
-        // dd($attributes);
 
-        $response = [
-            'type' => '',
-            'message' => '',
-        ];
-
-        if ($this->checkVilleName($attributes['name'])) {
-            // $user = auth()->user();
+        try {
             $cityId = $request->input('name');
-            $city = AgencyVille::findOrFail($cityId);
-            // dd($city);
+            $user = $request->user();
 
-            $city->save();
-            $response = [
-                'type' => 'success',
-                'message' => 'City attributed successfully',
-            ];
-        } else {
+            if (!$user->villes->contains($cityId)) {
+                $user->villes()->attach($cityId);
+                $response = [
+                    'type' => 'success',
+                    'message' => 'City attributed successfully',
+                ];
+            } else {
+                $response = [
+                    'type' => 'danger',
+                    'message' => 'City is already in your list',
+                ];
+            }
+
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
             $response = [
                 'type' => 'danger',
-                'message' => 'City not attributed to this manager',
+                'message' => 'Internal server error',
             ];
         }
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-
-    public function checkVilleName($name)
-    {
-        if (AgencyVille::where("name", $name)->count() > 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 }
+

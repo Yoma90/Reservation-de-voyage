@@ -142,7 +142,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         ID
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Type
                                     </th>
                                     <th
@@ -166,7 +166,7 @@
                             <tbody>
                                 @foreach ($bus as $bu)
                                     <tr>
-                                        <td class="text-center">
+                                        <td class="ps-4">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $bu->id }}
                                             </p>
@@ -255,7 +255,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         ID
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Type
                                     </th>
                                     <th
@@ -279,7 +279,7 @@
                             <tbody>
                                 @foreach ($vipBus as $bu1)
                                     <tr>
-                                        <td class="text-center">
+                                        <td class="ps-4">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $bu1->id }}
                                             </p>
@@ -360,7 +360,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         ID
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Type
                                     </th>
                                     <th
@@ -384,7 +384,7 @@
                             <tbody>
                                 @foreach ($classicBus as $bu)
                                     <tr>
-                                        <td class="text-center">
+                                        <td class="ps-4">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $bu->id }}
                                             </p>

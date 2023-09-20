@@ -45,7 +45,7 @@
                                                     ID
                                                 </th>
                                                 <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     First Name
                                                 </th>
                                                 <th
@@ -75,7 +75,7 @@
                                 <tbody>
                                     @foreach ($customers as $customer)
                                         <tr>
-                                            <td class="text-center">
+                                            <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $customer->id }}
                                                 </p>
@@ -154,7 +154,7 @@
                                                     ID
                                                 </th>
                                                 <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     First Name
                                                 </th>
                                                 <th
@@ -184,7 +184,7 @@
                                 <tbody>
                                     @foreach ($activeCustomers as $customer)
                                         <tr>
-                                            <td class="text-center">
+                                            <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $customer->id }}
                                                 </p>
@@ -253,7 +253,7 @@
                                                     ID
                                                 </th>
                                                 <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     First Name
                                                 </th>
                                                 <th
@@ -283,7 +283,7 @@
                                 <tbody>
                                     @foreach ($suspendedCustomers as $customer)
                                         <tr>
-                                            <td class="text-center">
+                                            <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $customer->id }}
                                                 </p>
@@ -314,15 +314,24 @@
                                                 </span>
                                             </td>
                                             <td class="text-center">
-                                                <a href="/user-status/{{ $customer->id }}/active" class="mx-3"
-                                                    data-bs-toggle="tooltip" data-bs-original-title="activate customer"><i
-                                                        class="fas fa-solid fa-check"></i>
-                                                </a>
-                                                <!-- <span>
-                                                <a class="mx-3" data-bs-toggle="tooltip" href="/delete-user/{{ $customer->id }}" data-bs-original-title="delete customer">
-                                                    <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                                </a>
-                                            </span> -->
+                                                @if ($customer->status === 'active')
+                                                    <a href="/customer-status/{{ $customer->id }}/suspended" class="mx-3"
+                                                        data-bs-toggle="tooltip" data-bs-original-title="suspend customer">
+                                                        <i class="fas fa-stop"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="/customer-status/{{ $customer->id }}/active" class="mx-3"
+                                                        data-bs-toggle="tooltip" data-bs-original-title="activate customer"><i
+                                                            class="fas fa-solid fa-check"></i>
+                                                    </a>
+                                                @endif
+                                                <span>
+                                                    <a class="mx-3" data-bs-toggle="tooltip"
+                                                        href="/delete-customer/{{ $customer->id }}"
+                                                        data-bs-original-title="delete customer">
+                                                        <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                                    </a>
+                                                </span>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Customers routes
     Route::get('customer-management', [CustomerController::class, 'listCustomers'])->name("customer-management");
-    Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
+    Route::get('customer-status/{id}/{status}', [CustomerController::class, 'changeCustomerStatus']);
     Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
     Route::get('customer-management', [CustomerController::class, 'index']);
 
@@ -85,7 +85,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/user-profile/update', [InfoUserController::class, 'updateProfile']);
 
     Route::get('user-management', [UserController::class, 'listUser'])->name('user-management');
+    Route::get('user-status/{id}/{status}', [UserController::class, 'changeUserStatus']);
     Route::post('/add-user', [UserController::class, 'addUser'])->name('add-user');
+
 
     //Bus routes
     Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');
@@ -93,10 +95,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bus-status/{id}/{status}', [BusController::class, 'changeBusStatus']);
     Route::get('/delete-bus/{id}', [BusController::class, 'deleteBus']);
     Route::put('/update-bus/{id}', [BusController::class, 'updateBus'])->name('update-bus');
-
-
-    // Route::get('list-bus', [UserController::class, 'listBusesByAgency'])->name('list-bus');
-    // Route::get('bus-management', [BusController::class, 'edit'])->name('bus-management');
 
 
     //Travels routes
