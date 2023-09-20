@@ -83,6 +83,7 @@ class SessionsController extends Controller
             "new_password" => "required",
             "c_password" => "required",
         ]);
+
         $response = [
             "type" => "",
             "message" => "",

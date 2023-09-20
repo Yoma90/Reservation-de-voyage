@@ -34,7 +34,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $bus = Bus::where('id', auth()->user()->id)->get();
+        $bus = Bus::where('agency_id', auth()->user()->agency->id)->get();
         $types = Type::get();
         $customers = Customer::get();
         $histories = Histories::orderBy("id", "DESC")->with('user')->limit(5)->get();
