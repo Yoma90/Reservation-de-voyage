@@ -143,10 +143,10 @@ class UserController extends Controller
                         "message" => "User activated successfully",
                     ];
                     $user_id = auth()->user()->id;
-                    History::create([
-                        "notification" => " activated $user->name user Successfully",
-                        "type" => "change",
-                        "user_id" => $user_id,
+                    Histories::create([
+                        'notification' => "activated $user->type_id user successfully ",
+                        'type' => "change",
+                        'user_id' => $user_id,
                     ]);
                 } else {
                     $response = [
@@ -154,28 +154,29 @@ class UserController extends Controller
                         "message" => "User suspended successfully",
                     ];
                     $user_id = auth()->user()->id;
-                    History::create([
-                        "notification" => " suspended $user->name user Successfully",
-                        "type" => "change",
-                        "user_id" => $user_id,
+                    Histories::create([
+                        'notification' => "suspended $user->type_id user successfully ",
+                        'type' => "change",
+                        'user_id' => $user_id,
                     ]);
                 }
             } else {
                 $response = [
                     "type" => "danger",
-                    "message" => "This user doesn't exist",
+                    "message" => "This User doesn't exist",
                 ];
             }
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             $response = [
                 "type" => "danger",
                 "message" => "Internal server error",
             ];
         }
 
+
         return redirect()->back()->with($response['type'], $response["message"]);
     }
+
 
 
     public function deleteUser($id)

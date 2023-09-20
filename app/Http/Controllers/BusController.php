@@ -117,22 +117,33 @@ class BusController extends Controller
             'places' => 'required',
             'immatriculation' => "required",
         ]);
+
         $response = [
             "type" => "",
             "message" => "",
         ];
+
         try {
             if ($this->checkBusImmatriculation($attributes["immatriculation"])) {
+                $user = auth()->user();
+                $agencyId = $user->agency_id;
 
+                $busAttributes = [
+                    'type_id' => $attributes['type_id'],
+                    'places' => $attributes['places'],
+                    'immatriculation' => $attributes['immatriculation'],
+                    'agency_id' => $agencyId,
+                ];
 
-                $bus = Bus::create($attributes);
+                $bus = Bus::create($busAttributes);
                 $bus_type = $bus->type->name;
-                $user_id = auth()->user()->id;
+                $user_id = $user->id;
                 Histories::create([
                     'notification' => "added $bus_type bus successfully ",
                     'type' => "add",
                     'user_id' => $user_id,
                 ]);
+
                 $response = [
                     "type" => "success",
                     "message" => "Bus added successfully",
@@ -153,6 +164,7 @@ class BusController extends Controller
 
         return redirect()->back()->with($response['type'], $response['message']);
     }
+
 
     public function checkBusImmatriculation($bus_type)
     {

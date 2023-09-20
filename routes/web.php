@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Customers routes
     Route::get('customer-management', [CustomerController::class, 'listCustomers'])->name("customer-management");
-    Route::get('user-status/{id}/{status}', [CustomerController::class, 'changeUserStatus']);
+    Route::get('customer-status/{id}/{status}', [CustomerController::class, 'changeCustomerStatus']);
     Route::get('/delete-user/{id}', [CustomerController::class, 'deleteUser']);
     Route::get('customer-management', [CustomerController::class, 'index']);
 
@@ -85,7 +85,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/user-profile/update', [InfoUserController::class, 'updateProfile']);
 
     Route::get('user-management', [UserController::class, 'listUser'])->name('user-management');
+    Route::get('user-status/{id}/{status}', [UserController::class, 'changeUserStatus']);
     Route::post('/add-user', [UserController::class, 'addUser'])->name('add-user');
+
 
     //Bus routes
     Route::get('bus-management', [BusController::class, 'index'])->name('bus-management');

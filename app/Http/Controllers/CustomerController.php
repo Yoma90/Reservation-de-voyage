@@ -57,7 +57,7 @@ class CustomerController extends Controller
         return view('pages.customer-management')->with('customers', $customers);
     }
 
-    public function changeUserStatus($id, $status)
+    public function changeCustomerStatus($id, $status)
     {
 
 
@@ -134,68 +134,11 @@ class CustomerController extends Controller
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-    public function register(Request $request)
-    {
-        $response = (new UserService($request->first_name, $request->last_name, $request->user_name, $request->email, $request->password))->register($request->devicename);
-        return response()->json($response);
-    }
-
-    public function login(Request $request)
-    {
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index()
+    // public function register(Request $request)
     // {
-    //     // return Mobile_users::all();
+    //     $response = (new UserService($request->first_name, $request->last_name, $request->user_name, $request->email, $request->password))->register($request->devicename);
+    //     return response()->json($response);
     // }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Customer $customers)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Customer $customers)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Customer $customers)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Customer $customers)
-    {
-        //
-    }
 }
