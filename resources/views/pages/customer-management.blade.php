@@ -107,12 +107,12 @@
                                             </td>
                                             <td class="text-center">
                                                 @if ($customer->status === 'active')
-                                                    <a href="/user-status/{{ $customer->id }}/suspended" class="mx-3"
+                                                    <a href="/customer-status/{{ $customer->id }}/suspended" class="mx-3"
                                                         data-bs-toggle="tooltip" data-bs-original-title="suspend customer">
                                                         <i class="fas fa-stop"></i>
                                                     </a>
                                                 @else
-                                                    <a href="/user-status/{{ $customer->id }}/active" class="mx-3"
+                                                    <a href="/customer-status/{{ $customer->id }}/active" class="mx-3"
                                                         data-bs-toggle="tooltip"
                                                         data-bs-original-title="activate customer"><i
                                                             class="fas fa-solid fa-check"></i>
@@ -120,7 +120,7 @@
                                                 @endif
                                                 <span>
                                                     <a class="mx-3" data-bs-toggle="tooltip"
-                                                        href="/delete-user/{{ $customer->id }}"
+                                                        href="/delete-customer/{{ $customer->id }}"
                                                         data-bs-original-title="delete customer">
                                                         <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                                     </a>
