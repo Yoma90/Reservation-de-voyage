@@ -53,7 +53,7 @@ class SessionsController extends Controller
             if (auth()->user()->role->id === 1) {
                 return redirect('dashboard')->with(['success' => 'You are logged in.']);
             } else {
-                return redirect('dashboard')->with(['success' => 'You are logged in.']);
+                return redirect('manager-dashboard')->with(['success' => 'You are logged in.']);
             }
         } else {
 
@@ -116,6 +116,7 @@ class SessionsController extends Controller
                         ];
                     }
                 } catch (\Throwable $th) {
+                    dd($th->getMessage());
                     $response = [
                         "type" => "danger",
                         "message" => "internal server error",

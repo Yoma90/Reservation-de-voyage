@@ -12,9 +12,6 @@ class VoyageController extends Controller
         $this->middleware("auth:sanctum", ["except" => ["index", "show"]]);
     }
 
-
-
-
     /**
      * Display a listing of the resource.
      */

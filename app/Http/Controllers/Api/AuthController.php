@@ -34,7 +34,6 @@ class AuthController extends Controller
         ];
 
         try {
-            //Créer un nouvel utilisateur
             $user = Customer::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -43,7 +42,6 @@ class AuthController extends Controller
                 'password' => bcrypt($request->password),
             ]);
 
-            //Générer un token d'authentification (utilisant sanctum)
             $token = $user->createToken("token-name")->plainTextToken;
             $response["statusCode"] = 200;
             $response["message"] = "Registered successfully";

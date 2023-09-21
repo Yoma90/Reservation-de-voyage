@@ -27,7 +27,6 @@ class AgencyController extends Controller
         $roles = Role::get();
         $agencies = Agency::get();
 
-        // dd($agencies);
         return view('pages.agency-management')
         ->with('villes', $villes)
         ->with('agencies', $agencies)->with('roles', $roles);
@@ -85,7 +84,6 @@ class AgencyController extends Controller
 
         try {
             $agency = Agency::find($id);
-            // dd($agency);
 
             $agency->delete();
             $response = [
@@ -99,7 +97,7 @@ class AgencyController extends Controller
                 'user_id' => $user_id,
             ]);
         } catch (\Throwable $th) {
-            // dd($th->getMessage());
+            dd($th->getMessage());
             $response = [
                 "type" => "danger",
                 "message" => "internal server error",
@@ -124,8 +122,6 @@ class AgencyController extends Controller
         ];
 
         try {
-            // if ($this->checkEmail($attributes['name'])) {
-
                 $agency = Agency::create($attributes);
                 AgencyVille::create([
                     'ville_id' => $attributes['ville_id'],
@@ -142,12 +138,6 @@ class AgencyController extends Controller
                     "type" => "success",
                     "message" => "Agency added successfully",
                 ];
-            // } else {
-            //     $response = [
-            //         "type" => "danger",
-            //         "message" => "This Agency name already exist",
-            //     ];
-            // }
         } catch (\Throwable $th) {
             dd($th->getMessage());
             $response = [
@@ -191,12 +181,4 @@ class AgencyController extends Controller
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-    // public function checkEmail($name)
-    // {
-    //     if (Agency::where("name", $name)->count() > 0) {
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // }
 }

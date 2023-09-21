@@ -80,7 +80,6 @@ class TravelController extends Controller
 
     try {
         if ($attributes["from"] !== $attributes["to"]) {
-            // Vérifiez si "from" est différent de "to"
             if ($this->checkFromName($attributes["from"])) {
                 $travel = Voyage::create($attributes);
                 $travels = $travel->from;
@@ -107,6 +106,7 @@ class TravelController extends Controller
             ];
         }
     } catch (\Throwable $th) {
+        dd($th->getMessage());
         $response = [
             'type' => 'danger',
             'message' => 'Internal server error',
