@@ -148,6 +148,7 @@ Route::group(['middleware' => 'guest'], function () {
 });
 Route::post('/change-password', [SessionsController::class, 'changeUserPassword']);
 
+Route::get('user-profile', [SessionsController::class, 'index'])->name("user-profile");
 
 Route::get('/login', function () {
     return view('session/login-session');
