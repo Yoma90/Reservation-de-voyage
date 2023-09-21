@@ -141,11 +141,10 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('/login', [SessionsController::class, 'create'])->name('login');
     Route::post('/session', [SessionsController::class, 'store']);
 
-    // Route::get('/login2', [SessionsController::class, 'create2']);
     // Route::get('/login/forgot-password', [ResetController::class, 'create']);
     // Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
-    Route::post('/change-password', [SessionsController::class, 'changeUserPassword']);
 });
+Route::post('/change-password', [SessionsController::class, 'changeUserPassword']);
 
 Route::get('/login', function () {
     return view('session/login-session');
