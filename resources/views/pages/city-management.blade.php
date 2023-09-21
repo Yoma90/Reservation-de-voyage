@@ -28,9 +28,10 @@
                                             <div class="modal-body">
                                                 <form action="/take-city" method="POST">
                                                     @csrf
+                                                    <input type="text" name="name" required class="form-control">
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">Name</label>
-                                                        <select name="name" class="form-control" id="" required>
+                                                        <select name="ville_id" class="form-control" id="" required>
                                                             <option></option>
                                                             @foreach ($villes as $ville)
                                                                 <option value="{{ $ville->id }}">{{ $ville->name }}
@@ -96,7 +97,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $city->name }}
+                                                    {{ $city->ville->name }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
@@ -131,7 +132,7 @@
                                                 @endif
                                                 <span>
                                                     <a class="mx-3" data-bs-toggle="tooltip"
-                                                        href="/delete-city/{{ $city->id }}"
+                                                        href="/delete-ville-agency/{{$city->id}}"
                                                         data-bs-original-title="delete city">
                                                         <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                                     </a>

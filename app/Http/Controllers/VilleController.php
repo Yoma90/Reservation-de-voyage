@@ -26,9 +26,11 @@ class VilleController extends Controller
 
     public function listVilles()
     {
-        $cities = Ville::where('id', auth()->user()->id)->get();
+        $cities = AgencyVille::where('agency_id', auth()->user()->agency->id)->get();
         $agencies = Agency::get();
         $villes = Ville::get();
+
+        // dd($cities)
 
         return view('pages.city-management')
             ->with('villes', $villes)
@@ -124,6 +126,39 @@ class VilleController extends Controller
     }
 
 
+    public function deleteVilleToAgency($id)
+    {
+        $ville = AgencyVille::find($id);
+
+        $response = [
+            'type' => '',
+            'message' => '',
+        ];
+
+        if ($ville) {
+            try {
+                AgencyVille::where('id', $id)->delete();
+                $response = [
+                    "type" => "success",
+                    "message" => "The city has been successfully deleted",
+                ];
+            } catch (\Throwable $th) {
+                dd($th->getMessage());
+                $response = [
+                    "type" => "danger",
+                    "message" => "Internal server error",
+                ];
+            }
+        } else {
+            $response = [
+                "type" => "danger",
+                "message" => "City not found",
+            ];
+        }
+        return redirect()->back()->with($response['type'], $response['message']);
+    }
+
+
     public function addCity(Request $request)
     {
         $attributes = $request->validate([
@@ -184,15 +219,21 @@ class VilleController extends Controller
     public function takeCity(Request $request)
     {
         $request->validate([
-            'name' => 'required|exists:villes,id',
+            'ville_id' => 'required|exists:villes,id',
+            'name' => 'required',
         ]);
 
         try {
-            $cityId = $request->input('name');
-            $user = $request->user();
+            $cityId = $request->input('ville_id');
+            $name = $request->input('name');
 
-            if (!$user->villes->contains($cityId)) {
-                $user->villes()->attach($cityId);
+            if ($this->checkAgencyInVille($cityId)) {
+                AgencyVille::create([
+                    'ville_id' => $cityId,
+                    'agency_id' => auth()->user()->agency->id,
+                    'location' => $name,
+                ]);
+
                 $response = [
                     'type' => 'success',
                     'message' => 'City attributed successfully',
@@ -203,7 +244,6 @@ class VilleController extends Controller
                     'message' => 'City is already in your list',
                 ];
             }
-
         } catch (\Throwable $th) {
             dd($th->getMessage());
             $response = [
@@ -215,5 +255,13 @@ class VilleController extends Controller
         return redirect()->back()->with($response['type'], $response['message']);
     }
 
-}
 
+    public function checkAgencyInVille($ville_id)
+    {
+        if (AgencyVille::where("ville_id", $ville_id)->where('agency_id', auth()->user()->agency->id)->count() > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}

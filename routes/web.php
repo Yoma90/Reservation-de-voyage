@@ -125,6 +125,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::post('/take-city', [VilleController::class, 'takeCity'])->name('take-city');
+    Route::get('/delete-ville-agency/{id}', [VilleController::class, 'deleteVilleToAgency'])->name('delete-ville-agency');
     Route::get('city-management', [VilleController::class, 'listVilles'])->name('city-management');
 });
 
