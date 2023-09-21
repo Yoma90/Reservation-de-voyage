@@ -116,12 +116,12 @@
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $travel->from }}
+                                                {{ $travel->departure->name }}
                                             </p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $travel->to }}
+                                                {{ $travel->arrival->name }}
                                             </p>
                                         </td>
                                         <td class="text-center">
