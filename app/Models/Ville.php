@@ -46,4 +46,11 @@ class Ville extends Model
     {
         return $this->belongsToMany('App\Models\Agency', 'agency_ville');
     }
+
+    public function voyage_to(){
+        return $this->hasMany('App\Models\Voyage', 'to');
+    }
+    public function voyage_from(){
+        return $this->hasMany('App\Models\Voyage', 'from');
+    }
 }

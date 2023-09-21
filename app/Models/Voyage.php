@@ -14,4 +14,11 @@ class Voyage extends Model
         'details',
         'price',
     ];
+
+    public function arrival(){
+        return $this->belongsTo('App\Models\Ville', 'to');
+    }
+    public function departure(){
+        return $this->belongsTo('App\Models\Ville', 'from');
+    }
 }

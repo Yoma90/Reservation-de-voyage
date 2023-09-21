@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Histories;
 use App\Models\Travel;
+use App\Models\Ville;
 use App\Models\Voyage;
 use Illuminate\Http\Request;
 
@@ -59,6 +60,8 @@ class TravelController extends Controller
     public function all()
     {
         $travels = Voyage::get();
+        // $ville = Ville::with(['voyage_to', 'voyage_from'])->get();
+        // dd($travels, $ville);
 
         return view('pages.travel-management')
             ->with('travels', $travels);
