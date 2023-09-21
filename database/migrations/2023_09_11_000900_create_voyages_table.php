@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId("to")->constrained('villes')->onUpdate('cascade');
             $table->string("details");
             $table->string("price");
+            $table->string("status")->default("active");
             $table->timestamps();
         });
     }
