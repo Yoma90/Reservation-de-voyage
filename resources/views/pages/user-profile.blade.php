@@ -127,9 +127,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user.agency" class="form-control-label">{{ __('Agency') }}</label>
-                                <div class="@error('user.agency') border border-danger rounded-3 @enderror">
-                                    <input class="form-control" type="text" placeholder="Agency" id="name" name="agency" value="{{ auth()->user()->agency->name }}">
+                                <label for="user.location" class="form-control-label">{{ __('Location') }}</label>
+                                <div class="@error('user.location') border border-danger rounded-3 @enderror">
+                                    <input class="form-control" type="text" placeholder="Location" id="name" name="location" value="{{ auth()->user()->location }}">
                                 </div>
                             </div>
                         </div>
