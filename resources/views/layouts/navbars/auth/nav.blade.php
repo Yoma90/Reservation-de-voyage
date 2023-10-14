@@ -11,11 +11,6 @@
             <h6 class="font-weight-bolder mb-0 text-capitalize">{{ str_replace('-', ' ', Request::path()) }}</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 d-flex justify-content-end" id="navbar">
-            {{-- <div class="nav-item d-flex align-self-end">
-                <a href="https://www.creative-tim.com/product/soft-ui-dashboard-laravel" target="_blank" class="btn btn-primary active mb-0 text-white" role="button" aria-pressed="true">
-                    Download
-                </a>
-            </div> --}}
             <div class="row p-4 w-70">
                 @if (\Session::has('info'))
                     <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -70,7 +65,7 @@
 
             </div>
             <ul class="navbar-nav  justify-content-end">
-                <div style="background-color: #e2e8f0; border-radius: 15px; border: 1px solid gray; padding: 0 10px 0 10px">
+                <div style="background-color: #e2e8f0; border-radius: 25px; border: 1px solid gray; padding: 0 10px 0 10px">
                     <li class="nav-item d-flex align-items-center">
                         <a href="{{ url('/logout') }}" class="nav-link text-body font-weight-bold px-0">
                             <img src="{{ auth()->user()->image_path }}" alt="profile"

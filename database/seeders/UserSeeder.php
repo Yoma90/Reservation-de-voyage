@@ -41,6 +41,13 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        DB::table('roles')->insert([
+            'id' => 3,
+            'name' => 'Receptory',
+            'description' => 'This receptory confirm the ticket of a customer who boocked a ticket in mobile app',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
         DB::table('users')->insert([
             'id' => 1,
             'first_name' => 'Admin',
@@ -69,16 +76,6 @@ class UserSeeder extends Seeder
             'last_name' => 'Junior',
             'user_name' => 'Freg120',
             'email' => 'fregmarcel@gmail.com',
-            'password' => Hash::make('123456789'),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('customers')->insert([
-            'id' => 3,
-            'first_name' => 'Banol',
-            'last_name' => 'Anne Carole',
-            'user_name' => 'BanolAC',
-            'email' => 'ACBanol@gmail.com',
             'password' => Hash::make('123456789'),
             'created_at' => now(),
             'updated_at' => now()
