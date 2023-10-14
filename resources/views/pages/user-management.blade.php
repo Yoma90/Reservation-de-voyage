@@ -27,7 +27,8 @@
                                             </div>
                                             <div class="modal-body">
 
-                                                <form action="/add-user" method="POST">
+                                                <form action="/add-user" method="POST" accept="image/*"
+                                                enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">First
@@ -56,7 +57,8 @@
 
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">Agency</label>
-                                                        <select class="form-control" id="agency_id" name="agency_id" required>
+                                                        <select class="form-control" id="agency_id" name="agency_id"
+                                                            required>
                                                             <option></option>
                                                             @foreach ($agencies as $agency)
                                                                 <option value="{{ $agency->id }}">
@@ -65,10 +67,48 @@
                                                         </select>
                                                     </div>
 
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">Image</label>
+                                                        <div class="image-preview" id="imagePreview">
+                                                            <img src="" alt="Image Preview" id="previewImage"
+                                                                width="300" height="200">
+                                                            <span class="close-button" id="closeButton">&#10006;</span>
+                                                        </div>
+
+                                                        <input type="file" class="form-control" id="imageInput"
+                                                            placeholder="User image" name="image" required>
+
+                                                    </div>
+
 
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn bg-gradient-primary">Add</button>
                                                     </div>
+
+                                                    <script>
+                                                        const imageInput = document.getElementById('imageInput');
+                                                        const imagePreview = document.getElementById('imagePreview');
+                                                        const previewImage = document.getElementById('previewImage');
+                                                        const closeButton = document.getElementById('closeButton');
+
+                                                        closeButton.style.cursor = 'pointer';
+                                                        imageInput.addEventListener('change', function() {
+                                                            const file = this.files[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+
+                                                                reader.onload = function(e) {
+                                                                    previewImage.src = e.target.result;
+                                                                    imagePreview.style.display = 'block';
+                                                                };
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        });
+                                                        closeButton.addEventListener('click', function() {
+                                                            imagePreview.style.display = 'none';
+                                                            imageInput.value = '';
+                                                        });
+                                                    </script>
                                                 </form>
 
                                             </div>
@@ -96,6 +136,10 @@
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Last Name
+                                        </th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Image
                                         </th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -142,6 +186,9 @@
                                                 </p>
                                             </td>
                                             <td class="text-center">
+                                                <img src="{{ $user->image_path }}" width="100" class="rounded-3">
+                                            </td>
+                                            <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $user->email }}
                                                 </p>
@@ -158,7 +205,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{$user->agency->name}}
+                                                    {{ $user->agency->name }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
