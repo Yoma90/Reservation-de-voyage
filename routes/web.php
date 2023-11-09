@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Managers routes
     Route::get('agency-management', [AgencyController::class, 'listAgencies'])->name('agency-management');
+    Route::get('list-agencies', [AgencyController::class, 'listAgency'])->name('list-agencies');
     Route::get('/update-agency', [AgencyController::class, 'updateAgency'])->name('update-agency');
     Route::get('agency-status/{id}/{status}', [AgencyController::class, 'changeAgencyStatus']);
     Route::get('/delete-agency/{id}', [AgencyController::class, 'deleteAgency']);
@@ -99,12 +100,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Travels routes
     Route::get('travel-management', [TravelController::class, 'all'])->name("travel-management");
+    Route::get('/delete-travel/{id}', [TravelController::class, 'deleteTravel']);
     Route::get('travel-status/{id}/{status}', [TravelController::class, 'changeTravelStatus']);
     Route::post('/add-travel', [TravelController::class, 'addTravel'])->name('add-travel');
 
 
 
-    Route::get('list-agencies', [AgencyController::class, 'listAgency'])->name('list-agencies');
 
     //Destinations routes
     Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
@@ -147,6 +148,7 @@ Route::group(['middleware' => 'guest'], function () {
 });
 Route::post('/change-password', [SessionsController::class, 'changeUserPassword']);
 
+Route::get('user-profile', [SessionsController::class, 'index'])->name("user-profile");
 
 Route::get('/login', function () {
     return view('session/login-session');

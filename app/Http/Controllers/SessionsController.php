@@ -6,21 +6,20 @@ use App\Models\Agency;
 use App\Models\Histories;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class SessionsController extends Controller
 {
-    // public function create2()
-    // {
-    //     $roles = Role::get();
-    //     $agencies = Agency::get();
+    public function index()
+    {
+        $cities = Ville::get();
 
-    //     return view('session.login-session')
-    //     ->with('roles', $roles)
-    //     ->with('agencies', $agencies);
-    // }
+        return view('pages.user-profile')
+        ->with('cities', $cities);
+    }
 
     public function create()
     {

@@ -101,31 +101,31 @@
                                                 </p>
                                             </td>
                                             <td class="text-center">
-                                                <img src="{{ $city->image_path }}" width="100" class="rounded-3">
+                                                <img src="{{ $city->ville->image_path }}" width="100" class="rounded-3">
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $city->description }}
+                                                    {{ $city->ville->description }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $city->status }}
+                                                    {{ $city->ville->status }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">
-                                                    {{ $city->created_at }}
+                                                    {{ $city->ville->created_at }}
                                                 </span>
                                             </td>
                                             <td class="text-center">
-                                                @if ($city->status === 'active')
-                                                    <a href="/city-status/{{ $city->id }}/suspended" class="mx-3"
+                                                @if ($city->ville->status === 'active')
+                                                    <a href="/city-status/{{ $city->ville->id }}/suspended" class="mx-3"
                                                         data-bs-toggle="tooltip" data-bs-original-title="suspend city">
                                                         <i class="fas fa-stop"></i>
                                                     </a>
                                                 @else
-                                                    <a href="/city-status/{{ $city->id }}/active" class="mx-3"
+                                                    <a href="/city-status/{{ $city->ville->id }}/active" class="mx-3"
                                                         data-bs-toggle="tooltip" data-bs-original-title="activate city"><i
                                                             class="fas fa-solid fa-check"></i>
                                                     </a>

@@ -27,6 +27,7 @@ class User extends Authenticatable
         'agency_id',
         'location',
         'status',
+        'image_path'
     ];
 
     /**
@@ -72,5 +73,10 @@ class User extends Authenticatable
     public function histories()
     {
         return $this->belongsTo('App\Models\Histories');
+    }
+
+    public function getImagePathAttribute()
+    {
+        return env('APP_URL') ."/storage/villes/". $this->attributes['image_path'];
     }
 }

@@ -17,31 +17,31 @@ class TravelController extends Controller
             "type" => "",
             "message" => "",
         ];
-        $city = Travel::find($id);
-        if ($city) {
-            $city->status = $status;
-            $city->save();
+        $travel = Voyage::find($id);
+        if ($travel) {
+            $travel->status = $status;
+            $travel->save();
 
             if ($status === "active") {
 
                 $response = [
                     "type" => "success",
-                    "message" => "City activated successfully",
+                    "message" => "Travel activated successfully",
                 ];
                 $user_id = auth()->user()->id;
                 Histories::create([
-                    'notification' => "activated $city->name city successfully ",
+                    'notification' => "activated $travel->name travel successfully ",
                     'type' => "change",
                     'user_id' => $user_id,
                 ]);
             } else {
                 $response = [
                     "type" => "success",
-                    "message" => "City suspended successfully",
+                    "message" => "Travel suspended successfully",
                 ];
                 $user_id = auth()->user()->id;
                 Histories::create([
-                    'notification' => "suspended $city->name city successfully ",
+                    'notification' => "suspended $travel->name travel successfully ",
                     'type' => "change",
                     'user_id' => $user_id,
                 ]);
@@ -49,7 +49,7 @@ class TravelController extends Controller
         } else {
             $response = [
                 "type" => "danger",
-                "message" => "This City doesn't exist",
+                "message" => "This Travel doesn't exist",
             ];
         }
 
@@ -68,56 +68,56 @@ class TravelController extends Controller
     }
 
     public function addTravel(Request $request)
-{
-    $attributes = $request->validate([
-        'from' => 'required',
-        'to' => 'required',
-        'details' => 'required',
-        'price' => 'required'
-    ]);
+    {
+        $attributes = $request->validate([
+            'from' => 'required',
+            'to' => 'required',
+            'details' => 'required',
+            'price' => 'required'
+        ]);
 
-    $response = [
-        'type' => '',
-        'message' => ''
-    ];
+        $response = [
+            'type' => '',
+            'message' => ''
+        ];
 
-    try {
-        if ($attributes["from"] !== $attributes["to"]) {
-            if ($this->checkFromName($attributes["from"])) {
-                $travel = Voyage::create($attributes);
-                $travels = $travel->from;
-                $user_id = auth()->user()->id;
-                Histories::create([
-                    'notification' => "added $travels Travel successfully ",
-                    'type' => 'add',
-                    'user_id' => $user_id,
-                ]);
-                $response = [
-                    'type' => 'success',
-                    'message' => 'Travel added successfully',
-                ];
+        try {
+            if ($attributes["from"] !== $attributes["to"]) {
+                if ($this->checkFromName($attributes["from"])) {
+                    $travel = Voyage::create($attributes);
+                    $travels = $travel->from;
+                    $user_id = auth()->user()->id;
+                    Histories::create([
+                        'notification' => "added $travels Travel successfully ",
+                        'type' => 'add',
+                        'user_id' => $user_id,
+                    ]);
+                    $response = [
+                        'type' => 'success',
+                        'message' => 'Travel added successfully',
+                    ];
+                } else {
+                    $response = [
+                        'type' => 'danger',
+                        'message' => 'You can\'t put the same name',
+                    ];
+                }
             } else {
                 $response = [
                     'type' => 'danger',
-                    'message' => 'You can\'t put the same name',
+                    'message' => 'The "from" and "to" fields cannot have the same value',
                 ];
             }
-        } else {
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
             $response = [
                 'type' => 'danger',
-                'message' => 'The "from" and "to" fields cannot have the same value',
+                'message' => 'Internal server error',
             ];
         }
-    } catch (\Throwable $th) {
-        dd($th->getMessage());
-        $response = [
-            'type' => 'danger',
-            'message' => 'Internal server error',
-        ];
-    }
 
-    return redirect()->back()->with($response['type'], $response['message']);
-}
+        return redirect()->back()->with($response['type'], $response['message']);
+    }
 
 
     public function checkFromName($travels)
@@ -127,5 +127,32 @@ class TravelController extends Controller
         } else {
             return true;
         }
+    }
+
+    public function deleteTravel($id)
+    {
+
+        try {
+            $travel = Voyage::find($id);
+            $travel->delete();
+            $response = [
+                "type" => "success",
+                "message" => "The travel has successfully deleted",
+            ];
+            $user_id = auth()->user()->id;
+            Histories::create([
+                'notification' => "suspended $travel->travel_type travel successfully ",
+                'type' => "change",
+                'user_id' => $user_id,
+            ]);
+        } catch (\Throwable $th) {
+            $response = [
+                "type" => "danger",
+                "message" => "internal server error",
+            ];
+        }
+
+
+        return redirect()->back()->with($response['type'], $response['message']);
     }
 }

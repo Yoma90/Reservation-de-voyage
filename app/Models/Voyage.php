@@ -13,6 +13,7 @@ class Voyage extends Model
         'to',
         'details',
         'price',
+        'status'
     ];
 
     public function arrival(){

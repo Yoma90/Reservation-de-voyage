@@ -57,7 +57,8 @@ class UserController extends Controller
             'last_name' => "required|max:50",
             'email'     => "required|max:50",
             'phone' => "required|max:50",
-            'agency_id' => "required|max:50"
+            'agency_id' => "required|max:50",
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
         $response = [
             'type' => "",
@@ -69,6 +70,10 @@ class UserController extends Controller
                 $attributes['password'] = Hash::make('00000000');
                 $attributes['role_id'] = ('2');
                 if ($this->checkAgencyId($attributes['agency_id'])) {
+                    $imageController = new ImageController();
+                    $image = $request->file('image');
+                    $imageFileName = $imageController->upload($image, 'villes');
+                    $attributes['image_path'] = $imageFileName;
                     $user = User::create($attributes);
                     $response = [
                         "type" => "success",

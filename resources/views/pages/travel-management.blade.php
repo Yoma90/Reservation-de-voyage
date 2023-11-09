@@ -81,7 +81,7 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         ID
                                     </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         From
                                     </th>
                                     <th
@@ -109,7 +109,7 @@
                             <tbody>
                                 @foreach ($travels as $travel)
                                     <tr>
-                                        <td class="text-center">
+                                        <td class="ps-4">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $travel->id }}
                                             </p>
