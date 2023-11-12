@@ -8,6 +8,7 @@ use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\HistoriesController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\AgencyController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
@@ -107,8 +108,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-    //Destinations routes
-    Route::get('destination-management', [DestinationController::class, 'index'])->name('destination-management');
+    //Products routes
+    Route::get('product-management', [ProductController::class, 'index'])->name('product-management');
 
 
 

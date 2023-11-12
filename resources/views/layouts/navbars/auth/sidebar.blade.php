@@ -259,15 +259,15 @@
 
             @if (auth()->user()->role_id == 2)
                 <li class="nav-item pb-2">
-                    <a class="nav-link {{ Request::is('destination-management') ? 'active' : '' }}"
-                        href="{{ url('destination-management') }}">
+                    <a class="nav-link {{ Request::is('product-management') ? 'active' : '' }}"
+                        href="{{ url('product-management') }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i style="font-size: 1rem;"
-                                class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ Request::is('destination-management') ? 'text-white' : 'text-dark' }} "
+                                class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ Request::is('product-management') ? 'text-white' : 'text-dark' }} "
                                 aria-hidden="true"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Destination Management</span>
+                        <span class="nav-link-text ms-1">Product Management</span>
                     </a>
                 </li>
             @endif
