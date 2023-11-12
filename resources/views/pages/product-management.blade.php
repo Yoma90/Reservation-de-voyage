@@ -55,19 +55,6 @@
 
                         </div>
 
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Image 2</label>
-                            <div class="image-preview" id="imagePreview">
-                                <img src="" alt="Image Preview" id="previewImage"
-                                    width="300" height="200">
-                                <span class="close-button" id="closeButton">&#10006;</span>
-                            </div>
-
-                            <input type="file" class="form-control" id="imageInput"
-                                placeholder="Categorie image" name="image" required>
-
-                        </div>
-
 
                         <div class="modal-footer">
                             <button type="submit" class="btn bg-gradient-primary">Add</button>

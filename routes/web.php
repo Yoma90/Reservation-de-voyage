@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Products routes
     Route::get('product-management', [ProductController::class, 'index'])->name('product-management');
+    Route::get('product-management', [ProductController::class, 'index2'])->name('product-management');
 
 
 
