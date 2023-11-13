@@ -37,21 +37,12 @@ class ProductController extends Controller
         return view('pages.product-management')->with('woocommerceProducts', $products);
     }
 
-    // public function showProduct($productId)
-    // {
-
-    //     $woocommerceProductImage = $this->wooCommerceService->getProductImage($productId);
-    //     // dd($woocommerceProductImage);
-
-    //     return view('pages.product-management')->with('woocommerceProductImage', $woocommerceProductImage);
-    // }
-
     public function changeArrayToString($array){
         $str = "";
         foreach ($array as $value) {
             $str = $str.",".$value['name'];
         }
-        // $str = "hello am MIT what is your name?";
+        $str = "hello am MIT what is your name?";
         $newstr = $str;
         if (Str::length($str) > 20) {
             $newstr = Str::substr($str, 0)."...";
