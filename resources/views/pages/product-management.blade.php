@@ -176,7 +176,11 @@
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                <img src="{{ $woocommerceProductImage }}" alt="Product Image">
+                                                @if (isset($woocommerceProduct['images'][0]))
+                                                <img src="{{ $woocommerceProduct['images'][0]['src'] }}" alt="Product Image" width="50" height="50">
+                                                @else
+                                                    TYPE not available
+                                                @endif
                                             </p>
                                         </td>
                                         <td class="text-center">
@@ -191,7 +195,7 @@
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 @if (isset($woocommerceProduct['regular_price']))
-                                                    {{ $woocommerceProduct['regular_price'] }}€
+                                                    {{ $woocommerceProduct['regular_price'] }} €
                                                 @else
                                                     REGULAR PRICE not available
                                                 @endif
@@ -216,13 +220,13 @@
                                             </p> --}}
                                         </td>
                                         <td class="text-center">
-                                            {{-- <p class="text-xs font-weight-bold mb-0">
-                                                @if (isset($woocommerceProduct['categories']))
-                                                    {{ $woocommerceProduct['categories'] }}
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                @if (isset($woocommerceProduct['newCategories']))
+                                                    {{ substr($woocommerceProduct['newCategories'], 10) }}
                                                 @else
                                                     CATEGORIES not available
                                                 @endif
-                                            </p> --}}
+                                            </p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">

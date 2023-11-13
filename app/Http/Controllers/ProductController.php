@@ -26,17 +26,32 @@ class ProductController extends Controller
     {
         $woocommerceProducts = $this->wooCommerceService->getProducts();
 
-        // dd($woocommerceProducts);
+        $products = [];
 
-        return view('pages.product-management')->with('woocommerceProducts', $woocommerceProducts);
+        foreach ($woocommerceProducts as $value) {
+            $value["newCategories"] = $this->changeArrayToString($value["categories"]);
+            array_push($products, $value);
+        }
+
+        return view('pages.product-management')->with('woocommerceProducts', $products);
     }
 
-    public function showProduct($productId)
-    {
+    // public function showProduct($productId)
+    // {
 
-        $woocommerceProductImage = $this->wooCommerceService->getProductImage($productId);
-        // dd($woocommerceProductImage);
+    //     $woocommerceProductImage = $this->wooCommerceService->getProductImage($productId);
+    //     // dd($woocommerceProductImage);
 
-        return view('pages.product-management')->with('woocommerceProductImage', $woocommerceProductImage);
+    //     return view('pages.product-management')->with('woocommerceProductImage', $woocommerceProductImage);
+    // }
+
+    public function changeArrayToString($array){
+        $str = "";
+        foreach ($array as $value) {
+            $str = $str.",".$value['name'];
+        }
+        return $str;
     }
+
+
 }
