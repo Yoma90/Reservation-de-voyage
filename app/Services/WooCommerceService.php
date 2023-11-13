@@ -25,4 +25,14 @@ class WooCommerceService
         return $response->json();
     }
 
+    public function getProductImage($productId)
+    {
+        $response = Http::withBasicAuth($this->apiKey, $this->apiSecret)
+            ->get($this->baseUrl . 'products/' . $productId);
+
+        $productData = $response->json();
+        $imageUrl = $productData['images'][0]['src'] ?? null;
+
+        return $imageUrl;
+    }
 }

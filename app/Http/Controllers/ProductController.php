@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $products = Product::get();
 
         return view('pages.product-management')->with('products', $products);
@@ -25,8 +26,17 @@ class ProductController extends Controller
     {
         $woocommerceProducts = $this->wooCommerceService->getProducts();
 
-        dd($woocommerceProducts);
+        // dd($woocommerceProducts);
 
-        return view('pages.product-management')->with('products', $woocommerceProducts);
+        return view('pages.product-management')->with('woocommerceProducts', $woocommerceProducts);
+    }
+
+    public function showProduct($productId)
+    {
+
+        $woocommerceProductImage = $this->wooCommerceService->getProductImage($productId);
+        // dd($woocommerceProductImage);
+
+        return view('pages.product-management')->with('woocommerceProductImage', $woocommerceProductImage);
     }
 }

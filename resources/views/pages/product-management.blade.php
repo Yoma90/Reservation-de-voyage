@@ -45,13 +45,12 @@
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Image 1</label>
                             <div class="image-preview" id="imagePreview">
-                                <img src="" alt="Image Preview" id="previewImage"
-                                    width="300" height="200">
+                                <img src="" alt="Image Preview" id="previewImage" width="300" height="200">
                                 <span class="close-button" id="closeButton">&#10006;</span>
                             </div>
 
-                            <input type="file" class="form-control" id="imageInput"
-                                placeholder="Categorie image" name="image" required>
+                            <input type="file" class="form-control" id="imageInput" placeholder="Categorie image"
+                                name="image" required>
 
                         </div>
 
@@ -119,8 +118,13 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         ID
                                     </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Name
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Image
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -132,7 +136,7 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Description
+                                        Status
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -144,64 +148,91 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Image
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Actions
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($products as $product)
+                                @foreach ($woocommerceProducts as $woocommerceProduct)
                                     <tr>
                                         <td class="ps-4">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $product->id }}
+                                                @if (isset($woocommerceProduct['id']))
+                                                    {{ $woocommerceProduct['id'] }}
+                                                @else
+                                                    ID Not Available
+                                                @endif
+                                            </p>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                @if (isset($woocommerceProduct['name']))
+                                                    {{ $woocommerceProduct['name'] }}
+                                                @else
+                                                    NAME not available
+                                                @endif
                                             </p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $product->name }}
+                                                <img src="{{ $woocommerceProductImage }}" alt="Product Image">
                                             </p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $product->type }}
+                                                @if (isset($woocommerceProduct['type']))
+                                                    {{ $woocommerceProduct['type'] }}
+                                                @else
+                                                    TYPE not available
+                                                @endif
                                             </p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $product->regular_price }}
+                                                @if (isset($woocommerceProduct['regular_price']))
+                                                    {{ $woocommerceProduct['regular_price'] }}€
+                                                @else
+                                                    REGULAR PRICE not available
+                                                @endif
                                             </p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $product->descrition }}
+                                                @if (isset($woocommerceProduct['status']))
+                                                    {{ $woocommerceProduct['status'] }}
+                                                @else
+                                                    STATUS not available
+                                                @endif
                                             </p>
                                         </td>
                                         <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">
-                                                {{ $product->short_descrition }}
-                                            </p>
+                                            {{-- <p class="text-xs font-weight-bold mb-0">
+                                                @if (isset($woocommerceProduct['short_description']))
+                                                    {{ $woocommerceProduct['short_description'] }}
+                                                @else
+                                                    SHORT DESCRIPTION not available
+                                                @endif
+                                            </p> --}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{-- <p class="text-xs font-weight-bold mb-0">
+                                                @if (isset($woocommerceProduct['categories']))
+                                                    {{ $woocommerceProduct['categories'] }}
+                                                @else
+                                                    CATEGORIES not available
+                                                @endif
+                                            </p> --}}
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $product->categories }}
-                                            </p>
-                                        </td>
-                                        <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $product->image_path }}
+                                                @if (isset($woocommerceProduct['date_created']))
+                                                    {{ $woocommerceProduct['date_created'] }}
+                                                @else
+                                                    CREATED DATE not available
+                                                @endif
                                             </p>
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">
-                                                {{ $product->created_at }}
                                             </p>
                                         </td>
                                     </tr>
