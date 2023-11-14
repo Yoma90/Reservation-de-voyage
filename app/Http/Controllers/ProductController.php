@@ -42,12 +42,21 @@ class ProductController extends Controller
         foreach ($array as $value) {
             $str = $str.",".$value['name'];
         }
-        $str = "hello am MIT what is your name?";
+        // $str = "hello am MIT what is your name?";
         $newstr = $str;
         if (Str::length($str) > 20) {
-            $newstr = Str::substr($str, 0)."...";
+            $newstr = Str::substr($str, 0, 20)."...";
         }
         return $newstr;
+    }
+
+
+    public function viewProduct($id){
+        $woocommerceProduct = $this->wooCommerceService->getProduct($id);
+
+        // dd($woocommerceProduct);
+
+        return view('pages.product-details')->with('woocommerceProduct', $woocommerceProduct);
     }
 
 
