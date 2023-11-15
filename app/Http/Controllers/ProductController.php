@@ -59,5 +59,21 @@ class ProductController extends Controller
         return view('pages.product-details')->with('woocommerceProduct', $woocommerceProduct);
     }
 
+    public function CreateProduct(Request $request){
+        $attributes = $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'regular_price' => 'required',
+            'description' => 'required',
+            'short_description' => 'required',
+            'categories' => 'required',
+            'images' => 'required'
+        ]);
+
+        $response = [
+            'type' => '',
+            'message' => ''
+        ];
+    }
 
 }
