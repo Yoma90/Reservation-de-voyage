@@ -113,7 +113,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('product-management', [ProductController::class, 'index2'])->name('product-management');
     // Route::get('product-management', [ProductController::class, 'showProduct'])->name('product-management');
     Route::get('product-details/{id}', [ProductController::class, 'viewProduct'])->name('product-details');
-    Route::post('product-management', [ProductController::class, 'CreateProduct'])->name('product-management');
+    Route::post('/create-product', [ProductController::class, 'CreateProduct'])->name('create-product');
 
 
 

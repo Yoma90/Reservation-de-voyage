@@ -10,7 +10,7 @@
                     <h5 class="mb-0">Add a new product</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="/add-product" method="POST">
+                    <form action="/create-product" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Name</label>
@@ -24,7 +24,8 @@
 
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Regular price</label>
-                            <input type="number" class="form-control" id="price" name="price" required>
+                            <input type="number" class="form-control" id="prregular_priceice" name="regular_price"
+                                required>
                         </div>
 
                         <div class="form-group">
@@ -34,24 +35,20 @@
 
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Short description</label>
-                            <textarea name="short_description" class="form-control" id="short_description" cols="30" rows="5" required></textarea>
+                            <textarea name="short_description" class="form-control" id="short_description" cols="30" rows="3" required></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Categories</label>
-                            <input type="number" class="form-control" id="categories" name="categories" required>
+                            <input type="text" class="form-control" id="categories" name="categories[]" required
+                                placeholder="Enter a category">
+                            <button type="button" class="btn btn-primary" onclick="addCategory()">Add Category</button>
                         </div>
 
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Image 1</label>
-                            <div class="image-preview" id="imagePreview">
-                                <img src="" alt="Image Preview" id="previewImage" width="300" height="200">
-                                <span class="close-button" id="closeButton">&#10006;</span>
-                            </div>
-
-                            <input type="file" class="form-control" id="imageInput" placeholder="Categorie image"
-                                name="image" required>
-
+                            <label for="recipient-name" class="col-form-label">Images</label>
+                            <input type="file" name="images[]" multiple accept="image/*" required>
+                            <button type="button" class="btn btn-primary" onclick="addImage()">Add image</button>
                         </div>
 
 
@@ -60,28 +57,29 @@
                         </div>
 
                         <script>
-                            const imageInput = document.getElementById('imageInput');
-                            const imagePreview = document.getElementById('imagePreview');
-                            const previewImage = document.getElementById('previewImage');
-                            const closeButton = document.getElementById('closeButton');
+                            function addCategory() {
+                                const input = document.createElement('input');
+                                input.type = 'text';
+                                input.className = 'form-control mt-2';
+                                input.name = 'categories[]';
+                                input.placeholder = 'Enter a category';
 
-                            closeButton.style.cursor = 'pointer';
-                            imageInput.addEventListener('change', function() {
-                                const file = this.files[0];
-                                if (file) {
-                                    const reader = new FileReader();
+                                const addButton = document.querySelector('button');
+                                addButton.parentNode.insertBefore(input, addButton);
+                            }
+                        </script>
 
-                                    reader.onload = function(e) {
-                                        previewImage.src = e.target.result;
-                                        imagePreview.style.display = 'block';
-                                    };
-                                    reader.readAsDataURL(file);
-                                }
-                            });
-                            closeButton.addEventListener('click', function() {
-                                imagePreview.style.display = 'none';
-                                imageInput.value = '';
-                            });
+                        <script>
+                            function addImage() {
+                                const input = document.createElement('input');
+                                input.type = 'file';
+                                input.className = 'form-control mt-2';
+                                input.name = 'images[]';
+                                input.placeholder = 'Upload an image';
+
+                                const addButton = document.querySelector('button');
+                                addButton.parentNode.insertBefore(input, addButton);
+                            }
                         </script>
                     </form>
                 </div>
@@ -112,7 +110,6 @@
                                                 </button>
                                             </div>
                                         @endif
-
                                     </div>
                                 </div>
                                 <tr>
@@ -214,8 +211,8 @@
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                @if (isset($woocommerceProduct['newCategories']))
-                                                    {{ substr($woocommerceProduct['newCategories'], 10) }}
+                                                @if (isset($woocommerceProduct['categories']))
+                                                    {{ substr($woocommerceProduct['categories'], 10) }}
                                                 @else
                                                     CATEGORIES not available
                                                 @endif

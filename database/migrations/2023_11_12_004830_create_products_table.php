@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('regular_price');
             $table->text('description');
             $table->text('short_description');
-            $table->string('categories');
-            $table->string('image_path')->nullable();
+            $table->json('categories');
+            $table->json('images')->nullable();
             $table->timestamps();
         });
     }

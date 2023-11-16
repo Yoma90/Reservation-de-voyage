@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class WooCommerceService
@@ -26,12 +27,38 @@ class WooCommerceService
 
         return $response->json();
     }
+
     public function getProduct($id)
     {
         $response = Http::withBasicAuth($this->apiKey, $this->apiSecret)
             ->get($this->baseUrl . "products/$id");
 
         return $response->json();
+    }
+
+    public function createProduct(Request $request)
+    {
+        $productDetails = [
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'regular_price' => $request->input('regular_price'),
+            'description' => $request->input('description'),
+            'short_description' => $request->input('short_description'),
+            'categories' => $request->input('categories'),
+            'images' => $request->input('images'),
+        ];
+
+        $productDetails['categories'] = json_encode($productDetails['categories']);
+        $productDetails['images'] = json_encode($productDetails['images']);
+
+        $response = Http::withBasicAuth($this->apiKey, $this->apiSecret)
+            ->post($this->baseUrl . 'products', $productDetails);
+
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return $response->json();
+        }
     }
 }
 
@@ -70,5 +97,3 @@ class WooCommerceService
 // ];
 
 // print_r($woocommerce->post('products', $data));
-
-

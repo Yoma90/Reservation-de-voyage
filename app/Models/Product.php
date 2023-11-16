@@ -14,9 +14,9 @@ class Product extends Model
         'type',
         'regular_price',
         'description',
-        'short_descrition',
+        'short_description',
         'categories',
-        'image_path'
+        'images'
     ];
 
     protected $hidden = [
@@ -27,6 +27,10 @@ class Product extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getCategoriesAttribute($value) {
+        return json_decode($value, true);
+    }
 
     public function getImagePathAttribute()
     {
