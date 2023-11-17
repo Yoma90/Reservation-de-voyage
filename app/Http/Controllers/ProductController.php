@@ -64,44 +64,58 @@ class ProductController extends Controller
 
     public function createProduct(Request $request)
     {
+        // dd($request);
         $attributes = $request->validate([
-            'name' => 'required',
-            'type' => 'required',
-            'regular_price' => 'required',
-            'description' => 'required',
-            'short_description' => 'required',
-            'categories.*' => 'required|string',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif'
+            'name' => '',
+            'type' => '',
+            'regular_price' => '',
+            'description' => '',
+            'short_description' => '',
+            'categories.*' => '',
+            'images.*' => ''
         ]);
 
-        // dd($attributes);
 
-        $categoriesJson = json_encode($attributes['categories']);
+        $categoryIds = $attributes['categories'];
+        $categories = [];
+        foreach ($categoryIds as $categoryId) {
+            $categories[] = ['id' => $categoryId];
+        }
 
         $images = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->storeAs('images', $imageName);
-                $images[] = $imageName;
+                $images[] = ['src' => url('storage/images/' . $imageName)];
             }
         }
-        // dd($images);
 
-        $apiResponse = Http::post('https://test.edulearnia.com/wp-json/wc/v3/products', [
-            'name' => $attributes['name'],
-            'type' => $attributes['type'],
-            'regular_price' => $attributes['regular_price'],
-            'description' => $attributes['description'],
-            'short_description' => $attributes['short_description'],
-            'categories' => $categoriesJson,
-            'images' => $images
-        ]);
+        $attributes['images'] =
+            [
+                [
+                    'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg'
+                ],
+                [
+                    'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg'
+                ]
+            ];
+        $attributes['type'] = "simple";
+        $attributes['categories'] = [
+            [
+                'id' => 9
+            ],
+            [
+                'id' => 14
+            ]
+        ];
 
-        // $this->wooCommerceService->syncProduct($product);
-        dd($apiResponse);
 
-        if ($apiResponse->successful()) {
+        // dd($attributes);
+        $woocommerceProductRes = $this->wooCommerceService->createProduct($attributes);
+
+
+        if ($woocommerceProductRes) {
             return redirect()->back()->with('success', 'Product created successfully');
         } else {
             return redirect()->back()->with('error', 'Failed to create product. Please try again.');

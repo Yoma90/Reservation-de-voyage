@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Automattic\WooCommerce\Client;
 
 class WooCommerceService
 {
@@ -36,29 +36,20 @@ class WooCommerceService
         return $response->json();
     }
 
-    public function createProduct(Request $request)
+    public function createProduct($input)
     {
-        $productDetails = [
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
-            'regular_price' => $request->input('regular_price'),
-            'description' => $request->input('description'),
-            'short_description' => $request->input('short_description'),
-            'categories' => $request->input('categories'),
-            'images' => $request->input('images'),
-        ];
 
-        $productDetails['categories'] = json_encode($productDetails['categories']);
-        $productDetails['images'] = json_encode($productDetails['images']);
-
-        $response = Http::withBasicAuth($this->apiKey, $this->apiSecret)
-            ->post($this->baseUrl . 'products', $productDetails);
-
-        if ($response->successful()) {
-            return $response->json();
-        } else {
-            return $response->json();
-        }
+        $woocommerce = new Client(
+            'https://test.edulearnia.com/',
+            'ck_90aa2fd7bb5ad01e49afe0254fa2a2e94a05bdfc',
+            'cs_59a2b3cb342b50da827fe47a5c4742a230610494',
+            [
+                'wp_api' => true,
+                'version' => 'wc/v3'
+            ]
+        );
+        $response = $woocommerce->post('products', $input);
+        return $response;
     }
 }
 
