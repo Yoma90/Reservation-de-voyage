@@ -67,7 +67,6 @@ class ProductController extends Controller
         // dd($request);
         $attributes = $request->validate([
             'name' => '',
-            'type' => '',
             'regular_price' => '',
             'description' => '',
             'short_description' => '',
@@ -94,10 +93,7 @@ class ProductController extends Controller
         $attributes['images'] =
             [
                 [
-                    'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg'
-                ],
-                [
-                    'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg'
+                    'src' => 'https://veroniquecloutier.com/famille/votre-chien-sennuie-t-il'
                 ]
             ];
         $attributes['type'] = "simple";

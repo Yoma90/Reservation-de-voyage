@@ -10,16 +10,11 @@
                     <h5 class="mb-0">Add a new product</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="/create-product" method="POST" enctype="multipart/form-data">
+                    <form action="/create-product" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Type</label>
-                            <input type="text" class="form-control" id="type" name="type" required>
                         </div>
 
                         <div class="form-group">
@@ -47,7 +42,7 @@
 
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Images</label>
-                            <input type="file" name="images[]" multiple accept="image/*" required>
+                            <input type="file" name="images[]" multiple required>
                             <button type="button" class="btn btn-primary" onclick="addImage()">Add image</button>
                         </div>
 
