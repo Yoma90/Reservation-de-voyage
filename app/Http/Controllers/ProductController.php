@@ -7,6 +7,7 @@ use App\Services\WooCommerceService;
 use App\Http\Controllers\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -84,11 +85,11 @@ class ProductController extends Controller
         $images = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imageName = time() . '_' . $image->getClientOriginalName();
-                $image->storeAs('images', $imageName);
-                $images[] = ['src' => url('storage/images/' . $imageName)];
+                $imageUrl = Storage::url($image->store('images'));
+                $images[] = ['src' => url($imageUrl)];
             }
         }
+
 
         $attributes['images'] =
             [
@@ -100,14 +101,10 @@ class ProductController extends Controller
                 ]
             ];
         $attributes['type'] = "simple";
-        $attributes['categories'] = [
-            [
-                'id' => 9
-            ],
-            [
-                'id' => 14
-            ]
-        ];
+
+        // $attributes['images'] = $images;
+        $attributes['categories'] = $categories;
+
 
 
         // dd($attributes);

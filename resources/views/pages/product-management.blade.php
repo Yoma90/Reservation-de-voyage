@@ -19,7 +19,7 @@
 
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Regular price</label>
-                            <input type="number" class="form-control" id="prregular_priceice" name="regular_price"
+                            <input type="text" class="form-control" id="prregular_price" name="regular_price"
                                 required>
                         </div>
 
@@ -35,14 +35,14 @@
 
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Categories</label>
-                            <input type="text" class="form-control" id="categories" name="categories[]" required
+                            <input type="number" class="form-control" id="categories" name="categories[]" required
                                 placeholder="Enter a category">
                             <button type="button" class="btn btn-primary" onclick="addCategory()">Add Category</button>
                         </div>
 
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Images</label>
-                            <input type="file" name="images[]" multiple required>
+                            <input type="text" name="images[]" multiple required>
                             <button type="button" class="btn btn-primary" onclick="addImage()">Add image</button>
                         </div>
 
@@ -54,7 +54,7 @@
                         <script>
                             function addCategory() {
                                 const input = document.createElement('input');
-                                input.type = 'text';
+                                input.type = 'number';
                                 input.className = 'form-control mt-2';
                                 input.name = 'categories[]';
                                 input.placeholder = 'Enter a category';
@@ -67,7 +67,7 @@
                         <script>
                             function addImage() {
                                 const input = document.createElement('input');
-                                input.type = 'file';
+                                input.type = 'text';
                                 input.className = 'form-control mt-2';
                                 input.name = 'images[]';
                                 input.placeholder = 'Upload an image';

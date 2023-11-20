@@ -50,4 +50,20 @@ class WooCommerceService
         $response = $woocommerce->post('products', $input);
         return $response;
     }
+
+    public function updateProduct($input)
+    {
+
+        $woocommerce = new Client(
+            'https://test.edulearnia.com/',
+            'ck_90aa2fd7bb5ad01e49afe0254fa2a2e94a05bdfc',
+            'cs_59a2b3cb342b50da827fe47a5c4742a230610494',
+            [
+                'wp_api' => true,
+                'version' => 'wc/v3'
+            ]
+        );
+        $response = $woocommerce->put("products/6824", $input);
+        return $response;
+    }
 }
